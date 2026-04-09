@@ -5,6 +5,7 @@ interface Course {
   name: string
   description: string
   icon: string
+  link?: string
 }
 
 export default function CourseList() {
@@ -19,7 +20,8 @@ export default function CourseList() {
       id: 'data-analysis',
       name: '数据分析技术',
       description: '掌握数据分析的基本方法和工具，包括数据可视化、统计分析等。',
-      icon: '📊'
+      icon: '📊',
+      link: '/data-analysis'
     },
     {
       id: 'data-collection',
@@ -74,7 +76,7 @@ export default function CourseList() {
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">{course.name}</h3>
               <p className="text-gray-600 mb-6 leading-relaxed">{course.description}</p>
               <a 
-                href={`#${course.id}`} 
+                href={course.link || `#${course.id}`} 
                 className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 group-hover:translate-x-2"
               >
                 查看详情
