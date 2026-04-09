@@ -14,7 +14,8 @@ export default function CourseList() {
       id: 'python',
       name: 'Python基础',
       description: '学习Python编程语言的基础知识，包括语法、数据类型、函数、模块等。',
-      icon: '🐍'
+      icon: '🐍',
+      link: '/python'
     },
     {
       id: 'data-analysis',
@@ -27,25 +28,29 @@ export default function CourseList() {
       id: 'data-collection',
       name: '数据采集与处理',
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',
-      icon: '🔍'
+      icon: '🔍',
+      link: '/data-collection'
     },
     {
       id: 'supply-chain',
       name: '供应链数据分析',
       description: '应用数据分析技术解决供应链管理中的问题，优化供应链流程。',
-      icon: '📦'
+      icon: '📦',
+      link: '/supply-chain'
     },
     {
       id: 'database',
       name: '数据库原理与应用',
       description: '了解数据库的基本原理，掌握SQL语言和数据库设计方法。',
-      icon: '💾'
+      icon: '💾',
+      link: '/database'
     },
     {
-      id: 'financial-analysis',
+      id: 'financial',
       name: '企业财务数据分析',
       description: '学习如何分析企业财务数据，评估企业财务状况和经营绩效。',
-      icon: '💰'
+      icon: '💰',
+      link: '/financial'
     }
   ]
 
