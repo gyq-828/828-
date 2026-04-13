@@ -166,7 +166,10 @@ const FinancialDataAnalysisDeepLearning: React.FC = () => {
                   <p className="text-gray-600 mb-4">
                     将三张财务报表结合起来，进行综合分析，全面评估企业的财务状况和经营成果。
                   </p>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  <button 
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                    onClick={() => alert('查看财务报表综合分析案例！')}
+                  >
                     查看综合分析案例
                   </button>
                 </div>
@@ -314,7 +317,10 @@ print(f"ROA: {roa:.2f}%")`}
                   <p className="text-gray-600 mb-4">
                     使用杜邦分析法等工具，将各种财务比率结合起来，进行综合分析。
                   </p>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  <button 
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                    onClick={() => alert('查看杜邦分析案例！')}
+                  >
                     查看杜邦分析案例
                   </button>
                 </div>
@@ -403,7 +409,10 @@ print(f"ROA: {roa:.2f}%")`}
                       <p className="text-gray-600 text-sm">评估是否投资建设新厂房</p>
                     </div>
                   </div>
-                  <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  <button 
+                    className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                    onClick={() => alert('查看投资决策分析详细案例！')}
+                  >
                     查看详细案例
                   </button>
                 </div>
@@ -497,7 +506,10 @@ print(f"ROA: {roa:.2f}%")`}
                   <p className="text-gray-600 mb-4">
                     通过实际案例，学习如何制定企业的财务规划。
                   </p>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  <button 
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                    onClick={() => alert('查看财务规划案例！')}
+                  >
                     查看财务规划案例
                   </button>
                 </div>
@@ -516,7 +528,10 @@ print(f"ROA: {roa:.2f}%")`}
               <p className="text-gray-600 mb-4">
                 测试你对财务分析核心概念的理解
               </p>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始财务分析概念测验！')}
+              >
                 开始测验
               </button>
             </div>
@@ -526,7 +541,10 @@ print(f"ROA: {roa:.2f}%")`}
               <p className="text-gray-600 mb-4">
                 使用真实企业数据计算各种财务比率
               </p>
-              <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始财务比率计算练习！')}
+              >
                 开始练习
               </button>
             </div>
@@ -536,7 +554,10 @@ print(f"ROA: {roa:.2f}%")`}
               <p className="text-gray-600 mb-4">
                 分析真实投资项目，做出投资决策
               </p>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始投资决策分析案例！')}
+              >
                 开始分析
               </button>
             </div>

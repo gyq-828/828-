@@ -171,7 +171,10 @@ fig.show()`}
                     <p className="font-mono text-sm text-gray-800">数据集：sales_data.csv</p>
                     <p className="text-gray-600 mt-2">包含以下字段：date, product, region, units_sold, revenue, profit</p>
                   </div>
-                  <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  <button 
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                    onClick={() => alert('开始数据可视化练习！')}
+                  >
                     开始练习
                   </button>
                 </div>
@@ -319,7 +322,10 @@ fig.show()`}
                       <p className="text-gray-600 text-sm">分析客户评论的情感倾向</p>
                     </div>
                   </div>
-                  <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                  <button 
+                    className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                    onClick={() => alert('开始机器学习项目！')}
+                  >
                     开始项目
                   </button>
                 </div>
@@ -372,7 +378,10 @@ fig.show()`}
                         </p>
                       </div>
                     </div>
-                    <button className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                    <button 
+                      className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                      onClick={() => alert('查看电商平台用户行为分析详细报告！')}
+                    >
                       查看详细分析
                     </button>
                   </div>
@@ -417,7 +426,10 @@ fig.show()`}
                         </p>
                       </div>
                     </div>
-                    <button className="mt-6 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                    <button 
+                      className="mt-6 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                      onClick={() => alert('查看零售连锁企业销售预测详细报告！')}
+                    >
                       查看详细分析
                     </button>
                   </div>
@@ -437,7 +449,10 @@ fig.show()`}
               <p className="text-gray-600 mb-4">
                 测试你对数据分析核心概念的理解
               </p>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始数据分析概念测验！')}
+              >
                 开始测验
               </button>
             </div>
@@ -447,7 +462,10 @@ fig.show()`}
               <p className="text-gray-600 mb-4">
                 使用Python创建一个交互式数据可视化仪表板
               </p>
-              <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始数据可视化编程挑战！')}
+              >
                 开始挑战
               </button>
             </div>
@@ -457,7 +475,10 @@ fig.show()`}
               <p className="text-gray-600 mb-4">
                 分析真实的商业数据，提出数据驱动的解决方案
               </p>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+              <button 
+                className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors cursor-pointer"
+                onClick={() => alert('开始真实商业问题案例分析！')}
+              >
                 开始分析
               </button>
             </div>
