@@ -6,6 +6,8 @@ import DataCollectionCourse from "@/pages/DataCollectionCourse";
 import SupplyChainDataAnalysisCourse from "@/pages/SupplyChainDataAnalysisCourse";
 import DatabasePrinciplesCourse from "@/pages/DatabasePrinciplesCourse";
 import EnterpriseFinancialDataAnalysisCourse from "@/pages/EnterpriseFinancialDataAnalysisCourse";
+import DataAnalysisDeepLearning from "@/pages/deep-learning/DataAnalysisDeepLearning";
+import FinancialDataAnalysisDeepLearning from "@/pages/deep-learning/FinancialDataAnalysisDeepLearning";
 
 export default function App() {
   return (
@@ -18,6 +20,8 @@ export default function App() {
         <Route path="/supply-chain" element={<SupplyChainDataAnalysisCourse />} />
         <Route path="/database" element={<DatabasePrinciplesCourse />} />
         <Route path="/financial" element={<EnterpriseFinancialDataAnalysisCourse />} />
+        <Route path="/deep-learning/data-analysis" element={<DataAnalysisDeepLearning />} />
+        <Route path="/deep-learning/financial" element={<FinancialDataAnalysisDeepLearning />} />
       </Routes>
     </Router>
   );

@@ -420,6 +420,28 @@ export default function DataAnalysisCourse() {
               </div>
             </div>
           </section>
+
+          {/* 深入学习 */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-600">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              深入学习
+            </h2>
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl shadow-lg p-8 text-white text-center">
+              <h3 className="text-2xl font-semibold mb-4">想要学习更多高级数据分析技术？</h3>
+              <p className="text-lg mb-6 max-w-2xl mx-auto">
+                探索数据分析的高级技术和实践应用，掌握专业的数据分析师技能，提升你的就业竞争力。
+              </p>
+              <a 
+                href="/deep-learning/data-analysis" 
+                className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 transition-colors duration-300 shadow-lg hover:shadow-xl"
+              >
+                开始深入学习
+              </a>
+            </div>
+          </section>
         </div>
       </main>
 

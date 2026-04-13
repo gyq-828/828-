@@ -259,6 +259,23 @@ const EnterpriseFinancialDataAnalysisCourse: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {/* 深入学习 */}
+        <section className="mb-12 bg-white rounded-xl shadow-sm p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">深入学习</h2>
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl shadow-lg p-8 text-white text-center">
+            <h3 className="text-2xl font-semibold mb-4">想要学习更多高级财务分析技术？</h3>
+            <p className="text-lg mb-6 max-w-2xl mx-auto">
+              探索企业财务数据分析的高级技术，掌握财务决策分析技能，提升你的财务分析能力。
+            </p>
+            <a 
+              href="/deep-learning/financial" 
+              className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 transition-colors duration-300 shadow-lg hover:shadow-xl"
+            >
+              开始深入学习
+            </a>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
