@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function DataCollectionCourse() {
   return (
@@ -8,23 +9,23 @@ export default function DataCollectionCourse() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <a href="/" className="flex-shrink-0 flex items-center">
+              <Link to="/" className="flex-shrink-0 flex items-center">
                 <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                   G
                 </div>
                 <span className="ml-2 text-xl font-semibold text-gray-900">gyq的学习页面</span>
-              </a>
+              </Link>
             </div>
             <div className="flex items-center">
-              <a href="/" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
+              <Link to="/" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
                 首页
-              </a>
-              <a href="/#courses" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
+              </Link>
+              <Link to="/#courses" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
                 课程列表
-              </a>
-              <a href="/#about" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
+              </Link>
+              <Link to="/#about" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300">
                 关于我
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -483,15 +484,15 @@ export default function DataCollectionCourse() {
           <div className="text-center">
             <p className="mb-4">© 2026 gyq的个人学习页面. 保留所有权利.</p>
             <div className="flex justify-center space-x-4">
-              <a href="/" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <Link to="/" className="text-gray-400 hover:text-white transition-colors duration-300">
                 返回首页
-              </a>
-              <a href="/#courses" className="text-gray-400 hover:text-white transition-colors duration-300">
+              </Link>
+              <Link to="/#courses" className="text-gray-400 hover:text-white transition-colors duration-300">
                 课程列表
-              </a>
-              <a href="/#about" className="text-gray-400 hover:text-white transition-colors duration-300">
+              </Link>
+              <Link to="/#about" className="text-gray-400 hover:text-white transition-colors duration-300">
                 关于我
-              </a>
+              </Link>
             </div>
           </div>
         </div>
