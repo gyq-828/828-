@@ -25,6 +25,13 @@ export default function CourseList() {
       link: '/data-analysis'
     },
     {
+      id: 'data-analysis-tech',
+      name: '数据分析技术课程实训项目',
+      description: '完整的数据分析技术实训平台，包含10个阶梯式项目，支持在线编程和评分。',
+      icon: '🎯',
+      link: '/data-analysis-tech'
+    },
+    {
       id: 'data-collection',
       name: '数据采集与处理',
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',

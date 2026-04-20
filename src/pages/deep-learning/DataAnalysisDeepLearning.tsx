@@ -4,6 +4,16 @@ import { Link } from 'react-router-dom';
 const DataAnalysisDeepLearning: React.FC = () => {
   const [activeTab, setActiveTab] = useState('visualization');
   const [showCode, setShowCode] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState<{
+    title: string;
+    content: React.ReactNode;
+  }>({ title: '', content: <div /> });
+
+  const openModal = (title: string, content: React.ReactNode) => {
+    setModalContent({ title, content });
+    setShowModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -173,7 +183,28 @@ fig.show()`}
                   </div>
                   <button 
                     className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
-                    onClick={() => alert('开始数据可视化练习！')}
+                    onClick={() => openModal('数据可视化练习', (
+                      <div className="space-y-4">
+                        <p className="text-gray-700">在这个练习中，你将使用Python创建一个交互式数据可视化仪表板。</p>
+                        <div className="bg-gray-100 p-4 rounded-md">
+                          <h4 className="font-semibold text-gray-800 mb-2">练习目标：</h4>
+                          <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            <li>使用Plotly创建交互式散点图</li>
+                            <li>添加颜色编码和大小映射</li>
+                            <li>实现悬停提示</li>
+                            <li>创建多个图表组成的仪表板</li>
+                          </ul>
+                        </div>
+                        <div className="bg-blue-50 p-4 rounded-md">
+                          <h4 className="font-semibold text-gray-800 mb-2">数据集：sales_data.csv</h4>
+                          <p className="text-gray-600">包含以下字段：date, product, region, units_sold, revenue, profit</p>
+                        </div>
+                        <div className="bg-gray-100 p-4 rounded-md">
+                          <h4 className="font-semibold text-gray-800 mb-2">提示：</h4>
+                          <p className="text-gray-600">使用Plotly Express库可以快速创建交互式图表，尝试使用px.scatter()函数并添加不同的参数来自定义图表。</p>
+                        </div>
+                      </div>
+                    ))}
                   >
                     开始练习
                   </button>
@@ -324,7 +355,50 @@ fig.show()`}
                   </div>
                   <button 
                     className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
-                    onClick={() => alert('开始机器学习项目！')}
+                    onClick={() => openModal('机器学习实战项目', (
+                      <div className="space-y-4">
+                        <p className="text-gray-700">选择一个机器学习项目开始实践：</p>
+                        
+                        <div className="border border-gray-200 rounded-lg p-4">
+                          <h4 className="font-semibold text-gray-800 mb-2">项目1：客户流失预测</h4>
+                          <p className="text-gray-600 mb-3">使用分类算法预测客户是否会流失</p>
+                          <div className="bg-gray-100 p-3 rounded-md">
+                            <h5 className="font-medium text-gray-800 mb-1">数据集：</h5>
+                            <p className="text-gray-600 text-sm">customer_churn.csv - 包含客户基本信息、使用情况和流失状态</p>
+                          </div>
+                          <div className="bg-gray-100 p-3 rounded-md mt-3">
+                            <h5 className="font-medium text-gray-800 mb-1">建议算法：</h5>
+                            <p className="text-gray-600 text-sm">逻辑回归、随机森林、XGBoost</p>
+                          </div>
+                        </div>
+                        
+                        <div className="border border-gray-200 rounded-lg p-4">
+                          <h4 className="font-semibold text-gray-800 mb-2">项目2：销售预测</h4>
+                          <p className="text-gray-600 mb-3">使用时间序列分析预测未来销售趋势</p>
+                          <div className="bg-gray-100 p-3 rounded-md">
+                            <h5 className="font-medium text-gray-800 mb-1">数据集：</h5>
+                            <p className="text-gray-600 text-sm">sales_history.csv - 包含历史销售数据和相关因素</p>
+                          </div>
+                          <div className="bg-gray-100 p-3 rounded-md mt-3">
+                            <h5 className="font-medium text-gray-800 mb-1">建议算法：</h5>
+                            <p className="text-gray-600 text-sm">ARIMA、Prophet、LSTM</p>
+                          </div>
+                        </div>
+                        
+                        <div className="border border-gray-200 rounded-lg p-4">
+                          <h4 className="font-semibold text-gray-800 mb-2">项目3：情感分析</h4>
+                          <p className="text-gray-600 mb-3">分析客户评论的情感倾向</p>
+                          <div className="bg-gray-100 p-3 rounded-md">
+                            <h5 className="font-medium text-gray-800 mb-1">数据集：</h5>
+                            <p className="text-gray-600 text-sm">customer_reviews.csv - 包含客户评论和情感标签</p>
+                          </div>
+                          <div className="bg-gray-100 p-3 rounded-md mt-3">
+                            <h5 className="font-medium text-gray-800 mb-1">建议算法：</h5>
+                            <p className="text-gray-600 text-sm">TF-IDF + 分类器、BERT</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   >
                     开始项目
                   </button>
@@ -380,7 +454,63 @@ fig.show()`}
                     </div>
                     <button 
                       className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
-                      onClick={() => alert('查看电商平台用户行为分析详细报告！')}
+                      onClick={() => openModal('电商平台用户行为分析详细报告', (
+                        <div className="space-y-4">
+                          <h4 className="font-semibold text-gray-800 mb-2">案例背景</h4>
+                          <p className="text-gray-600">某电商平台希望通过分析用户行为数据，提高用户转化率和复购率。平台拥有大量的用户行为数据，包括浏览、点击、加购、购买等行为。</p>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">数据描述</h4>
+                          <div className="bg-gray-100 p-3 rounded-md">
+                            <p className="text-gray-600">数据集包含以下字段：</p>
+                            <ul className="list-disc list-inside text-gray-600 space-y-1 mt-2">
+                              <li>user_id: 用户唯一标识</li>
+                              <li>session_id: 会话标识</li>
+                              <li>timestamp: 行为时间戳</li>
+                              <li>action: 用户行为（浏览、点击、加购、购买）</li>
+                              <li>product_id: 产品标识</li>
+                              <li>category_id: 产品类别</li>
+                              <li>price: 产品价格</li>
+                              <li>user_age: 用户年龄</li>
+                              <li>user_gender: 用户性别</li>
+                              <li>user_location: 用户所在地区</li>
+                            </ul>
+                          </div>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">分析方法</h4>
+                          <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                            <li>数据清洗和预处理：处理缺失值，标准化数据格式</li>
+                            <li>探索性数据分析：了解数据分布和基本统计信息</li>
+                            <li>用户行为模式分析：识别用户购买路径和行为序列</li>
+                            <li>用户分群：使用K-means聚类算法将用户分为不同类型</li>
+                            <li>关联规则挖掘：发现产品之间的关联关系</li>
+                            <li>预测模型构建：使用机器学习算法预测用户购买意向</li>
+                          </ol>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">分析结果</h4>
+                          <div className="bg-blue-50 p-3 rounded-md">
+                            <p className="text-gray-600 mb-2">识别出5种用户类型：</p>
+                            <ul className="list-disc list-inside text-gray-600 space-y-1">
+                              <li><span className="font-medium">忠实客户</span>：频繁购买，高客单价</li>
+                              <li><span className="font-medium">浏览者</span>：经常浏览但很少购买</li>
+                              <li><span className="font-medium">促销敏感型</span>：主要在促销期间购买</li>
+                              <li><span className="font-medium">新用户</span>：注册时间短，购买频率低</li>
+                              <li><span className="font-medium">流失风险型</span>：曾经活跃但最近活跃度下降</li>
+                            </ul>
+                          </div>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">建议与策略</h4>
+                          <ul className="list-disc list-inside text-gray-600 space-y-2">
+                            <li>针对忠实客户：提供会员专属优惠和个性化推荐</li>
+                            <li>针对浏览者：优化产品页面，提供更多产品信息和用户评价</li>
+                            <li>针对促销敏感型：定期发送促销信息，设置限时优惠</li>
+                            <li>针对新用户：提供首次购买折扣和引导式购物体验</li>
+                            <li>针对流失风险型：发送个性化挽留邮件，提供回归优惠</li>
+                          </ul>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">业务成果</h4>
+                          <p className="text-gray-600">通过实施上述策略，平台的用户转化率提高了15%，复购率提高了20%，整体销售额增长了25%。</p>
+                        </div>
+                      ))}
                     >
                       查看详细分析
                     </button>
@@ -428,7 +558,68 @@ fig.show()`}
                     </div>
                     <button 
                       className="mt-6 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
-                      onClick={() => alert('查看零售连锁企业销售预测详细报告！')}
+                      onClick={() => openModal('零售连锁企业销售预测详细报告', (
+                        <div className="space-y-4">
+                          <h4 className="font-semibold text-gray-800 mb-2">案例背景</h4>
+                          <p className="text-gray-600">某零售连锁企业拥有多家门店，希望通过数据分析提高销售预测准确性，优化库存管理，减少库存积压和缺货现象。</p>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">数据描述</h4>
+                          <div className="bg-gray-100 p-3 rounded-md">
+                            <p className="text-gray-600">数据集包含以下字段：</p>
+                            <ul className="list-disc list-inside text-gray-600 space-y-1 mt-2">
+                              <li>date: 日期</li>
+                              <li>store_id: 门店标识</li>
+                              <li>product_id: 产品标识</li>
+                              <li>sales: 销售额</li>
+                              <li>units_sold: 销售数量</li>
+                              <li>price: 产品价格</li>
+                              <li>promotion: 是否促销</li>
+                              <li>holiday: 是否节假日</li>
+                              <li>temperature: 当日温度</li>
+                              <li>foot_traffic: 门店客流量</li>
+                            </ul>
+                          </div>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">分析方法</h4>
+                          <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                            <li>数据清洗和预处理：处理缺失值，处理异常值</li>
+                            <li>探索性数据分析：分析销售趋势、季节性模式</li>
+                            <li>特征工程：创建时间特征，提取促销和节假日信息</li>
+                            <li>模型选择：比较不同的时间序列模型</li>
+                            <li>模型训练和验证：使用交叉验证评估模型性能</li>
+                            <li>模型优化：调整模型参数，提高预测准确性</li>
+                          </ol>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">分析结果</h4>
+                          <div className="bg-blue-50 p-3 rounded-md">
+                            <p className="text-gray-600 mb-2">模型性能：</p>
+                            <ul className="list-disc list-inside text-gray-600 space-y-1">
+                              <li>预测准确率：85%</li>
+                              <li>平均绝对误差：5.2%</li>
+                              <li>均方根误差：7.8%</li>
+                            </ul>
+                          </div>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">关键发现</h4>
+                          <ul className="list-disc list-inside text-gray-600 space-y-2">
+                            <li>销售数据具有明显的季节性模式，节假日期间销售额显著增加</li>
+                            <li>促销活动对销售额有显著影响，平均提升销售额20-30%</li>
+                            <li>温度变化会影响某些产品的销售，如夏季冷饮销售增加</li>
+                            <li>不同门店的销售模式存在差异，需要个性化预测模型</li>
+                          </ul>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">建议与策略</h4>
+                          <ul className="list-disc list-inside text-gray-600 space-y-2">
+                            <li>基于预测结果优化库存水平，减少库存积压和缺货</li>
+                            <li>合理安排促销活动，最大化促销效果</li>
+                            <li>根据季节性需求调整产品组合</li>
+                            <li>为不同门店制定个性化的库存和销售策略</li>
+                          </ul>
+                          
+                          <h4 className="font-semibold text-gray-800 mb-2">业务成果</h4>
+                          <p className="text-gray-600">通过实施销售预测模型和优化策略，企业的库存周转率提高了20%，库存积压减少了30%，缺货率降低了25%，整体运营成本降低了15%。</p>
+                        </div>
+                      ))}
                     >
                       查看详细分析
                     </button>
@@ -451,7 +642,127 @@ fig.show()`}
               </p>
               <button 
                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
-                onClick={() => alert('开始数据分析概念测验！')}
+                onClick={() => openModal('数据分析概念测验', (
+                  <div className="space-y-4">
+                    <p className="text-gray-700">测试你对数据分析核心概念的理解，请选择正确的答案：</p>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">1. 以下哪项不是数据分析的基本步骤？</h4>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center">
+                          <input type="radio" id="q1a" name="q1" className="mr-2" />
+                          <label htmlFor="q1a">数据收集</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q1b" name="q1" className="mr-2" />
+                          <label htmlFor="q1b">数据清洗</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q1c" name="q1" className="mr-2" />
+                          <label htmlFor="q1c">数据可视化</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q1d" name="q1" className="mr-2" />
+                          <label htmlFor="q1d">数据删除</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">2. 以下哪种图表最适合展示时间序列数据？</h4>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center">
+                          <input type="radio" id="q2a" name="q2" className="mr-2" />
+                          <label htmlFor="q2a">散点图</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q2b" name="q2" className="mr-2" />
+                          <label htmlFor="q2b">折线图</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q2c" name="q2" className="mr-2" />
+                          <label htmlFor="q2c">饼图</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q2d" name="q2" className="mr-2" />
+                          <label htmlFor="q2d">柱状图</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">3. 以下哪项不是机器学习的常见算法类型？</h4>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center">
+                          <input type="radio" id="q3a" name="q3" className="mr-2" />
+                          <label htmlFor="q3a">监督学习</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q3b" name="q3" className="mr-2" />
+                          <label htmlFor="q3b">无监督学习</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q3c" name="q3" className="mr-2" />
+                          <label htmlFor="q3c">强化学习</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q3d" name="q3" className="mr-2" />
+                          <label htmlFor="q3d">规则学习</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">4. 数据清洗的主要目的是什么？</h4>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center">
+                          <input type="radio" id="q4a" name="q4" className="mr-2" />
+                          <label htmlFor="q4a">删除所有数据</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q4b" name="q4" className="mr-2" />
+                          <label htmlFor="q4b">提高数据质量，确保数据准确、完整</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q4c" name="q4" className="mr-2" />
+                          <label htmlFor="q4c">增加数据量</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q4d" name="q4" className="mr-2" />
+                          <label htmlFor="q4d">加密数据</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">5. 以下哪种统计量不是描述数据集中趋势的指标？</h4>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center">
+                          <input type="radio" id="q5a" name="q5" className="mr-2" />
+                          <label htmlFor="q5a">均值</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q5b" name="q5" className="mr-2" />
+                          <label htmlFor="q5b">中位数</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q5c" name="q5" className="mr-2" />
+                          <label htmlFor="q5c">众数</label>
+                        </div>
+                        <div className="flex items-center">
+                          <input type="radio" id="q5d" name="q5" className="mr-2" />
+                          <label htmlFor="q5d">标准差</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-center">
+                      <button className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                        提交答案
+                      </button>
+                    </div>
+                  </div>
+                ))}
               >
                 开始测验
               </button>
@@ -464,7 +775,43 @@ fig.show()`}
               </p>
               <button 
                 className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer"
-                onClick={() => alert('开始数据可视化编程挑战！')}
+                onClick={() => openModal('数据可视化编程挑战', (
+                  <div className="space-y-4">
+                    <p className="text-gray-700">在这个编程挑战中，你将使用Python创建一个交互式数据可视化仪表板。</p>
+                    <div className="bg-gray-100 p-4 rounded-md">
+                      <h4 className="font-semibold text-gray-800 mb-2">挑战目标：</h4>
+                      <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        <li>使用Plotly创建交互式散点图</li>
+                        <li>添加颜色编码和大小映射</li>
+                        <li>实现悬停提示</li>
+                        <li>创建多个图表组成的仪表板</li>
+                        <li>添加筛选和交互功能</li>
+                      </ul>
+                    </div>
+                    <div className="bg-blue-50 p-4 rounded-md">
+                      <h4 className="font-semibold text-gray-800 mb-2">数据集：sales_data.csv</h4>
+                      <p className="text-gray-600">包含以下字段：date, product, region, units_sold, revenue, profit</p>
+                    </div>
+                    <div className="bg-gray-100 p-4 rounded-md">
+                      <h4 className="font-semibold text-gray-800 mb-2">技术要求：</h4>
+                      <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        <li>使用Python 3.7+</li>
+                        <li>使用Plotly库创建交互式图表</li>
+                        <li>使用Pandas库处理数据</li>
+                        <li>可选：使用Dash创建完整的仪表板应用</li>
+                      </ul>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-md">
+                      <h4 className="font-semibold text-gray-800 mb-2">评分标准：</h4>
+                      <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        <li>图表的交互性和美观度（30%）</li>
+                        <li>代码的可读性和组织性（25%）</li>
+                        <li>功能的完整性（25%）</li>
+                        <li>创新性和额外功能（20%）</li>
+                      </ul>
+                    </div>
+                  </div>
+                ))}
               >
                 开始挑战
               </button>
@@ -477,7 +824,51 @@ fig.show()`}
               </p>
               <button 
                 className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors cursor-pointer"
-                onClick={() => alert('开始真实商业问题案例分析！')}
+                onClick={() => openModal('真实商业问题案例分析', (
+                  <div className="space-y-4">
+                    <p className="text-gray-700">在这个案例分析中，你将分析真实的商业数据，识别问题并提出数据驱动的解决方案。</p>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">案例：电商平台用户转化率提升</h4>
+                      <p className="text-gray-600 mb-3">某电商平台的用户转化率持续下降，需要分析原因并提出改进方案。</p>
+                      <div className="bg-gray-100 p-3 rounded-md">
+                        <h5 className="font-medium text-gray-800 mb-1">数据描述：</h5>
+                        <p className="text-gray-600 text-sm">包含用户行为数据、产品数据和销售数据，共10万条记录。</p>
+                      </div>
+                      <div className="bg-gray-100 p-3 rounded-md mt-3">
+                        <h5 className="font-medium text-gray-800 mb-1">分析目标：</h5>
+                        <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                          <li>识别用户转化漏斗中的瓶颈</li>
+                          <li>分析不同用户群体的转化行为</li>
+                          <li>发现影响转化率的关键因素</li>
+                          <li>提出数据驱动的改进方案</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-800 mb-2">分析方法建议：</h4>
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                        <li>数据清洗和预处理：处理缺失值，标准化数据格式</li>
+                        <li>探索性数据分析：了解数据分布和基本统计信息</li>
+                        <li>用户行为分析：分析用户路径和转化漏斗</li>
+                        <li>用户分群：使用聚类算法将用户分为不同类型</li>
+                        <li>相关性分析：识别影响转化率的关键因素</li>
+                        <li>假设检验：验证分析结果的显著性</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 p-4 rounded-md">
+                      <h4 className="font-semibold text-gray-800 mb-2">交付物：</h4>
+                      <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        <li>详细的数据分析报告</li>
+                        <li>数据可视化图表</li>
+                        <li>具体的改进建议</li>
+                        <li>预期效果评估</li>
+                      </ul>
+                    </div>
+                  </div>
+                ))}
               >
                 开始分析
               </button>
@@ -522,6 +913,38 @@ fig.show()`}
           </div>
         </div>
       </footer>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-2xl font-bold text-gray-800">{modalContent.title}</h3>
+                <button 
+                  className="text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowModal(false)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="p-6">
+              {modalContent.content}
+            </div>
+            <div className="p-6 border-t flex justify-end">
+              <button 
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                onClick={() => setShowModal(false)}
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
