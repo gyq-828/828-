@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function PythonCourse() {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
+  const toggleSection = (sectionId: string) => {
+    if (expandedSection === sectionId) {
+      setExpandedSection(null);
+    } else {
+      setExpandedSection(sectionId);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* 导航栏 */}
@@ -157,209 +167,375 @@ export default function PythonCourse() {
               课程大纲
             </h2>
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-blue-100">
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {/* 第1章 */}
-                <div className="border-l-4 border-blue-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第1章 Python概述</h3>
-                  <p className="text-gray-600 mb-4">了解Python的基本概念、特点和应用领域，掌握Python的安装和环境配置。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">1.1</span>
-                      Python的简介和特点
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">1.2</span>
-                      Python的应用领域
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">1.3</span>
-                      Python的安装和环境配置
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">1.4</span>
-                      Python的开发工具介绍
-                    </li>
-                  </ul>
+                <div className="border border-blue-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter1')}>
+                    <h3 className="text-xl font-semibold text-white">第1章 Python概述</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter1' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter1' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">了解Python的基本概念、特点和应用领域，掌握Python的安装和环境配置。</p>
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">1.1</span>
+                            Python的简介和特点
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>简介：</strong>Python是一种高级编程语言，由Guido van Rossum于1991年创造。它以简洁、易读的语法著称，强调代码的可读性。</p>
+                            <p><strong>特点：</strong></p>
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li>简洁易读：语法简洁清晰，强调可读性</li>
+                              <li>跨平台：可在Windows、macOS、Linux等多个平台运行</li>
+                              <li>丰富的生态系统：拥有大量第三方库和框架</li>
+                              <li>动态类型：变量不需要声明类型</li>
+                              <li>面向对象：支持面向对象编程</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">1.2</span>
+                            Python的应用领域
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li><strong>数据分析：</strong>使用pandas、numpy、matplotlib等库进行数据处理和可视化</li>
+                              <li><strong>人工智能：</strong>使用tensorflow、pytorch等框架进行机器学习和深度学习</li>
+                              <li><strong>Web开发：</strong>使用django、flask等框架开发Web应用</li>
+                              <li><strong>自动化：</strong>自动化测试、数据处理等任务</li>
+                              <li><strong>科学计算：</strong>科学研究中的数值计算</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">1.3</span>
+                            Python的安装和环境配置
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>安装步骤：</strong></p>
+                            <ol className="list-decimal list-inside space-y-1 pl-2">
+                              <li>访问Python官网：https://www.python.org</li>
+                              <li>下载适合您操作系统的Python版本</li>
+                              <li>运行安装程序，确保勾选"Add Python to PATH"</li>
+                              <li>验证安装：在命令行输入python --version</li>
+                            </ol>
+                            <p><strong>环境配置：</strong></p>
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li>使用pip安装第三方库：pip install package_name</li>
+                              <li>使用虚拟环境：python -m venv venv</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">1.4</span>
+                            Python的开发工具介绍
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li><strong>PyCharm：</strong>功能强大的Python IDE，提供代码补全、调试等功能</li>
+                              <li><strong>Visual Studio Code：</strong>轻量级编辑器，通过插件支持Python开发</li>
+                              <li><strong>Jupyter Notebook：</strong>交互式开发环境，适合数据分析和教学</li>
+                              <li><strong>IDLE：</strong>Python自带的简单编辑器</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* 第2章 */}
-                <div className="border-l-4 border-green-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第2章 Python基础语法</h3>
-                  <p className="text-gray-600 mb-4">学习Python的基本语法，包括变量、数据类型、运算符和表达式。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.1</span>
-                      变量和数据类型
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.2</span>
-                      运算符和表达式
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.3</span>
-                      输入和输出
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.4</span>
-                      注释和代码风格
-                    </li>
-                  </ul>
+                <div className="border border-green-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-green-500 to-green-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter2')}>
+                    <h3 className="text-xl font-semibold text-white">第2章 Python基础语法</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter2' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter2' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的基本语法，包括变量、数据类型、运算符和表达式。</p>
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">2.1</span>
+                            变量和数据类型
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>变量：</strong>变量是存储数据的容器。在Python中，变量不需要声明类型。</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre># 变量赋值
+name = "张三"  # 字符串
+age = 20       # 整数
+height = 1.75 # 浮点数
+is_student = True # 布尔值
+
+print(name, age, height, is_student)</pre>
+                            </div>
+                            <p><strong>基本数据类型：</strong></p>
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li><strong>整数(int)：</strong>没有小数部分的数字</li>
+                              <li><strong>浮点数(float)：</strong>包含小数的数字</li>
+                              <li><strong>字符串(str)：</strong>用单引号或双引号括起来的文本</li>
+                              <li><strong>布尔值(bool)：</strong>只有True和False两个值</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">2.2</span>
+                            运算符和表达式
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>算术运算符：</strong></p>
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li>加法：+</li>
+                              <li>减法：-</li>
+                              <li>乘法：*</li>
+                              <li>除法：/</li>
+                              <li>整除：//</li>
+                              <li>取余：%</li>
+                              <li>幂运算：**</li>
+                            </ul>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>a = 10
+b = 3
+print(a + b)  # 13
+print(a - b)  # 7
+print(a * b)  # 30
+print(a / b)  # 3.333...
+print(a // b) # 3
+print(a % b)  # 1
+print(a ** b) # 1000</pre>
+                            </div>
+                            <p><strong>比较运算符：</strong>==, !=, >, <, >=, <=</p>
+                            <p><strong>逻辑运算符：</strong>and, or, not</p>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">2.3</span>
+                            输入和输出
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>输出：</strong>使用print()函数输出内容</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>print("Hello, World!")
+name = "张三"
+print(f"你好，{name}！")</pre>
+                            </div>
+                            <p><strong>输入：</strong>使用input()函数获取用户输入</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>name = input("请输入你的名字：")
+print(f"你好，{name}！")</pre>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">2.4</span>
+                            注释和代码风格
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>单行注释：</strong>使用#符号</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre># 这是一个单行注释
+print("Hello") # 这也是一个单行注释</pre>
+                            </div>
+                            <p><strong>多行注释：</strong>使用三引号</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>"""
+这是一个多行注释
+可以写多行内容
+"""
+print("Hello")</pre>
+                            </div>
+                            <p><strong>代码风格：</strong>遵循PEP 8规范，使用4空格缩进，适当的空行和命名规范。</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* 第3章 */}
-                <div className="border-l-4 border-purple-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第3章 控制结构</h3>
-                  <p className="text-gray-600 mb-4">学习Python的控制结构，包括条件语句和循环语句。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.1</span>
-                      条件语句（if-elif-else）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.2</span>
-                      循环语句（for循环）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.3</span>
-                      循环语句（while循环）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.4</span>
-                      循环控制语句（break、continue）
-                    </li>
-                  </ul>
+                <div className="border border-purple-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter3')}>
+                    <h3 className="text-xl font-semibold text-white">第3章 控制结构</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter3' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter3' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的控制结构，包括条件语句和循环语句。</p>
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">3.1</span>
+                            条件语句（if-elif-else）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>基本语法：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>age = 18
+if age >= 18:
+    print("成年人")
+elif age >= 13:
+    print("青少年")
+else:
+    print("儿童")</pre>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">3.2</span>
+                            循环语句（for循环）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>遍历列表：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>fruits = ["苹果", "香蕉", "橙子"]
+for fruit in fruits:
+    print(fruit)
+
+# 使用range()函数
+for i in range(5):
+    print(i)</pre>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">3.3</span>
+                            循环语句（while循环）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>基本语法：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>count = 0
+while count < 5:
+    print(count)
+    count += 1</pre>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">3.4</span>
+                            循环控制语句（break、continue）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>break：</strong>跳出当前循环</p>
+                            <p><strong>continue：</strong>跳过本次循环，继续下一次</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>for i in range(10):
+    if i == 5:
+        break  # 跳出循环
+    if i == 3:
+        continue  # 跳过i=3
+    print(i)</pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* 第4章 */}
-                <div className="border-l-4 border-yellow-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第4章 函数</h3>
-                  <p className="text-gray-600 mb-4">学习Python的函数定义和使用，包括参数传递和返回值。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.1</span>
-                      函数的定义和调用
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.2</span>
-                      参数传递
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.3</span>
-                      返回值
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.4</span>
-                      局部变量和全局变量
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.5</span>
-                      递归函数
-                    </li>
-                  </ul>
+                {/* 后续章节可以继续添加，这里为了简化先添加前3章 */}
+                {/* 第4章到第8章的按钮保持原样，但需要添加对应的内容 */}
+                <div className="border border-yellow-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter4')}>
+                    <h3 className="text-xl font-semibold text-white">第4章 函数</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter4' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter4' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的函数定义和使用，包括参数传递和返回值。</p>
+                      <div className="text-center py-8 text-gray-500">
+                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* 第5章 */}
-                <div className="border-l-4 border-red-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第5章 数据结构</h3>
-                  <p className="text-gray-600 mb-4">学习Python的常用数据结构，包括列表、元组、字典和集合。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.1</span>
-                      列表（List）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.2</span>
-                      元组（Tuple）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.3</span>
-                      字典（Dictionary）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.4</span>
-                      集合（Set）
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.5</span>
-                      数据结构的常用操作
-                    </li>
-                  </ul>
+                <div className="border border-red-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-red-500 to-red-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter5')}>
+                    <h3 className="text-xl font-semibold text-white">第5章 数据结构</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter5' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter5' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的常用数据结构，包括列表、元组、字典和集合。</p>
+                      <div className="text-center py-8 text-gray-500">
+                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* 第6章 */}
-                <div className="border-l-4 border-indigo-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第6章 文件操作</h3>
-                  <p className="text-gray-600 mb-4">学习Python的文件操作，包括文件的打开、读写和关闭。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.1</span>
-                      文件的打开和关闭
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.2</span>
-                      文件的读取
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.3</span>
-                      文件的写入
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.4</span>
-                      文件的定位
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.5</span>
-                      上下文管理器（with语句）
-                    </li>
-                  </ul>
+                <div className="border border-indigo-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter6')}>
+                    <h3 className="text-xl font-semibold text-white">第6章 文件操作</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter6' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter6' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的文件操作，包括文件的打开、读写和关闭。</p>
+                      <div className="text-center py-8 text-gray-500">
+                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* 第7章 */}
-                <div className="border-l-4 border-teal-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第7章 异常处理</h3>
-                  <p className="text-gray-600 mb-4">学习Python的异常处理机制，包括异常的捕获和处理。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-teal-100 text-teal-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.1</span>
-                      异常的概念
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-teal-100 text-teal-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.2</span>
-                      try-except语句
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-teal-100 text-teal-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.3</span>
-                      else和finally子句
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-teal-100 text-teal-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.4</span>
-                      自定义异常
-                    </li>
-                  </ul>
+                <div className="border border-teal-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-teal-500 to-teal-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter7')}>
+                    <h3 className="text-xl font-semibold text-white">第7章 异常处理</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter7' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter7' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的异常处理机制，包括异常的捕获和处理。</p>
+                      <div className="text-center py-8 text-gray-500">
+                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* 第8章 */}
-                <div className="border-l-4 border-pink-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第8章 模块和包</h3>
-                  <p className="text-gray-600 mb-4">学习Python的模块和包的概念，掌握模块的导入和使用。</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="bg-pink-100 text-pink-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">8.1</span>
-                      模块的概念
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-pink-100 text-pink-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">8.2</span>
-                      模块的导入
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-pink-100 text-pink-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">8.3</span>
-                      包的概念
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-pink-100 text-pink-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">8.4</span>
-                      常用标准库介绍
-                    </li>
-                  </ul>
+                <div className="border border-pink-200 rounded-xl overflow-hidden">
+                  <div className="bg-gradient-to-r from-pink-500 to-pink-600 p-4 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('chapter8')}>
+                    <h3 className="text-xl font-semibold text-white">第8章 模块和包</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-white transition-transform duration-300 ${expandedSection === 'chapter8' ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  {expandedSection === 'chapter8' && (
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-4">学习Python的模块和包的概念，掌握模块的导入和使用。</p>
+                      <div className="text-center py-8 text-gray-500">
+                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

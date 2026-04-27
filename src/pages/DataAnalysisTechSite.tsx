@@ -14,6 +14,11 @@ const DataAnalysisTechSite: React.FC = () => {
   const [feedback, setFeedback] = useState('');
   const [showAnswer, setShowAnswer] = useState(false);
 
+  // 监听activeProject变化
+  useEffect(() => {
+    console.log('Active project changed:', activeProject);
+  }, [activeProject]);
+
   // Python 智能提示配置
   const pythonCompletion = (context: CompletionContext): CompletionResult | null => {
     const pythonKeywords = [
@@ -236,6 +241,98 @@ df_rfm["用户等级"].value_counts()`
 
   // 实训项目数据
   const trainingProjects = [
+    {
+      id: 0,
+      title: '数据分析入门基础',
+      description: '适合初学者的基础数据分析教程，包括数据读取、基础统计、简单可视化和基本数据操作',
+      dataset: 'student_scores.csv',
+      tasks: [
+        '读取学生成绩数据（student_scores.csv）',
+        '查看数据基本信息和前几行数据',
+        '计算数学和语文成绩的基本统计信息（均值、中位数、标准差等）',
+        '绘制数学成绩的直方图，了解成绩分布',
+        '计算数学和语文成绩的相关性',
+        '保存分析结果到Excel文件'
+      ],
+      keySteps: [
+        '# 【初学者友好】数据分析入门基础，适合零基础学习\nimport pandas as pd\nimport matplotlib.pyplot as plt',
+        '# 1. 读取数据 - 最简单的数据读取方法\ndf = pd.read_csv("student_scores.csv")\nprint("数据形状:", df.shape)\nprint("\\n数据预览:")\nprint(df.head())\nprint("\\n数据信息:")\nprint(df.info())',
+        '# 2. 基本统计分析 - 了解数据分布\nprint("\\n=== 数学成绩统计 ===")\nprint(df["数学"].describe())\nprint("\\n=== 语文成绩统计 ===")\nprint(df["语文"].describe())',
+        '# 3. 数据可视化 - 绘制直方图\nplt.figure(figsize=(10, 4))\nplt.subplot(1, 2, 1)\nplt.hist(df["数学"], bins=10, color="skyblue")\nplt.title("数学成绩分布")\nplt.xlabel("分数")\nplt.ylabel("人数")\n\nplt.subplot(1, 2, 2)\nplt.hist(df["语文"], bins=10, color="lightgreen")\nplt.title("语文成绩分布")\nplt.xlabel("分数")\nplt.ylabel("人数")\n\nplt.tight_layout()\nplt.show()',
+        '# 4. 相关性分析 - 了解两门课程的关系\ncorrelation = df["数学"].corr(df["语文"])\nprint(f"\\n数学和语文成绩的相关性: {correlation:.2f}")\nif correlation > 0.7:\n    print("两门课程呈强正相关")\nelif correlation > 0.3:\n    print("两门课程呈中等正相关")\nelse:\n    print("两门课程相关性较弱")',
+        '# 5. 保存分析结果\ndf.to_excel("student_analysis.xlsx", index=False)\nprint("\\n分析结果已保存为 student_analysis.xlsx")'
+      ],
+      answer: `import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. 读取数据
+df = pd.read_csv("student_scores.csv")
+print("数据形状:", df.shape)
+print("\n数据预览:")
+print(df.head())
+print("\n数据信息:")
+print(df.info())
+
+# 2. 基本统计分析
+print("\n=== 数学成绩统计 ===")
+print(df["数学"].describe())
+print("\n=== 语文成绩统计 ===")
+print(df["语文"].describe())
+
+# 3. 数据可视化
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.hist(df["数学"], bins=10, color="skyblue")
+plt.title("数学成绩分布")
+plt.xlabel("分数")
+plt.ylabel("人数")
+
+plt.subplot(1, 2, 2)
+plt.hist(df["语文"], bins=10, color="lightgreen")
+plt.title("语文成绩分布")
+plt.xlabel("分数")
+plt.ylabel("人数")
+
+plt.tight_layout()
+plt.show()
+
+# 4. 相关性分析
+correlation = df["数学"].corr(df["语文"])
+print(f"\n数学和语文成绩的相关性: {correlation:.2f}")
+if correlation > 0.7:
+    print("两门课程呈强正相关")
+elif correlation > 0.3:
+    print("两门课程呈中等正相关")
+else:
+    print("两门课程相关性较弱")
+
+# 5. 保存分析结果
+df.to_excel("student_analysis.xlsx", index=False)
+print("\n分析结果已保存为 student_analysis.xlsx")
+print("\n数据分析入门完成！")`,
+      testCases: [
+        {
+          input: 'df = pd.read_csv("student_scores.csv")',
+          expected: '读取数据',
+          weight: 20
+        },
+        {
+          input: 'df.describe()',
+          expected: '基本统计分析',
+          weight: 25
+        },
+        {
+          input: 'plt.hist(df["数学"])\nplt.show()',
+          expected: '绘制直方图',
+          weight: 25
+        },
+        {
+          input: 'df["数学"].corr(df["语文"])',
+          expected: '计算相关性',
+          weight: 30
+        }
+      ]
+    },
     {
       id: 1,
       title: '数据预处理高阶版',
@@ -1751,7 +1848,108 @@ print("\n分析完成！")`,
           <div className="bg-white rounded-xl shadow-sm p-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">数据分析技术课程概览</h2>
             
+            {/* 初学者引导区域 */}
+            <div className="bg-gradient-to-r from-yellow-50 to-orange-100 border border-yellow-200 rounded-lg p-6 mb-8">
+              <div className="flex items-start">
+                <div className="bg-yellow-500 rounded-full p-3 mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">🎉 初学者入门指南</h3>
+                  <p className="text-gray-700 mb-4">如果你是数据分析初学者，建议从<span className="font-bold text-blue-600">「数据分析入门基础」</span>项目开始学习！</p>
+                  <button
+                    className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
+                    onClick={() => setActiveSection('training')}
+                  >
+                    👉 初学者点这里开始学习
+                  </button>
+                </div>
+              </div>
+            </div>
+            
             <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-3">Python基础函数讲解</h3>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-4">
+                  <h4 className="font-semibold text-gray-800 mb-3">核心基础函数</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <h5 className="font-medium text-blue-700">1. 数据类型与基本操作</h5>
+                      <div className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                        <pre className="text-sm text-gray-800">{`# 基本数据类型
+number = 123        # 整数
+float_num = 3.14     # 浮点数
+string = 'Hello'     # 字符串
+boolean = True       # 布尔值
+
+# 基本操作
+print(number + 1)    # 输出：124
+print(string * 2)    # 输出：HelloHello
+print(len(string))   # 输出：5`}</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-700">2. 列表与字典</h5>
+                      <div className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                        <pre className="text-sm text-gray-800">{`# 列表操作
+fruits = ['apple', 'banana', 'cherry']
+fruits.append('orange')    # 添加元素
+fruits[0] = 'grape'       # 修改元素
+print(fruits[1])           # 访问元素：banana
+
+# 字典操作
+person = {'name': 'Alice', 'age': 25, 'city': 'New York'}
+print(person['name'])     # 访问值：Alice
+person['age'] = 26        # 修改值
+person['job'] = 'Engineer'  # 添加新键值对`}</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-700">3. 条件语句与循环</h5>
+                      <div className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                        <pre className="text-sm text-gray-800">{`# 条件语句
+age = 18
+if age >= 18:
+    print('成年人')
+elif age >= 13:
+    print('青少年')
+else:
+    print('儿童')
+
+# 循环
+for i in range(5):
+    print(i)  # 输出：0, 1, 2, 3, 4
+
+# 遍历列表
+for fruit in fruits:
+    print(fruit)`}</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-700">4. 函数定义与调用</h5>
+                      <div className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                        <pre className="text-sm text-gray-800">{`# 定义函数
+def greet(name):
+    '''打招呼函数'''
+    return f'Hello, {name}!'
+
+# 调用函数
+message = greet('Bob')
+print(message)  # 输出：Hello, Bob!
+
+# 带默认参数的函数
+def calculate_area(length, width=10):
+    return length * width
+
+print(calculate_area(5))  # 输出：50`}</pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">课程目标</h3>
                 <p className="text-gray-600">
@@ -1766,13 +1964,19 @@ print("\n分析完成！")`,
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
+                    <span>Python基础函数讲解：包括数据类型、列表字典、条件循环、函数定义等核心概念</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
                     <span>5个核心思维模型：维度拆解与分群、变量关联与因子挖掘、无监督挖掘、拟合与预测建模、业务模型落地</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>10个实操实训项目：从数据预处理到综合分析，覆盖所有重点分析方法</span>
+                    <span>11个实操实训项目：包括1个初学者基础项目和10个进阶项目</span>
                   </li>
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1792,6 +1996,10 @@ print("\n分析完成！")`,
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">学习路径</h3>
                 <div className="flex flex-wrap gap-4">
+                  <div className="bg-yellow-50 p-4 rounded-lg flex-1 min-w-[200px] border border-yellow-200">
+                    <h4 className="font-semibold text-gray-800 mb-2">初学者入门</h4>
+                    <p className="text-gray-600 text-sm">数据分析入门基础，适合零基础学习</p>
+                  </div>
                   <div className="bg-blue-50 p-4 rounded-lg flex-1 min-w-[200px]">
                     <h4 className="font-semibold text-gray-800 mb-2">阶段1：基础准备</h4>
                     <p className="text-gray-600 text-sm">数据预处理、描述统计、相关性分析</p>
@@ -1838,11 +2046,28 @@ print("\n分析完成！")`,
           <div className="bg-white rounded-xl shadow-sm p-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">实训项目</h2>
             
+            {/* 初学者项目特殊标记 */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-100 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-gray-700 font-medium">💡 <span className="font-bold text-blue-600">初学者推荐：</span> 从项目0开始学习，打好基础后再进行后续项目</p>
+              </div>
+            </div>
+            
             <div className="space-y-6">
               {trainingProjects.map(project => (
-                <div key={project.id} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="bg-green-600 text-white p-4">
-                    <h3 className="text-xl font-semibold">项目{project.id}：{project.title}</h3>
+                <div key={project.id} className={`border ${project.id === 0 ? 'border-yellow-300' : 'border-gray-200'} rounded-lg overflow-hidden ${project.id === 0 ? 'bg-yellow-50' : ''}`}>
+                  <div className={project.id === 0 ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4' : 'bg-green-600 text-white p-4'}>
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-semibold">项目{project.id}：{project.title}</h3>
+                      {project.id === 0 && (
+                        <span className="bg-white text-yellow-600 px-3 py-1 rounded-full text-sm font-medium">
+                          初学者推荐
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div className="p-6">
                     <p className="text-gray-600 mb-4">{project.description}</p>
@@ -1865,113 +2090,18 @@ print("\n分析完成！")`,
                       </div>
                     </div>
                     <button
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                      onClick={() => setActiveProject(project.id)}
+                      className={`px-4 py-2 rounded-md transition-colors ${project.id === 0 ? 'bg-orange-600 text-white hover:bg-orange-700' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                      onClick={() => {
+                        console.log('Button clicked, project id:', project.id);
+                        setActiveProject(project.id);
+                        console.log('Active project after set:', activeProject);
+                      }}
                     >
-                      开始练习
+                      {project.id === 0 ? '开始学习（初学者推荐）' : '开始练习'}
                     </button>
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* 项目练习界面 */}
-        {activeProject && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-bold text-gray-800">
-                    项目{activeProject}：{trainingProjects.find(p => p.id === activeProject)?.title}
-                  </h3>
-                  <button 
-                    className="text-gray-500 hover:text-gray-700"
-                    onClick={() => {
-                      setActiveProject(null);
-                      setUserCode('');
-                      setScore(null);
-                      setFeedback('');
-                      setShowAnswer(false);
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">关键步骤提示：</h4>
-                  <div className="bg-gray-100 p-4 rounded-md overflow-x-auto mb-4">
-                    <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.keySteps?.join('\n\n') || '暂无关键步骤提示'}</pre>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">编写代码：</h4>
-                  <div className="border border-gray-300 rounded-md overflow-hidden">
-                    <CodeMirror
-                      value={userCode}
-                      onChange={(value) => setUserCode(value)}
-                      extensions={[
-                        python(),
-                        autocompletion({ 
-                          override: [pythonCompletion],
-                          activateOnTyping: true
-                        }),
-                        EditorView.updateListener.of(update => {
-                          if (update.docChanged) {
-                            // 代码变更时的处理
-                          }
-                        })
-                      ]}
-                      height="400px"
-                      theme="light"
-                      placeholder="在此输入Python代码..."
-                      className="font-mono text-sm"
-                    />
-                  </div>
-                </div>
-                <div className="flex space-x-4 mb-4">
-                  <button
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                    onClick={() => evaluateCode(activeProject, userCode)}
-                  >
-                    提交代码
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-                    onClick={() => setUserCode('')}
-                  >
-                    清空
-                  </button>
-                </div>
-                <div className="mt-4">
-                  <button
-                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-                    onClick={() => setShowAnswer(!showAnswer)}
-                  >
-                    {showAnswer ? '隐藏答案' : '查看答案'}
-                  </button>
-                  {showAnswer && (
-                    <div className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
-                      <h4 className="font-semibold text-gray-800 mb-2">参考答案：</h4>
-                      <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.answer || '暂无答案'}</pre>
-                    </div>
-                  )}
-                </div>
-                {score !== null && (
-                  <div className="mt-4">
-                    <h4 className="font-semibold text-gray-800 mb-2">评分结果：</h4>
-                    <div className="bg-gray-100 p-4 rounded-md">
-                      <p className="text-lg font-medium mb-2">得分：{score}%</p>
-                      <pre className="text-sm text-gray-800 whitespace-pre-wrap">{feedback}</pre>
-                    </div>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         )}
@@ -2013,6 +2143,103 @@ print("\n分析完成！")`,
           </div>
         </div>
       </footer>
+
+      {/* 项目练习界面 - 放在最外层，确保显示在最前面 */}
+      {activeProject !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]" style={{ zIndex: 9999, position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'auto' }}>
+          <div className="bg-white rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6" style={{ pointerEvents: 'auto' }}>
+            <div className="flex justify-between items-center mb-6 border-b pb-4">
+              <h3 className="text-2xl font-bold text-gray-800">
+                项目{activeProject}：{trainingProjects.find(p => p.id === activeProject)?.title}
+              </h3>
+              <button 
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => {
+                  setActiveProject(null);
+                  setUserCode('');
+                  setScore(null);
+                  setFeedback('');
+                  setShowAnswer(false);
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div>
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2">关键步骤提示：</h4>
+                <div className="bg-gray-100 p-4 rounded-md overflow-x-auto mb-4">
+                  <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.keySteps?.join('\n\n') || '暂无关键步骤提示'}</pre>
+                </div>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2">编写代码：</h4>
+                <div className="border border-gray-300 rounded-md overflow-hidden">
+                  <CodeMirror
+                    value={userCode}
+                    onChange={(value) => setUserCode(value)}
+                    extensions={[
+                      python(),
+                      autocompletion({ 
+                        override: [pythonCompletion],
+                        activateOnTyping: true
+                      }),
+                      EditorView.updateListener.of(update => {
+                        if (update.docChanged) {
+                          // 代码变更时的处理
+                        }
+                      })
+                    ]}
+                    height="400px"
+                    theme="light"
+                    placeholder="在此输入Python代码..."
+                    className="font-mono text-sm"
+                  />
+                </div>
+              </div>
+              <div className="flex space-x-4 mb-4">
+                <button
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  onClick={() => evaluateCode(activeProject, userCode)}
+                >
+                  提交代码
+                </button>
+                <button
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                  onClick={() => setUserCode('')}
+                >
+                  清空
+                </button>
+              </div>
+              <div className="mt-4">
+                <button
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                  onClick={() => setShowAnswer(!showAnswer)}
+                >
+                  {showAnswer ? '隐藏答案' : '查看答案'}
+                </button>
+                {showAnswer && (
+                  <div className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
+                    <h4 className="font-semibold text-gray-800 mb-2">参考答案：</h4>
+                    <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.answer || '暂无答案'}</pre>
+                  </div>
+                )}
+              </div>
+              {score !== null && (
+                <div className="mt-4">
+                  <h4 className="font-semibold text-gray-800 mb-2">评分结果：</h4>
+                  <div className="bg-gray-100 p-4 rounded-md">
+                    <p className="text-lg font-medium mb-2">得分：{score}%</p>
+                    <pre className="text-sm text-gray-800 whitespace-pre-wrap">{feedback}</pre>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
