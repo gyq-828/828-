@@ -13,6 +13,8 @@ const DataAnalysisTechSite: React.FC = () => {
   const [score, setScore] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showBasics, setShowBasics] = useState(false);
+  const [activeChapter, setActiveChapter] = useState<number | null>(null);
 
   // 监听activeProject变化
   useEffect(() => {
@@ -237,6 +239,329 @@ df_rfm["用户等级"] = df_rfm["RFM总分"].apply(rfm_level)
 df_rfm["用户等级"].value_counts()`
       }
     ]
+  };
+
+  // 实训项目基础知识讲解
+  const projectBasics = {
+    0: {
+      title: '数据分析入门基础知识',
+      concepts: [
+        {
+          name: '什么是数据分析',
+          explanation: '数据分析是指用适当的统计分析方法对收集来的大量数据进行分析，将它们加以汇总、理解并消化，以求最大化地发挥数据的作用。数据分析是为了提取有用信息和形成结论，而对数据加以详细研究和概括总结的过程。'
+        },
+        {
+          name: '数据分析的基本流程',
+          explanation: '1. 明确分析目的 → 2. 数据收集 → 3. 数据处理 → 4. 数据分析 → 5. 数据可视化 → 6. 得出结论'
+        },
+        {
+          name: '常用数据分析工具',
+          explanation: 'Python：最适合数据分析的编程语言，拥有丰富的库如pandas、numpy、matplotlib\nExcel：轻量级数据处理和可视化\nSQL：数据库查询语言，用于数据提取'
+        },
+        {
+          name: 'pandas库简介',
+          explanation: 'pandas是Python中最重要的数据分析库，提供两种主要数据结构：\n• Series：一维数组，类似Excel的一列\n• DataFrame：二维表格，类似Excel的整个表格'
+        },
+        {
+          name: '数据读取基础',
+          explanation: 'pd.read_csv()：读取CSV格式的表格文件\npd.read_excel()：读取Excel文件\npd.read_sql()：从数据库读取数据'
+        },
+        {
+          name: '数据基本操作',
+          explanation: 'df.head(n)：查看前n行数据\ndf.describe()：查看数据的基本统计信息（均值、标准差、最大最小值等）\ndf.info()：查看数据类型和缺失值'
+        }
+      ]
+    },
+    1: {
+      title: '数据预处理核心概念',
+      concepts: [
+        {
+          name: '什么是数据预处理',
+          explanation: '数据预处理是指在数据分析之前，对原始数据进行清洗、转换、集成等操作，使其适合进行分析。高质量的数据预处理是成功数据分析的前提。'
+        },
+        {
+          name: '缺失值处理',
+          explanation: '缺失值处理的三种策略：\n1. 删除：直接删除含有缺失值的行（适合缺失值较少时）\n2. 填充：用均值、中位数、众数或固定值填充\n3. 插值：用相邻数据推断缺失值'
+        },
+        {
+          name: '异常值识别',
+          explanation: '3σ原则：数据分布服从正态分布时，99.7%的数据落在均值±3个标准差范围内，超出这个范围的数据视为异常值。\n箱线图法：使用数据的Q1-1.5*IQR和Q3+1.5*IQR作为上下边界，超出边界的数据视为异常值。'
+        },
+        {
+          name: '什么是特征工程',
+          explanation: '特征工程是指将原始数据转换为能够更好代表问题特征的过程，从而提高模型的性能。常见的特征工程技术包括：\n• 特征分桶（将连续变量离散化）\n• 特征编码（将类别变量转换为数值）\n• 特征标准化'
+        },
+        {
+          name: 'One-Hot编码',
+          explanation: 'One-Hot编码是将类别变量转换为二进制向量的过程。例如：\n性别：["男", "女", "未知"] → 男=[1,0,0], 女=[0,1,0], 未知=[0,0,1]\n这样可以让机器学习算法更好地理解类别数据。'
+        },
+        {
+          name: '数据标准化',
+          explanation: 'StandardScaler（Z-score标准化）：将数据转换为均值为0，标准差为1的分布\n公式：z = (x - μ) / σ\n为什么要标准化？不同特征的量纲和数值范围差异很大，标准化可以消除这种影响，让算法更稳定。'
+        }
+      ]
+    },
+    2: {
+      title: '相关性分析核心概念',
+      concepts: [
+        {
+          name: '什么是相关性分析',
+          explanation: '相关性分析是研究两个或多个变量之间关系强度和方向的统计方法。通过相关性分析，我们可以了解变量之间的关联程度，从而为后续的建模和分析提供依据。'
+        },
+        {
+          name: '皮尔逊相关系数',
+          explanation: '皮尔逊相关系数（r）衡量两个连续变量之间的线性关系强度：\n• r = 1：完全正相关\n• r = -1：完全负相关\n• r = 0：无相关性\n• |r| ≥ 0.7：强相关\n• 0.4 ≤ |r| < 0.7：中等相关\n• |r| < 0.4：弱相关'
+        },
+        {
+          name: '斯皮尔曼相关系数',
+          explanation: '斯皮尔曼相关系数基于数据的秩次（排名）计算，适用于非线性关系或有序分类数据。它衡量的是两个变量的单调关系，而非纯粹的线性关系。'
+        },
+        {
+          name: '相关性热力图',
+          explanation: '热力图是一种可视化方式，用颜色深浅表示相关性系数的大小：\n• 红色：正相关（越深正相关越强）\n• 蓝色：负相关（越深负相关越强）\n• 白色/浅色：相关性接近0'
+        },
+        {
+          name: '多重共线性',
+          explanation: '多重共线性是指在回归模型中，自变量之间存在高度相关性的现象。这会导致：\n• 回归系数不稳定\n• 模型解释困难\n• 预测精度下降\n通常当|r| ≥ 0.8时认为存在严重多重共线性，需要进行处理。'
+        },
+        {
+          name: '如何解读相关性分析结果',
+          explanation: '1. 找出与目标变量强相关的特征（|r| ≥ 0.7）\n2. 分析相关性的方向（正/负）\n3. 检查是否存在多重共线性\n4. 结合业务场景解读相关性的实际意义'
+        }
+      ]
+    },
+    3: {
+      title: '关联规则挖掘（购物篮分析）核心概念',
+      concepts: [
+        {
+          name: '什么是购物篮分析',
+          explanation: '购物篮分析是一种数据分析技术，用于发现顾客在购物过程中，不同商品之间的关联关系。例如，顾客在购买牛奶的同时，也会购买面包。这种分析可以帮助企业制定商品摆放、促销策略、捆绑销售等决策。'
+        },
+        {
+          name: '关联规则的核心指标',
+          explanation: '支持度(Support)：某个商品组合在所有交易中出现的频率\n公式：支持度 = 包含商品A和B的交易数 / 总交易数\n\n置信度(Confidence)：购买商品A的顾客中，同时购买商品B的比例\n公式：置信度 = 包含商品A和B的交易数 / 包含商品A的交易数\n\n提升度(Lift)：关联规则提升度的度量\n公式：提升度 = 置信度 / 商品B的支持度\n提升度 > 1 表示正相关，提升度 < 1 表示负相关'
+        },
+        {
+          name: 'Apriori算法原理',
+          explanation: 'Apriori算法是经典的关联规则挖掘算法，其核心思想是"先验定律"：如果一个项集是频繁的，那么它的所有子集也是频繁的。\n\n算法步骤：\n1. 设置最小支持度阈值\n2. 找出所有满足最小支持度的频繁项集\n3. 从频繁项集中生成关联规则\n4. 筛选满足最小置信度的规则'
+        },
+        {
+          name: '频繁项集',
+          explanation: '频繁项集是指在所有交易中，出现频率高于最小支持度阈值的商品组合。\n\n例如：\n• 1-项集：{牛奶}、{面包}\n• 2-项集：{牛奶, 面包}、{牛奶, 鸡蛋}\n• 3-项集：{牛奶, 面包, 鸡蛋}\n\n频繁项集的支持度 = 该组合出现的交易数 / 总交易数'
+        },
+        {
+          name: '如何解读关联规则',
+          explanation: '一条关联规则通常表示为：A → B\n\n解读示例：\n{牛奶} → {面包}（支持度=0.3, 置信度=0.8, 提升度=1.5）\n\n解读：有30%的顾客同时购买牛奶和面包；在购买牛奶的顾客中，80%也会购买面包；这个规则的提升度为1.5，说明购买牛奶对购买面包有1.5倍的提升效果。'
+        },
+        {
+          name: '关联规则的应用场景',
+          explanation: '1. 商品陈列：将经常一起购买的商品摆放在相邻位置\n2. 促销活动：设计组合套餐或捆绑销售\n3. 商品推荐：基于用户已购商品推荐相关商品\n4. 库存管理：预测商品需求，优化库存\n5. 交叉销售：识别高价值商品组合，进行精准营销'
+        }
+      ]
+    },
+    4: {
+      title: '聚类分析核心概念',
+      concepts: [
+        {
+          name: '什么是聚类分析',
+          explanation: '聚类分析是将数据集划分为多个组（簇）的过程，使得同一簇内的数据点相似度高，不同簇之间的数据点相似度低。这是一种无监督学习方法，不需要预先标记数据。'
+        },
+        {
+          name: 'KMeans聚类算法',
+          explanation: 'KMeans是最常用的聚类算法，基本步骤：\n1. 选择K个初始质心（随机或指定）\n2. 将每个数据点分配给最近的质心，形成K个簇\n3. 重新计算每个簇的质心（均值）\n4. 重复步骤2-3，直到质心不再变化或达到最大迭代次数\n\nK是要选择的簇的数量，需要根据业务和数据特点确定。'
+        },
+        {
+          name: '肘部法则（Elbow Method）',
+          explanation: '肘部法则是一种选择最优K值的方法：\n1. 计算不同K值下的SSE（簇内误差平方和）\n2. 绘制K-SSE曲线\n3. 找到曲线"拐点"（类似手肘的位置）\n\n拐点之前，增加K值会显著降低SSE；拐点之后，增加K值的收益递减。拐点对应的K值就是最优选择。'
+        },
+        {
+          name: '数据标准化为什么重要',
+          explanation: '聚类算法基于距离计算，如果特征之间的量纲差异很大，会导致：\n• 大数值特征主导聚类结果\n• 小数值特征被忽略\n\n例如：收入(万元)和年龄(岁)放在一起，如果不标准化，收入会主导距离计算。\n\n常用标准化方法：StandardScaler（Z-score标准化）'
+        },
+        {
+          name: 'PCA降维可视化',
+          explanation: 'PCA(主成分分析)是一种降维技术，可以将高维数据投影到低维空间，同时保留尽可能多的信息。\n\n为什么要降维？\n• 聚类结果难以在多维空间可视化\n• 去除冗余特征，减少噪声\n• 提高计算效率\n\n通常降到2维用于可视化，降到3维用于简单的3D可视化。'
+        },
+        {
+          name: '聚类结果解读',
+          explanation: '聚类完成后，需要分析每个簇的特征：\n\n1. 计算每个簇的均值/中位数\n2. 对比不同簇之间的差异\n3. 给每个簇命名（如"高价值用户"、"沉睡用户"）\n4. 分析簇的分布和大小\n\n聚类结果的价值在于能够发现数据中的自然分组，为业务决策提供依据。'
+        }
+      ]
+    },
+    5: {
+      title: 'RFM模型核心概念',
+      concepts: [
+        {
+          name: '什么是RFM模型',
+          explanation: 'RFM模型是客户价值分析中最经典的模型之一，用于评估客户价值和客户创利能力。RFM由三个指标组成：\n\n• R（Recency）：最近一次消费时间距离分析日的天数，越小越好\n• F（Frequency）：消费频率，一定时间内的购买次数，越大越好\n• M（Monetary）：消费金额，一定时间内的总消费金额，越大越好'
+        },
+        {
+          name: 'RFM分箱与打分',
+          explanation: 'RFM分箱是将连续变量转换为分类变量的过程：\n\n1. R的分箱：最近消费天数越少，得分越高\n   通常分为5档：5分（0-20%）、4分（20-40%）、3分（40-60%）、2分（60-80%）、1分（80-100%）\n\n2. F的分箱：购买次数越多，得分越高\n   分位数分箱，确保各档人数均衡\n\n3. M的分箱：消费金额越高，得分越高\n   同理进行分位数分箱'
+        },
+        {
+          name: '用户分层标准',
+          explanation: 'RFM总分 = R分 + F分 + M分（范围3-15分）\n\n分层标准：\n• 高价值用户：RFM总分 ≥ 13分（三项都很好）\n• 潜力用户：总分 9-12分（有某项特别突出）\n• 一般用户：总分 6-8分（表现平平）\n• 流失/低价值用户：总分 < 6分（多项指标较差）'
+        },
+        {
+          name: 'RFM模型的价值',
+          explanation: '1. 精准营销：根据不同层级用户制定差异化策略\n2. 资源优化：将有限的营销资源投入到高价值用户\n3. 流失预警：通过R值识别可能流失的用户\n4. 效果评估：对比不同层级用户的营销响应率'
+        },
+        {
+          name: '不同用户群体的运营策略',
+          explanation: '高价值用户：\n• 提供VIP专属服务\n• 给予最大优惠力度\n• 建立专属沟通渠道\n\n潜力用户：\n• 引导增加消费频次\n• 推荐高价值商品\n• 提供会员升级激励\n\n一般用户：\n• 保持日常联系\n• 推送热门商品\n• 举办促销活动\n\n流失用户：\n• 发送唤醒优惠券\n• 个性化推荐\n• 调查流失原因'
+        },
+        {
+          name: 'RFM分析的注意事项',
+          explanation: '1. 数据时间窗口：根据业务特点选择合适的分析周期（通常30/90/180天）\n2. 行业差异：不同行业的F和M标准差异很大\n3. 新用户问题：刚注册的用户RFM可能偏低，需要特殊处理\n4. 动态变化：用户层级是动态变化的，需要定期更新'
+        }
+      ]
+    },
+    6: {
+      title: '线性回归核心概念',
+      concepts: [
+        {
+          name: '什么是线性回归',
+          explanation: '线性回归是一种预测性建模技术，用于研究因变量（目标变量）与一个或多个自变量（特征变量）之间线性关系的分析方法。目标是找到一条最佳拟合线，使得预测值与实际值的误差最小。'
+        },
+        {
+          name: '一元线性回归 vs 多元线性回归',
+          explanation: '一元线性回归：只有一个自变量\n公式：y = β₀ + β₁*x + ε\n例如：只考虑广告费对销量的影响\n\n多元线性回归：有多个自变量\n公式：y = β₀ + β₁*x₁ + β₂*x₂ + ... + βₙ*xₙ + ε\n例如：同时考虑广告费、活动次数、客单价对销量的影响'
+        },
+        {
+          name: '回归系数解读',
+          explanation: '回归系数β表示当其他变量保持不变时，该变量每增加一个单位，因变量y的平均变化量。\n\n例如：销量 = 100 + 0.5*广告费\n• β₀ = 100：当广告费为0时，基础销量为100\n• β₁ = 0.5：广告费每增加1元，销量平均增加0.5\n\n系数符号：\n• 正数：正相关（该因素增加，销量增加）\n• 负数：负相关（该因素增加，销量减少）'
+        },
+        {
+          name: '模型评估指标',
+          explanation: 'R²（决定系数）：模型解释的方差比例，取值0-1，越接近1越好\n• R² = 0.8 表示模型解释了80%的方差\n\nMAE（平均绝对误差）：预测值与真实值差的绝对值的平均\n• MAE = 10 表示平均预测误差为10个单位\n\nMSE（均方误差）：误差平方的平均值，对大误差更敏感\n• MSE越大表示模型误差越大'
+        },
+        {
+          name: '多重共线性问题',
+          explanation: 'VIF（方差膨胀因子）：检测多重共线性的指标\n• VIF = 1：无共线性\n• 1 < VIF < 5：轻度共线性，通常可接受\n• VIF ≥ 5：存在中等共线性，建议处理\n• VIF ≥ 10：严重共线性，必须处理\n\n处理方法：删除高共线性变量，或使用正则化方法（如岭回归）'
+        },
+        {
+          name: '线性回归的适用场景',
+          explanation: '适用场景：\n• 变量之间存在线性关系\n• 残差服从正态分布\n• 变量之间相互独立\n• 无严重多重共线性\n\n注意事项：\n• 线性回归对异常值敏感，需要先处理\n• 不能用于分类问题（需要用逻辑回归）\n• 预测值可能超出合理范围'
+        }
+      ]
+    },
+    7: {
+      title: '随机森林核心概念',
+      concepts: [
+        {
+          name: '什么是随机森林',
+          explanation: '随机森林是一种集成学习方法，通过构建多棵决策树并综合它们的结果来进行预测。每棵树都是独立训练的，最终预测是所有树的平均值（回归）或投票结果（分类）。'
+        },
+        {
+          name: '随机森林 vs 线性回归',
+          explanation: '线性回归：\n• 假设变量之间是线性关系\n• 易于解释\n• 对异常值敏感\n• 只能捕捉线性关系\n\n随机森林：\n• 不假设数据分布\n• 可以捕捉非线性关系\n• 对异常值更鲁棒\n• 预测精度通常更高\n• 可用于分类和回归'
+        },
+        {
+          name: '特征重要性',
+          explanation: '特征重要性衡量每个特征对模型预测能力的贡献程度。\n\n随机森林计算特征重要性的方法：\n1. 对于每棵树，计算每个特征在所有分裂中的不纯度减少量\n2. 对所有树取平均\n3. 归一化得到每个特征的相对重要性\n\n应用价值：\n• 识别关键影响因素\n• 指导特征工程\n• 帮助业务决策'
+        },
+        {
+          name: '模型调参基础',
+          explanation: '随机森林主要参数：\n\nn_estimators：决策树数量\n• 越多越稳定，但计算成本增加\n• 通常选择100-500\n\nmax_depth：树的最大深度\n• 防止过拟合\n• 建议3-10\n\nmin_samples_split：节点分裂所需的最小样本数\n• 防止过拟合\n• 建议2-10'
+        },
+        {
+          name: '如何选择最优参数',
+          explanation: '常用方法：网格搜索（Grid Search）\n\n步骤：\n1. 定义参数网格\n2. 对每组参数组合进行交叉验证\n3. 选择验证集上表现最好的参数组合\n\n例如：\nn_estimators: [50, 100, 200]\nmax_depth: [3, 5, 7]\n\n共9种组合，每种进行K折交叉验证'
+        },
+        {
+          name: '模型评估与对比',
+          explanation: '模型对比维度：\n\n1. 预测精度：R²、MAE、MSE等指标\n2. 泛化能力：通过验证集和测试集评估\n3. 可解释性：特征重要性的清晰程度\n4. 计算效率：训练和预测时间\n5. 稳定性：多次训练结果的一致性\n\n对比结论应基于多个指标综合判断，而非单一指标。'
+        }
+      ]
+    },
+    8: {
+      title: '时间序列分析核心概念',
+      concepts: [
+        {
+          name: '什么是时间序列',
+          explanation: '时间序列是按照时间顺序排列的数据点序列。例如：每日销量、每月销售额、每季度GDP等。时间序列分析的目的是从历史数据中发现规律，并进行预测。'
+        },
+        {
+          name: '时间序列的组成',
+          explanation: '一个时间序列通常由以下几个部分组成：\n\n1. 趋势（Trend）：长期的变化方向（上升、下降或平稳）\n2. 季节性（Seasonality）：固定周期内的规律性波动（如每年节假日）\n3. 周期性（Cyclical）：非固定周期的波动（如经济周期）\n4. 不规则波动（Irregular）：随机或偶发事件'
+        },
+        {
+          name: '移动平均',
+          explanation: '移动平均是一种平滑时间序列数据的方法，用于消除短期波动，显示长期趋势。\n\n计算方法：取最近n个时期的平均值作为当前位置的平滑值\n\n例如，3个月移动平均：\nMA₃ = (Xₜ + Xₜ₋₁ + Xₜ₋₂) / 3\n\n移动平均的窗口大小选择：\n• 窗口越小：对短期变化越敏感\n• 窗口越大：平滑效果越好，但滞后越明显'
+        },
+        {
+          name: '季节性分析',
+          explanation: '季节性热力图是分析时间序列季节性模式的可视化工具。\n\n制作方法：\n1. 将数据按年和月组织\n2. 每一行是一年，每一列是一个月\n3. 用颜色深浅表示数值大小\n\n解读：\n• 如果某一列颜色深浅一致，说明该月有稳定的季节性\n• 如果对角线有相似模式，说明季节性周期为一年'
+        },
+        {
+          name: 'ARIMA模型',
+          explanation: 'ARIMA是最经典的时间序列预测模型，由三部分组成：\n\nAR（自回归）：使用过去p个值预测当前值\nI（差分）：对序列进行d阶差分，使其平稳\nMA（移动平均）：使用过去q个预测误差预测当前值\n\n参数(p, d, q)的选择：\n• 通过ACF和PACF图分析\n• 通过AIC/BIC准则比较\n• 通过网格搜索'
+        },
+        {
+          name: '预测评估与业务应用',
+          explanation: '预测评估指标：\n• MAE（平均绝对误差）：预测值与实际值差的绝对值的平均\n• RMSE（均方根误差）：对大误差更敏感\n\n业务应用建议：\n1. 库存规划：根据预测需求安排采购\n2. 人力安排：预测销售量，合理配置员工\n3. 财务预算：预测收入，制定预算计划\n4. 风险管理：设置预警阈值，提前应对'
+        }
+      ]
+    },
+    9: {
+      title: '异常检测核心概念',
+      concepts: [
+        {
+          name: '什么是异常检测',
+          explanation: '异常检测是识别数据中与正常模式显著不同的数据点的过程。这些异常点可能表示：\n• 欺诈行为（如信用卡盗刷）\n• 系统故障\n• 数据录入错误\n• 特殊情况（需要重点关注）\n\n异常检测的核心挑战是如何定义"正常"，以及区分真正的异常和合理的变异。'
+        },
+        {
+          name: '统计方法：3σ原则',
+          explanation: '3σ原则基于正态分布：\n• 68%的数据落在μ±1σ范围内\n• 95%的数据落在μ±2σ范围内\n• 99.7%的数据落在μ±3σ范围内\n\n异常判定：数据点落在μ±3σ范围之外\n\n优点：简单直观\n缺点：假设数据服从正态分布，对非正态数据效果差'
+        },
+        {
+          name: '统计方法：箱线图法',
+          explanation: '箱线图使用四分位数识别异常值：\n• Q1：25%分位数\n• Q3：75%分位数\n• IQR = Q3 - Q1（四分位距）\n• 下界 = Q1 - 1.5*IQR\n• 上界 = Q3 + 1.5*IQR\n\n异常判定：数据点小于下界或大于上界\n\n优点：不需要假设数据分布，对异常值稳健'
+        },
+        {
+          name: '孤立森林算法',
+          explanation: '孤立森林（Isolation Forest）是一种基于决策树的异常检测算法。\n\n核心思想：异常点更容易被"孤立"（在少量随机分裂后被分离）\n\n算法步骤：\n1. 随机选择特征和分割值\n2. 递归分裂形成决策树\n3. 计算每个点的分裂次数（路径长度）\n4. 路径越短，越可能是异常\n\n优点：\n• 不需要定义"正常"的边界\n• 对高维数据效果好\n• 计算效率高'
+        },
+        {
+          name: '异常类型分析',
+          explanation: '不同类型的异常需要不同的处理方式：\n\n1. 数据录入错误\n   • 处理：修正或删除\n   • 特征：明显偏离合理范围\n\n2. 欺诈行为\n   • 处理：标记审核\n   • 特征：行为模式异常\n\n3. 系统故障\n   • 处理：排查修复\n   • 特征：短时间内大量异常\n\n4. 特殊情况\n   • 处理：业务研判\n   • 特征：需要结合业务场景分析'
+        },
+        {
+          name: '异常检测的业务落地',
+          explanation: '应用场景：\n\n1. 金融风控\n   • 信用卡欺诈检测\n   • 洗钱识别\n   • 异常交易监控\n\n2. 电商运营\n   • 虚假订单识别\n   • 恶意退货检测\n   • 刷单行为识别\n\n3. 工业制造\n   • 设备故障预警\n   • 质量异常检测\n\n4. 网络安全\n   • 入侵检测\n   • 异常流量识别'
+        }
+      ]
+    },
+    10: {
+      title: '综合数据分析项目核心概念',
+      concepts: [
+        {
+          name: '数据分析项目流程',
+          explanation: '完整的数据分析项目通常包括以下步骤：\n\n1. 业务理解：明确分析目标和业务问题\n2. 数据理解：了解数据来源、结构和质量\n3. 数据准备：数据清洗、整合、特征工程\n4. 模型构建：选择合适的算法进行建模\n5. 模型评估：多维度评估模型效果\n6. 结果呈现：用可视化等方式展示发现\n7. 业务落地：将分析结果转化为实际行动'
+        },
+        {
+          name: '数据整合与治理',
+          explanation: '真实项目中，数据通常来自多个来源：\n• 用户数据：用户基本信息、行为数据\n• 交易数据：订单、支付、物流\n• 商品数据：商品信息、库存\n• 行为数据：浏览、点击、收藏\n\n整合要点：\n• 统一数据格式和时间戳\n• 识别和解决数据冲突\n• 建立数据字典\n• 确保数据一致性'
+        },
+        {
+          name: '分析报告的撰写',
+          explanation: '一份好的数据分析报告应包含：\n\n1. 执行摘要：用1-2段话概括核心发现和建议\n2. 背景目的：为什么要做这个分析\n3. 方法论：使用了哪些分析方法和工具\n4. 数据发现：关键洞察和图表\n5. 业务建议：基于数据的可落地建议\n6. 局限说明：分析的局限性和后续建议\n\n原则：\n• 结论先行\n• 用数据说话\n• 图表清晰\n• 建议具体可执行'
+        },
+        {
+          name: '可视化最佳实践',
+          explanation: '常用图表选择：\n\n• 趋势分析：折线图\n• 比较分析：柱状图\n• 构成分析：饼图、堆叠柱状图\n• 相关分析：散点图、热力图\n• 分布分析：直方图、箱线图\n\n设计原则：\n• 删减不必要的元素\n• 使用对比色突出重点\n• 添加清晰的标题和标签\n• 避免3D效果和复杂装饰'
+        },
+        {
+          name: '数据驱动决策',
+          explanation: '数据驱动决策是将数据分析结果转化为业务行动的过程：\n\n1. 定义问题：明确要解决的具体业务问题\n2. 提出假设：基于数据提出可能的解释\n3. 验证假设：用更多数据或实验验证\n4. 制定决策：基于验证结果制定策略\n5. 效果评估：实施后跟踪效果\n\n关键点：\n• 数据是决策的参考，不是决策本身\n• 注意数据质量和代表性\n• 考虑实施的可行性和成本'
+        },
+        {
+          name: '成为优秀数据分析师',
+          explanation: '核心能力：\n\n1. 技术能力\n   • SQL、Python/R\n   • 统计学基础\n   • 数据可视化\n   • 机器学习基础\n\n2. 业务理解\n   • 理解业务逻辑\n   • 沟通表达能力\n   • 跨部门协作\n\n3. 思维方式\n   • 好奇心和探索精神\n   • 结构化思维\n   • 数据敏感度\n\n4. 持续学习\n   • 跟进新技术\n   • 阅读案例\n   • 实践项目'
+        }
+      ]
+    }
   };
 
   // 实训项目数据
@@ -2147,7 +2472,7 @@ print(calculate_area(5))  # 输出：50`}</pre>
       {/* 项目练习界面 - 放在最外层，确保显示在最前面 */}
       {activeProject !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]" style={{ zIndex: 9999, position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'auto' }}>
-          <div className="bg-white rounded-xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6" style={{ pointerEvents: 'auto' }}>
+          <div className="bg-white rounded-xl shadow-lg max-w-6xl w-full max-h-[95vh] overflow-y-auto p-6" style={{ pointerEvents: 'auto' }}>
             <div className="flex justify-between items-center mb-6 border-b pb-4">
               <h3 className="text-2xl font-bold text-gray-800">
                 项目{activeProject}：{trainingProjects.find(p => p.id === activeProject)?.title}
@@ -2160,6 +2485,8 @@ print(calculate_area(5))  # 输出：50`}</pre>
                   setScore(null);
                   setFeedback('');
                   setShowAnswer(false);
+                  setShowBasics(false);
+                  setActiveChapter(null);
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2168,12 +2495,77 @@ print(calculate_area(5))  # 输出：50`}</pre>
               </button>
             </div>
             <div>
+              {/* 基础知识展示区域 */}
+              <div className="mb-6">
+                <button
+                  className="w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-300 font-semibold text-lg shadow-md flex items-center justify-center"
+                  onClick={() => setShowBasics(!showBasics)}
+                >
+                  <span className="mr-2">📚</span>
+                  {showBasics ? '收起基础知识' : '点击查看本项目基础知识讲解'}
+                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ml-2 transition-transform duration-300 ${showBasics ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {showBasics && projectBasics[activeProject as keyof typeof projectBasics] && (
+                  <div className="mt-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-200">
+                    <h4 className="text-xl font-bold text-purple-800 mb-4 flex items-center">
+                      <span className="text-2xl mr-2">📖</span>
+                      {projectBasics[activeProject as keyof typeof projectBasics].title}
+                    </h4>
+                    <div className="space-y-3">
+                      {projectBasics[activeProject as keyof typeof projectBasics].concepts.map((concept, index) => (
+                        <div key={index} className="bg-white rounded-lg p-4 shadow-sm">
+                          <button
+                            onClick={() => setActiveChapter(activeChapter === index ? null : index)}
+                            className="w-full flex items-center justify-between text-left"
+                          >
+                            <h5 className="font-semibold text-purple-700 flex items-center">
+                              <span className="bg-purple-100 text-purple-800 rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">
+                                {index + 1}
+                              </span>
+                              {concept.name}
+                            </h5>
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-purple-600 transition-transform duration-300 ${activeChapter === index ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </button>
+                          {activeChapter === index && (
+                            <div className="mt-3 text-gray-700 leading-relaxed whitespace-pre-line bg-gray-50 p-3 rounded-lg border-l-4 border-purple-300">
+                              {concept.explanation}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 任务要求 */}
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2">任务要求：</h4>
+                <ul className="list-disc list-inside text-gray-700 space-y-1 bg-blue-50 p-4 rounded-lg">
+                  {trainingProjects.find(p => p.id === activeProject)?.tasks.map((task, index) => (
+                    <li key={index}>{task}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 关键步骤提示 */}
               <div className="mb-4">
                 <h4 className="font-semibold text-gray-800 mb-2">关键步骤提示：</h4>
-                <div className="bg-gray-100 p-4 rounded-md overflow-x-auto mb-4">
-                  <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.keySteps?.join('\n\n') || '暂无关键步骤提示'}</pre>
+                <div className="bg-yellow-50 p-4 rounded-lg space-y-2">
+                  {trainingProjects.find(p => p.id === activeProject)?.keySteps.map((step, index) => (
+                    <div key={index} className="text-gray-700 text-sm">
+                      • {step}
+                    </div>
+                  ))}
                 </div>
               </div>
+
+              {/* 编写代码 */}
               <div className="mb-4">
                 <h4 className="font-semibold text-gray-800 mb-2">编写代码：</h4>
                 <div className="border border-gray-300 rounded-md overflow-hidden">
@@ -2199,7 +2591,9 @@ print(calculate_area(5))  # 输出：50`}</pre>
                   />
                 </div>
               </div>
-              <div className="flex space-x-4 mb-4">
+
+              {/* 操作按钮 */}
+              <div className="flex flex-wrap gap-3 mb-4">
                 <button
                   className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                   onClick={() => evaluateCode(activeProject, userCode)}
@@ -2212,27 +2606,33 @@ print(calculate_area(5))  # 输出：50`}</pre>
                 >
                   清空
                 </button>
-              </div>
-              <div className="mt-4">
                 <button
                   className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
                   onClick={() => setShowAnswer(!showAnswer)}
                 >
                   {showAnswer ? '隐藏答案' : '查看答案'}
                 </button>
-                {showAnswer && (
-                  <div className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
-                    <h4 className="font-semibold text-gray-800 mb-2">参考答案：</h4>
-                    <pre className="text-sm text-gray-800">{trainingProjects.find(p => p.id === activeProject)?.answer || '暂无答案'}</pre>
-                  </div>
-                )}
               </div>
+
+              {/* 答案显示 */}
+              {showAnswer && (
+                <div className="mt-4 bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">参考答案：</h4>
+                  <pre className="text-sm text-green-700 whitespace-pre-wrap bg-white p-3 rounded border border-green-200 overflow-x-auto">
+                    {trainingProjects.find(p => p.id === activeProject)?.answer || '暂无答案'}
+                  </pre>
+                </div>
+              )}
+
+              {/* 评分结果 */}
               {score !== null && (
                 <div className="mt-4">
                   <h4 className="font-semibold text-gray-800 mb-2">评分结果：</h4>
-                  <div className="bg-gray-100 p-4 rounded-md">
-                    <p className="text-lg font-medium mb-2">得分：{score}%</p>
-                    <pre className="text-sm text-gray-800 whitespace-pre-wrap">{feedback}</pre>
+                  <div className="bg-gray-100 p-4 rounded-lg">
+                    <p className="text-2xl font-bold text-blue-600 mb-2">得分：{score}%</p>
+                    <div className="text-gray-700 whitespace-pre-wrap">
+                      {feedback}
+                    </div>
                   </div>
                 </div>
               )}
