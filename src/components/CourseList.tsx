@@ -18,6 +18,13 @@ export default function CourseList() {
       link: '/python'
     },
     {
+      id: 'python-training',
+      name: 'Python实训项目',
+      description: '10个精选练习项目，专为Python小白设计，包含交互式代码编辑和自动评分系统。',
+      icon: '💻',
+      link: '/python-training'
+    },
+    {
       id: 'data-analysis',
       name: '数据分析技术',
       description: '掌握数据分析的基本方法和工具，包括数据可视化、统计分析等。',
@@ -37,6 +44,13 @@ export default function CourseList() {
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',
       icon: '🔍',
       link: '/data-collection'
+    },
+    {
+      id: 'data-collection-training',
+      name: '数据采集处理实训项目',
+      description: '10个实战项目，掌握网络爬虫、数据清洗、数据库存储等核心技能。',
+      icon: '🕷️',
+      link: '/data-collection-training'
     },
     {
       id: 'supply-chain',
