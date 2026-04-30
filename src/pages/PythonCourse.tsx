@@ -315,7 +315,7 @@ print(a // b) # 3
 print(a % b)  # 1
 print(a ** b) # 1000</pre>
                             </div>
-                            <p><strong>比较运算符：</strong>==, !=, >, <, >=, <=</p>
+                            <p><strong>比较运算符：</strong>==, !=, &gt;, &lt;, &gt;=, &lt;=</p>
                             <p><strong>逻辑运算符：</strong>and, or, not</p>
                           </div>
                         </div>
@@ -327,14 +327,14 @@ print(a ** b) # 1000</pre>
                           <div className="text-gray-700 space-y-2">
                             <p><strong>输出：</strong>使用print()函数输出内容</p>
                             <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
-                              <pre>print("Hello, World!")
+                              <pre>{`print("Hello, World!")
 name = "张三"
-print(f"你好，{name}！")</pre>
+print(f"你好，{name}！")`}</pre>
                             </div>
                             <p><strong>输入：</strong>使用input()函数获取用户输入</p>
                             <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
-                              <pre>name = input("请输入你的名字：")
-print(f"你好，{name}！")</pre>
+                              <pre>{`name = input("请输入你的名字：")
+print(f"你好，{name}！")`}</pre>
                             </div>
                           </div>
                         </div>
@@ -386,9 +386,9 @@ print("Hello")</pre>
                             <p><strong>基本语法：</strong></p>
                             <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
                               <pre>age = 18
-if age >= 18:
+if age &gt;= 18:
     print("成年人")
-elif age >= 13:
+elif age &gt;= 13:
     print("青少年")
 else:
     print("儿童")</pre>
@@ -422,7 +422,7 @@ for i in range(5):
                             <p><strong>基本语法：</strong></p>
                             <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
                               <pre>count = 0
-while count < 5:
+while count &lt; 5:
     print(count)
     count += 1</pre>
                             </div>
