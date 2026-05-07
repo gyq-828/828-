@@ -763,10 +763,10 @@ const DataAnalysisTechSite: React.FC = () => {
       <nav className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex items-center">
+            <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
               <BarChart3 className="w-8 h-8 text-blue-600 mr-3" />
               <span className="text-xl font-bold text-gray-800">数据分析实训平台</span>
-            </div>
+            </a>
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setActiveSection('projects')}
