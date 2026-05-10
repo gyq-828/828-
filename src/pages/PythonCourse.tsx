@@ -842,9 +842,298 @@ while count &lt; 5:
                   </div>
                   {expandedSection === 'chapter4' && (
                     <div className="p-6">
-                      <p className="text-gray-600 mb-4">学习Python的函数定义和使用，包括参数传递和返回值。</p>
-                      <div className="text-center py-8 text-gray-500">
-                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      <p className="text-gray-600 mb-4">学习Python的函数定义和使用，包括参数传递、返回值、变量作用域和匿名函数。</p>
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">4.1</span>
+                            函数的定义与调用
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>函数定义：</strong>函数是一段可重复使用的代码块，用于实现特定功能。使用def关键字定义函数。</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def greet():
+    print("Hello, World!")
+
+greet()  # 调用函数`}</pre>
+                            </div>
+                            <p><strong>带参数的函数：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def greet(name):
+    print(f"Hello, {name}!")
+
+greet("张三")  # 输出: Hello, 张三!`}</pre>
+                            </div>
+                            <p><strong>多个参数的函数：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def add(a, b):
+    return a + b
+
+result = add(5, 3)
+print(result)  # 输出: 8`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">4.2</span>
+                            参数类型
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>位置参数：</strong>按顺序传递的参数</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def introduce(name, age, city):
+    print(f"我叫{name}，今年{age}岁，来自{city}。")
+
+introduce("张三", 20, "北京")`}</pre>
+                            </div>
+                            <p><strong>默认参数：</strong>为参数提供默认值</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+greet("张三")           # 使用默认问候语
+greet("李四", "Hi")     # 使用自定义问候语`}</pre>
+                            </div>
+                            <p><strong>关键字参数：</strong>使用参数名传递</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def introduce(name, age, city):
+    print(f"我叫{name}，今年{age}岁，来自{city}。")
+
+introduce(age=25, name="王五", city="上海")`}</pre>
+                            </div>
+                            <p><strong>不定长参数：</strong>接收任意数量的参数</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(sum_all(1, 2, 3))      # 6
+print(sum_all(1, 2, 3, 4, 5)) # 15`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">4.3</span>
+                            返回值
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>基本返回值：</strong>使用return语句返回结果</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def calculate(x, y):
+    return x + y, x - y, x * y, x / y
+
+add, sub, mul, div = calculate(10, 2)
+print(f"加:{add}, 减:{sub}, 乘:{mul}, 除:{div}")`}</pre>
+                            </div>
+                            <p><strong>无返回值函数：</strong>没有return语句的函数返回None</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def print_info(name):
+    print(f"姓名: {name}")
+
+result = print_info("张三")
+print(result)  # None`}</pre>
+                            </div>
+                            <p><strong>提前返回：</strong>使用return提前结束函数</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def find_even(numbers):
+    for num in numbers:
+        if num % 2 == 0:
+            return num
+    return None
+
+print(find_even([1, 3, 5, 6, 7]))  # 6`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">4.4</span>
+                            变量作用域
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>局部变量：</strong>在函数内部定义的变量</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`def test():
+    local_var = "我是局部变量"
+    print(local_var)
+
+test()
+print(local_var)  # 报错：local_var未定义`}</pre>
+                            </div>
+                            <p><strong>全局变量：</strong>在函数外部定义的变量</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`global_var = "我是全局变量"
+
+def test():
+    print(global_var)
+
+test()
+print(global_var)  # 正常输出`}</pre>
+                            </div>
+                            <p><strong>global关键字：</strong>在函数内部修改全局变量</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`counter = 0
+
+def increment():
+    global counter
+    counter += 1
+
+increment()
+increment()
+print(counter)  # 2`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">4.5</span>
+                            匿名函数（lambda）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>基本语法：</strong>lambda表达式用于创建小型匿名函数</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`square = lambda x: x ** 2
+print(square(5))  # 25
+
+add = lambda a, b: a + b
+print(add(3, 4))  # 7`}</pre>
+                            </div>
+                            <p><strong>带条件判断的lambda：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`max_num = lambda a, b: a if a > b else b
+print(max_num(3, 5))  # 5
+
+grade = lambda score: "及格" if score >= 60 else "不及格"
+print(grade(75))  # 及格`}</pre>
+                            </div>
+                            <p><strong>lambda与内置函数结合：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 与map结合
+numbers = [1, 2, 3, 4, 5]
+squares = list(map(lambda x: x ** 2, numbers))
+print(squares)  # [1, 4, 9, 16, 25]
+
+# 与filter结合
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)  # [2, 4]
+
+# 与sorted结合
+students = [("张三", 85), ("李四", 92), ("王五", 78)]
+sorted_students = sorted(students, key=lambda x: x[1], reverse=True)
+print(sorted_students)  # [('李四', 92), ('张三', 85), ('王五', 78)]`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：阶乘函数
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>编写一个计算阶乘的函数，使用递归和非递归两种方式实现。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 递归方式
+def factorial_recursive(n):
+    if n <= 1:
+        return 1
+    return n * factorial_recursive(n - 1)
+
+# 非递归方式
+def factorial_iterative(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# 测试
+print(factorial_recursive(5))   # 120
+print(factorial_iterative(5))   # 120`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：排序函数
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>使用lambda函数和sorted实现按不同规则排序。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`products = [
+    {"name": "手机", "price": 2999, "sales": 150},
+    {"name": "电脑", "price": 5999, "sales": 80},
+    {"name": "平板", "price": 1999, "sales": 200},
+    {"name": "耳机", "price": 399, "sales": 300}
+]
+
+# 按价格升序
+by_price = sorted(products, key=lambda x: x["price"])
+print("按价格排序:", [p["name"] for p in by_price])
+
+# 按销量降序
+by_sales = sorted(products, key=lambda x: x["sales"], reverse=True)
+print("按销量排序:", [p["name"] for p in by_sales])
+
+# 按"性价比"排序（销量/价格）
+by_value = sorted(products, key=lambda x: x["sales"] / x["price"], reverse=True)
+print("按性价比排序:", [p["name"] for p in by_value])`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：筛选函数
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>使用filter和lambda筛选符合条件的数据。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`scores = [72, 85, 90, 45, 68, 95, 55, 88, 78, 62]
+
+# 筛选及格成绩
+passing = list(filter(lambda x: x >= 60, scores))
+print("及格成绩:", passing)
+
+# 筛选优秀成绩（90分以上）
+excellent = list(filter(lambda x: x >= 90, scores))
+print("优秀成绩:", excellent)
+
+# 筛选不及格成绩
+failing = list(filter(lambda x: x < 60, scores))
+print("不及格成绩:", failing)
+
+# 转换为等级
+def get_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
+
+grades = list(map(get_grade, scores))
+print("成绩等级:", grades)`}</pre>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -859,9 +1148,313 @@ while count &lt; 5:
                   </div>
                   {expandedSection === 'chapter5' && (
                     <div className="p-6">
-                      <p className="text-gray-600 mb-4">学习Python的常用数据结构，包括列表、元组、字典和集合。</p>
-                      <div className="text-center py-8 text-gray-500">
-                        <p>💡 学习提示：点击展开更多章节查看详细内容</p>
+                      <p className="text-gray-600 mb-4">学习Python的常用数据结构，包括列表、元组、字典和集合，掌握各种数据结构的创建、操作和应用。</p>
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-red-700 mb-2 flex items-center">
+                            <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">5.1</span>
+                            列表（List）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>列表创建：</strong>列表是一种有序、可变的数据结构</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 创建列表
+fruits = ["苹果", "香蕉", "橙子"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# 空列表
+empty_list = []
+empty_list2 = list()`}</pre>
+                            </div>
+                            <p><strong>索引和切片：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`numbers = [10, 20, 30, 40, 50]
+
+# 正向索引
+print(numbers[0])  # 10
+print(numbers[2])  # 30
+
+# 负向索引
+print(numbers[-1])  # 50
+print(numbers[-2])  # 40
+
+# 切片
+print(numbers[1:4])    # [20, 30, 40]
+print(numbers[:3])     # [10, 20, 30]
+print(numbers[2:])      # [30, 40, 50]
+print(numbers[::2])     # [10, 30, 50] 步长为2`}</pre>
+                            </div>
+                            <p><strong>列表常用操作：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`fruits = ["苹果", "香蕉"]
+
+# 添加元素
+fruits.append("橙子")      # 末尾添加
+print(fruits)  # ['苹果', '香蕉', '橙子']
+
+fruits.insert(1, "葡萄")   # 指定位置插入
+print(fruits)  # ['苹果', '葡萄', '香蕉', '橙子']
+
+# 删除元素
+fruits.remove("香蕉")      # 删除指定值
+print(fruits)  # ['苹果', '葡萄', '橙子']
+
+del fruits[0]              # 删除指定位置
+print(fruits)  # ['葡萄', '橙子']
+
+# 其他操作
+fruits.sort()              # 排序
+fruits.reverse()            # 反转
+print(len(fruits))          # 长度
+print("橙子" in fruits)     # 成员检查`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-red-700 mb-2 flex items-center">
+                            <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">5.2</span>
+                            元组（Tuple）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>元组特点：</strong>元组与列表类似，但元组是不可变的，创建后不能修改</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 创建元组
+point = (3, 4)
+colors = ("红色", "绿色", "蓝色")
+single = (42,)  # 单元素元组需要加逗号
+
+# 索引和切片（与列表相同）
+numbers = (1, 2, 3, 4, 5)
+print(numbers[0])   # 1
+print(numbers[1:3]) # (2, 3)
+
+# 元组不可变
+# numbers[0] = 10  # 报错！`}</pre>
+                            </div>
+                            <p><strong>列表与元组的区别：</strong></p>
+                            <ul className="list-disc list-inside space-y-1 pl-2">
+                              <li>列表可修改，元组不可修改</li>
+                              <li>列表性能略低，元组性能更高</li>
+                              <li>元组可作为字典的键，列表不行</li>
+                              <li>元组通常用于不变的数据，如坐标、日期</li>
+                            </ul>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 元组解包
+x, y, z = (1, 2, 3)
+print(f"x={x}, y={y}, z={z}")  # x=1, y=2, z=3
+
+# 函数返回多个值（实际返回元组）
+def get_stats():
+    return 85, 92, 78  # 实际上是返回一个元组
+
+min_score, max_score, avg_score = get_stats()`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-red-700 mb-2 flex items-center">
+                            <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">5.3</span>
+                            字典（Dict）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>字典创建：</strong>字典是键值对（key-value）的无序数据结构</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 创建字典
+student = {
+    "name": "张三",
+    "age": 20,
+    "score": 92
+}
+
+# 使用dict()
+pairs = [("a", 1), ("b", 2)]
+d = dict(pairs)
+print(d)  # {'a': 1, 'b': 2}
+
+# 访问值
+print(student["name"])      # 张三
+print(student.get("age"))   # 20
+print(student.get("city", "未知"))  # 未知（默认值）`}</pre>
+                            </div>
+                            <p><strong>字典操作：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`student = {"name": "张三", "age": 20}
+
+# 添加/修改
+student["city"] = "北京"    # 添加新键值对
+student["age"] = 21         # 修改已有键
+
+# 删除
+del student["city"]
+age = student.pop("age")
+
+# 遍历
+for key in student:         # 遍历键
+    print(f"{key}: {student[key]}")
+
+for key, value in student.items():  # 遍历键值对
+    print(f"{key}: {value}")
+
+print(list(student.keys()))   # 所有键
+print(list(student.values())) # 所有值
+print(list(student.items()))  # 所有键值对`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-red-700 mb-2 flex items-center">
+                            <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">5.4</span>
+                            集合（Set）
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>集合特点：</strong>集合是无序、不重复的数据结构</p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 创建集合
+fruits = {"苹果", "香蕉", "橙子"}
+numbers = set([1, 2, 3, 3, 4])  # 去重
+
+# 自动去重
+numbers = {1, 2, 3, 2, 1}
+print(numbers)  # {1, 2, 3}
+
+# 添加和删除
+fruits.add("葡萄")
+fruits.remove("香蕉")     # 删除，不存在会报错
+fruits.discard("西瓜")    # 删除，不存在不报错`}</pre>
+                            </div>
+                            <p><strong>集合运算：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`set_a = {1, 2, 3, 4}
+set_b = {3, 4, 5, 6}
+
+# 并集
+print(set_a | set_b)        # {1, 2, 3, 4, 5, 6}
+print(set_a.union(set_b))
+
+# 交集
+print(set_a & set_b)        # {3, 4}
+print(set_a.intersection(set_b))
+
+# 差集
+print(set_a - set_b)        # {1, 2}
+print(set_a.difference(set_b))
+
+# 对称差集
+print(set_a ^ set_b)         # {1, 2, 5, 6}
+print(set_a.symmetric_difference(set_b))`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                          <h4 className="font-semibold text-blue-700 mb-2 flex items-center">
+                            <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：列表排序
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>对销售数据列表按不同规则进行排序和统计。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`sales = [
+    {"product": "手机", "price": 2999, "quantity": 150},
+    {"product": "电脑", "price": 5999, "quantity": 80},
+    {"product": "平板", "price": 1999, "quantity": 200},
+    {"product": "耳机", "price": 399, "quantity": 300}
+]
+
+# 按价格升序
+sorted_by_price = sorted(sales, key=lambda x: x["price"])
+print("按价格排序:", [p["product"] for p in sorted_by_price])
+
+# 按销量降序
+sorted_by_qty = sorted(sales, key=lambda x: x["quantity"], reverse=True)
+print("按销量排序:", [p["product"] for p in sorted_by_qty])
+
+# 按销售额排序
+sorted_by_total = sorted(sales, key=lambda x: x["price"] * x["quantity"], reverse=True)
+print("按销售额排序:", [p["product"] for p in sorted_by_total])
+
+# 计算总销售额
+total_revenue = sum(item["price"] * item["quantity"] for item in sales)
+print(f"总销售额: {total_revenue}元")`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                            <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：字典统计词频
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>统计一段文本中各单词出现的频率。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`text = "Python is a great programming language Python is widely used in data analysis and machine learning"
+
+# 转换为小写并分割成单词
+words = text.lower().split()
+
+# 统计词频
+word_count = {}
+for word in words:
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
+
+print("词频统计:")
+for word, count in word_count.items():
+    print(f"  {word}: {count}")
+
+# 找出最常见的5个词
+top_5 = sorted(word_count.items(), key=lambda x: x[1], reverse=True)[:5]
+print("\n最常见的5个词:")
+for word, count in top_5:
+    print(f"  {word}: {count}")`}</pre>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                          <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
+                            <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2">📝</span>
+                            例题：集合交集
+                          </h4>
+                          <div className="text-gray-700 space-y-2">
+                            <p><strong>题目：</strong>分析两组用户对不同商品的偏好，找出共同偏好商品。</p>
+                            <p><strong>代码：</strong></p>
+                            <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm overflow-x-auto">
+                              <pre>{`# 用户A和用户B关注的商品类别
+user_a_interests = {"手机", "电脑", "平板", "耳机", "智能手表"}
+user_b_interests = {"电脑", "平板", "相机", "游戏机", "耳机"}
+
+# 共同兴趣
+common = user_a_interests & user_b_interests
+print("两人共同感兴趣的:", common)
+
+# 只在A感兴趣
+only_a = user_a_interests - user_b_interests
+print("只有A感兴趣的:", only_a)
+
+# 只在B感兴趣
+only_b = user_b_interests - user_a_interests
+print("只有B感兴趣的:", only_b)
+
+# 所有兴趣
+all_interests = user_a_interests | user_b_interests
+print("总共涉及的商品类别:", len(all_interests))
+
+# 合并推荐 - A没看过但B感兴趣的
+recommendations = user_b_interests - user_a_interests
+print("推荐给A的商品:", recommendations)`}</pre>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}

@@ -112,43 +112,147 @@ const EnterpriseFinancialDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 2 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第2章 财务报表分析</h3>
+            <div className="border-l-4 border-green-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第2章 财务报表基础</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>2.1 资产负债表分析</li>
-                <li>2.2 利润表分析</li>
-                <li>2.3 现金流量表分析</li>
-                <li>2.4 财务报表之间的关系</li>
-                <li>2.5 财务报表分析的局限性</li>
+                <li>2.1 <strong>资产负债表解读</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 资产（流动资产、非流动资产）</li>
+                    <li>• 负债（流动负债、非流动负债）</li>
+                    <li>• 所有者权益</li>
+                    <li>• 会计恒等式：资产 = 负债 + 所有者权益</li>
+                  </ul>
+                </li>
+                <li>2.2 <strong>利润表结构</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 营业收入</li>
+                    <li>• 营业成本</li>
+                    <li>• 营业利润、利润总额、净利润</li>
+                  </ul>
+                </li>
+                <li>2.3 <strong>现金流量表分析</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 经营活动现金流</li>
+                    <li>• 投资活动现金流</li>
+                    <li>• 筹资活动现金流</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 3 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第3章 财务比率分析</h3>
+            <div className="border-l-4 border-purple-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第3章 财务指标分析</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>3.1 盈利能力比率</li>
-                <li>3.2 营运能力比率</li>
-                <li>3.3 偿债能力比率</li>
-                <li>3.4 发展能力比率</li>
-                <li>3.5 财务比率的综合分析</li>
+                <li>3.1 <strong>盈利能力指标</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 毛利率 = (营业收入 - 营业成本) / 营业收入 × 100%</li>
+                    <li>• 净利率 = 净利润 / 营业收入 × 100%</li>
+                    <li>• ROE（净资产收益率）= 净利润 / 平均净资产 × 100%</li>
+                    <li>• ROA（总资产收益率）= 净利润 / 平均总资产 × 100%</li>
+                  </ul>
+                </li>
+                <li>3.2 <strong>偿债能力指标</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 流动比率 = 流动资产 / 流动负债（正常值≥2）</li>
+                    <li>• 速动比率 = (流动资产 - 存货) / 流动负债（正常值≥1）</li>
+                    <li>• 资产负债率 = 总负债 / 总资产 × 100%</li>
+                    <li>• 利息保障倍数 = EBIT / 利息费用</li>
+                  </ul>
+                </li>
+                <li>3.3 <strong>运营能力指标</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 存货周转率 = 销售成本 / 平均存货</li>
+                    <li>• 应收账款周转率 = 赊销收入 / 平均应收账款</li>
+                    <li>• 总资产周转率 = 营业收入 / 平均总资产</li>
+                    <li>• 固定资产周转率 = 营业收入 / 平均固定资产</li>
+                  </ul>
+                </li>
+                <li>3.4 <strong>发展能力指标</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 营业收入增长率</li>
+                    <li>• 净利润增长率</li>
+                    <li>• 总资产增长率</li>
+                  </ul>
+                </li>
+                <li className="bg-green-50 p-3 rounded-lg">
+                  <strong className="text-green-700">📝 例题：计算企业盈利能力指标</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`import pandas as pd
+import numpy as np
+
+# 模拟财务数据
+data = {
+    'year': [2021, 2022, 2023],
+    'revenue': [1000000, 1200000, 1500000],        # 营业收入
+    'cost': [600000, 700000, 850000],               # 营业成本
+    'net_profit': [150000, 200000, 280000],        # 净利润
+    'gross_profit': [400000, 500000, 650000],       # 毛利润
+    'total_assets': [2000000, 2500000, 3000000],    # 总资产
+    'current_assets': [800000, 1000000, 1200000],    # 流动资产
+    'inventory': [300000, 350000, 400000],          # 存货
+    'current_liabilities': [400000, 500000, 600000], # 流动负债
+    'total_liabilities': [1000000, 1200000, 1400000], # 总负债
+    'equity': [1000000, 1300000, 1600000]           # 所有者权益
+}
+
+df = pd.DataFrame(data)
+
+# 计算盈利能力指标
+df['gross_margin'] = (df['gross_profit'] / df['revenue'] * 100).round(2)
+df['net_margin'] = (df['net_profit'] / df['revenue'] * 100).round(2)
+
+# 计算ROE（净资产收益率）
+df['avg_equity'] = (df['equity'] + df['equity'].shift(1)) / 2
+df['ROE'] = (df['net_profit'] / df['avg_equity'] * 100).round(2)
+
+# 计算ROA（总资产收益率）
+df['avg_assets'] = (df['total_assets'] + df['total_assets'].shift(1)) / 2
+df['ROA'] = (df['net_profit'] / df['avg_assets'] * 100).round(2)
+
+# 计算偿债能力指标
+df['current_ratio'] = (df['current_assets'] / df['current_liabilities']).round(2)
+df['quick_ratio'] = ((df['current_assets'] - df['inventory']) / df['current_liabilities']).round(2)
+df['debt_ratio'] = (df['total_liabilities'] / df['total_assets'] * 100).round(2)
+
+# 计算运营能力指标
+df['avg_inventory'] = (df['inventory'] + df['inventory'].shift(1)) / 2
+df['inventory_turnover'] = (df['cost'] / df['avg_inventory']).round(2)
+
+# 显示结果
+print("=== 企业财务指标分析 ===")
+print(df[['year', 'revenue', 'gross_margin', 'net_margin', 'ROE', 'ROA']])
+
+print("\\n=== 偿债能力指标 ===")
+print(df[['year', 'current_ratio', 'quick_ratio', 'debt_ratio']])
+
+print("\\n=== 运营能力指标 ===")
+print(df[['year', 'inventory_turnover']])
+
+# 趋势分析
+print("\\n=== 指标趋势分析 ===")
+print(f"毛利率变化: {df['gross_margin'].iloc[-1] - df['gross_margin'].iloc[0]:.2f}个百分点")
+print(f"净利率变化: {df['net_margin'].iloc[-1] - df['net_margin'].iloc[0]:.2f}个百分点")
+print(f"ROE变化: {df['ROE'].iloc[-1] - df['ROE'].iloc[0]:.2f}个百分点")`}</pre>
+                  </div>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 4 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-yellow-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第4章 成本分析</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>4.1 成本的基本概念和分类</li>
                 <li>4.2 变动成本和固定成本分析</li>
                 <li>4.3 边际成本分析</li>
-                <li>4.4 成本- volume-利润分析</li>
+                <li>4.4 成本- volume-利润分析（CVP分析）</li>
                 <li>4.5 成本控制和成本优化</li>
               </ul>
             </div>
 
             {/* Chapter 5 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-red-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第5章 预算分析</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>5.1 预算的基本概念和类型</li>
@@ -160,19 +264,19 @@ const EnterpriseFinancialDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 6 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-indigo-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第6章 投资决策分析</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>6.1 投资决策的基本概念</li>
                 <li>6.2 现金流量分析</li>
-                <li>6.3 净现值法</li>
-                <li>6.4 内部收益率法</li>
+                <li>6.3 净现值法（NPV）</li>
+                <li>6.4 内部收益率法（IRR）</li>
                 <li>6.5 投资决策的风险分析</li>
               </ul>
             </div>
 
             {/* Chapter 7 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-teal-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第7章 财务预测与规划</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>7.1 财务预测的基本方法</li>
@@ -184,7 +288,7 @@ const EnterpriseFinancialDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 8 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-pink-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第8章 企业财务数据分析案例</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>8.1 制造业企业财务分析案例</li>

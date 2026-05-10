@@ -108,92 +108,298 @@ const DatabasePrinciplesCourse: React.FC = () => {
                 <li>1.3 数据库管理系统的功能</li>
                 <li>1.4 数据库系统的发展历程</li>
                 <li>1.5 数据库技术的应用领域</li>
+                <li className="bg-blue-50 p-3 rounded-lg mt-3">
+                  <strong className="text-blue-700">数据库类型：</strong>
+                  <ul className="text-sm ml-4 mt-1">
+                    <li>• <strong>关系型数据库（RDBMS）</strong>：MySQL、PostgreSQL、Oracle、SQL Server</li>
+                    <li>• <strong>非关系型数据库（NoSQL）</strong>：MongoDB、Redis、HBase</li>
+                    <li>• <strong>轻量级数据库</strong>：SQLite，适合嵌入式和移动应用</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 2 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-green-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第2章 数据模型</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>2.1 数据模型的基本概念</li>
-                <li>2.2 概念模型</li>
-                <li>2.3 关系模型</li>
+                <li>2.2 概念模型（ER模型）</li>
+                <li>2.3 关系模型（表格结构）</li>
                 <li>2.4 层次模型和网状模型</li>
                 <li>2.5 面向对象数据模型</li>
               </ul>
             </div>
 
             {/* Chapter 3 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-purple-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第3章 关系数据库基础</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>3.1 关系的基本概念</li>
-                <li>3.2 关系代数</li>
-                <li>3.3 关系演算</li>
-                <li>3.4 关系的完整性约束</li>
+                <li>3.1 关系的基本概念（表、行、列）</li>
+                <li>3.2 关系代数（选择、投影、连接、并）</li>
+                <li>3.3 关系的完整性约束
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 主键约束（PRIMARY KEY）：唯一标识每行</li>
+                    <li>• 外键约束（FOREIGN KEY）：表间关联</li>
+                    <li>• 唯一约束（UNIQUE）：值不能重复</li>
+                    <li>• 非空约束（NOT NULL）：值不能为空</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 4 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第4章 SQL语言基础</h3>
+            <div className="border-l-4 border-yellow-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第4章 SQL基础与数据库操作</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>4.1 SQL语言概述</li>
-                <li>4.2 数据定义语句（DDL）</li>
-                <li>4.3 数据操纵语句（DML）</li>
-                <li>4.4 数据查询语句（SELECT）</li>
-                <li>4.5 视图的创建和使用</li>
+                <li>4.1 <strong>数据库和表操作（DDL）</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• CREATE DATABASE：创建数据库</li>
+                    <li>• CREATE TABLE：创建表</li>
+                    <li>• ALTER TABLE：修改表结构</li>
+                    <li>• DROP TABLE/DATABASE：删除表/数据库</li>
+                  </ul>
+                </li>
+                <li className="bg-green-50 p-3 rounded-lg">
+                  <strong className="text-green-700">📝 例题：创建数据库和表</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`-- 创建数据库
+CREATE DATABASE IF NOT EXISTS shop_db
+DEFAULT CHARACTER SET utf8mb4
+DEFAULT COLLATE utf8mb4_unicode_ci;
+
+USE shop_db;
+
+-- 创建客户表
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    registration_date DATE DEFAULT (CURRENT_DATE),
+    city VARCHAR(50)
+);
+
+-- 创建订单表
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10,2),
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- 创建商品表
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100) NOT NULL,
+    category VARCHAR(50),
+    price DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0
+);
+
+-- 查看表结构
+DESC customers;
+SHOW TABLES;`}</pre>
+                  </div>
+                </li>
+                <li>4.2 <strong>数据操作（DML）</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• INSERT INTO：插入数据</li>
+                    <li>• UPDATE：更新数据</li>
+                    <li>• DELETE：删除数据</li>
+                    <li>• TRUNCATE：清空表</li>
+                  </ul>
+                </li>
+                <li className="bg-blue-50 p-3 rounded-lg">
+                  <strong className="text-blue-700">📝 例题：批量插入和更新数据</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`-- 插入单条数据
+INSERT INTO customers (customer_name, email, phone, city)
+VALUES ('张三', 'zhangsan@example.com', '13800138000', '北京');
+
+-- 批量插入
+INSERT INTO customers (customer_name, email, phone, city) VALUES
+('李四', 'lisi@example.com', '13800138001', '上海'),
+('王五', 'wangwu@example.com', '13800138002', '广州'),
+('赵六', 'zhaoliu@example.com', '13800138003', '深圳');
+
+-- 插入订单数据
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-15', 299.00, 'completed'),
+(1, '2024-01-20', 599.00, 'completed'),
+(2, '2024-02-01', 899.00, 'completed'),
+(3, '2024-02-10', 199.00, 'pending');
+
+-- 更新数据
+UPDATE products
+SET price = price * 0.9
+WHERE category = '电子产品';
+
+-- 批量更新订单状态
+UPDATE orders
+SET status = 'completed'
+WHERE order_date < '2024-01-25' AND status = 'pending';
+
+-- 删除数据
+DELETE FROM orders
+WHERE status = 'cancelled' AND order_date < '2024-01-01';`}</pre>
+                  </div>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 5 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第5章 数据库设计</h3>
+            <div className="border-l-4 border-red-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第5章 SQL查询</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>5.1 数据库设计的基本步骤</li>
-                <li>5.2 需求分析</li>
-                <li>5.3 概念结构设计</li>
-                <li>5.4 逻辑结构设计</li>
-                <li>5.5 物理结构设计</li>
-                <li>5.6 数据库实施和维护</li>
+                <li>5.1 <strong>基本SELECT查询</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• SELECT DISTINCT：去重查询</li>
+                    <li>• WHERE条件筛选</li>
+                    <li>• ORDER BY排序</li>
+                    <li>• LIMIT分页</li>
+                  </ul>
+                </li>
+                <li>5.2 <strong>聚合函数与分组</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• COUNT()、SUM()、AVG()、MAX()、MIN()</li>
+                    <li>• GROUP BY分组</li>
+                    <li>• HAVING分组后筛选</li>
+                  </ul>
+                </li>
+                <li>5.3 <strong>连接查询（JOIN）</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• INNER JOIN：内连接，返回两表匹配行</li>
+                    <li>• LEFT JOIN：左连接，返回左表全部及右表匹配</li>
+                    <li>• RIGHT JOIN：右连接，返回右表全部及左表匹配</li>
+                    <li>• FULL OUTER JOIN：全连接</li>
+                  </ul>
+                </li>
+                <li>5.4 <strong>子查询</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• WHERE子句中的子查询</li>
+                    <li>• FROM子句中的子查询（派生表）</li>
+                    <li>• EXISTS和IN子查询</li>
+                  </ul>
+                </li>
+                <li className="bg-green-50 p-3 rounded-lg">
+                  <strong className="text-green-700">📝 例题：查询订单统计、用户行为分析</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`-- 查询所有订单及其客户信息
+SELECT 
+    o.order_id,
+    c.customer_name,
+    c.city,
+    o.order_date,
+    o.total_amount,
+    o.status
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.customer_id;
+
+-- 统计每个客户的订单数和消费总额
+SELECT 
+    c.customer_id,
+    c.customer_name,
+    COUNT(o.order_id) as order_count,
+    SUM(o.total_amount) as total_spent,
+    AVG(o.total_amount) as avg_order_value
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.customer_name
+HAVING order_count > 0
+ORDER BY total_spent DESC;
+
+-- 查询高价值客户（消费超过平均值的客户）
+SELECT 
+    c.customer_name,
+    SUM(o.total_amount) as total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.customer_name
+HAVING SUM(o.total_amount) > (
+    SELECT AVG(order_total) 
+    FROM (SELECT SUM(total_amount) as order_total 
+          FROM orders GROUP BY customer_id) as avg_orders
+)
+ORDER BY total_spent DESC;
+
+-- 查询每月销售趋势
+SELECT 
+    DATE_FORMAT(order_date, '%Y-%m') as month,
+    COUNT(*) as order_count,
+    SUM(total_amount) as monthly_revenue
+FROM orders
+WHERE status = 'completed'
+GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+ORDER BY month;
+
+-- 查询畅销商品排行
+SELECT 
+    p.product_name,
+    p.category,
+    COUNT(oi.order_id) as sales_count,
+    SUM(oi.quantity) as total_quantity
+FROM products p
+JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name, p.category
+ORDER BY total_quantity DESC
+LIMIT 10;`}</pre>
+                  </div>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 6 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第6章 数据库规范化</h3>
+            <div className="border-l-4 border-indigo-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第6章 数据库设计</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>6.1 函数依赖</li>
-                <li>6.2 范式理论</li>
-                <li>6.3 第一范式（1NF）</li>
-                <li>6.4 第二范式（2NF）</li>
-                <li>6.5 第三范式（3NF）</li>
-                <li>6.6 BCNF范式</li>
+                <li>6.1 数据库设计的基本步骤</li>
+                <li>6.2 需求分析</li>
+                <li>6.3 概念结构设计（ER图）</li>
+                <li>6.4 逻辑结构设计</li>
+                <li>6.5 物理结构设计</li>
               </ul>
             </div>
 
             {/* Chapter 7 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第7章 数据库管理与维护</h3>
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第7章 数据库规范化</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>7.1 数据库管理员的职责</li>
-                <li>7.2 数据库安全性管理</li>
-                <li>7.3 数据库完整性管理</li>
-                <li>7.4 数据库备份与恢复</li>
-                <li>7.5 数据库性能优化</li>
+                <li>7.1 函数依赖
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 完全函数依赖</li>
+                    <li>• 部分函数依赖</li>
+                    <li>• 传递函数依赖</li>
+                  </ul>
+                </li>
+                <li>7.2 范式理论
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 第一范式（1NF）：字段原子性，不可再分</li>
+                    <li>• 第二范式（2NF）：消除部分依赖</li>
+                    <li>• 第三范式（3NF）：消除传递依赖</li>
+                    <li>• BCNF范式：消除主属性对码的依赖</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 8 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第8章 数据库应用开发</h3>
+            <div className="border-l-4 border-pink-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第8章 数据库管理与维护</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>8.1 数据库应用系统架构</li>
-                <li>8.2 ODBC和JDBC</li>
-                <li>8.3 数据库连接池</li>
-                <li>8.4 事务处理</li>
-                <li>8.5 并发控制</li>
-                <li>8.6 数据库应用案例分析</li>
+                <li>8.1 数据库管理员的职责</li>
+                <li>8.2 数据库安全性管理</li>
+                <li>8.3 数据库完整性管理</li>
+                <li>8.4 数据库备份与恢复</li>
+                <li>8.5 数据库性能优化
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 索引的创建和使用</li>
+                    <li>• 查询优化</li>
+                    <li>• 慢查询分析</li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

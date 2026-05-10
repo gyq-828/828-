@@ -108,11 +108,19 @@ const SupplyChainDataAnalysisCourse: React.FC = () => {
                 <li>1.2 供应链的结构和类型</li>
                 <li>1.3 供应链管理的关键流程</li>
                 <li>1.4 供应链数据分析的作用</li>
+                <li className="bg-blue-50 p-3 rounded-lg mt-3">
+                  <strong className="text-blue-700">关键指标：</strong>
+                  <ul className="text-sm ml-4 mt-1">
+                    <li>• <strong>库存周转率</strong> = 销售成本 / 平均库存，衡量库存流转效率</li>
+                    <li>• <strong>订单履约率</strong> = 按时完成订单数 / 总订单数，反映服务水平</li>
+                    <li>• <strong>供应商准时交货率</strong> = 准时交货次数 / 总交货次数</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 2 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-green-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第2章 供应链数据采集与处理</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>2.1 供应链数据的类型和来源</li>
@@ -123,7 +131,7 @@ const SupplyChainDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 3 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-purple-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第3章 供应链绩效分析</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>3.1 供应链绩效指标体系</li>
@@ -135,31 +143,184 @@ const SupplyChainDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 4 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第4章 需求预测</h3>
+            <div className="border-l-4 border-yellow-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第4章 库存分析</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>4.1 需求预测的概念和方法</li>
-                <li>4.2 时间序列分析</li>
-                <li>4.3 回归分析</li>
-                <li>4.4 预测模型的评估和优化</li>
-                <li>4.5 预测结果的应用</li>
+                <li>4.1 <strong>ABC分类法</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• A类：价值占80%，数量占20%，重点管理</li>
+                    <li>• B类：价值占15%，数量占30%，常规管理</li>
+                    <li>• C类：价值占5%，数量占50%，简化管理</li>
+                  </ul>
+                </li>
+                <li>4.2 <strong>安全库存计算</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 安全库存 = Z值 × 需求标准差 × 提前期标准差</li>
+                    <li>• Z值：服务水平对应的正态分布分位数</li>
+                    <li>• 95%服务水平对应Z=1.65</li>
+                  </ul>
+                </li>
+                <li>4.3 <strong>库存周转率分析</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 库存周转率 = 销售成本 / 平均库存</li>
+                    <li>• 库存周转天数 = 365 / 库存周转率</li>
+                    <li>• 周转率越高，资金使用效率越好</li>
+                  </ul>
+                </li>
+                <li className="bg-green-50 p-3 rounded-lg">
+                  <strong className="text-green-700">📝 例题：对商品进行ABC分类</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`import pandas as pd
+import numpy as np
+
+# 模拟商品销售数据
+np.random.seed(42)
+products = pd.DataFrame({
+    'product_id': range(1, 101),
+    'product_name': [f'商品{i}' for i in range(1, 101)],
+    'unit_price': np.random.uniform(10, 500, 100),  # 单价
+    'quantity_sold': np.random.randint(10, 1000, 100)  # 销售数量
+})
+
+# 计算销售额
+products['sales_amount'] = products['unit_price'] * products['quantity_sold']
+
+# 按销售额降序排列
+products = products.sort_values('sales_amount', ascending=False)
+
+# 计算累计销售额和累计占比
+products['cumulative_sales'] = products['sales_amount'].cumsum()
+products['cumulative_ratio'] = products['cumulative_sales'] / products['sales_amount'].sum() * 100
+
+# ABC分类
+def classify_abc(ratio):
+    if ratio <= 80:
+        return 'A'
+    elif ratio <= 95:
+        return 'B'
+    else:
+        return 'C'
+
+products['abc_class'] = products['cumulative_ratio'].apply(classify_abc)
+
+# 统计各类占比
+print("=== ABC分类统计 ===")
+summary = products.groupby('abc_class').agg({
+    'product_id': 'count',
+    'sales_amount': 'sum'
+}).rename(columns={'product_id': 'count'})
+summary['sales_ratio'] = summary['sales_amount'] / summary['sales_amount'].sum() * 100
+print(summary)
+
+# 各类别商品列表
+print("\\n=== A类商品（前10个）===")
+print(products[products['abc_class'] == 'A'][['product_name', 'sales_amount', 'cumulative_ratio']].head(10))`}</pre>
+                  </div>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 5 */}
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">第5章 库存优化</h3>
+            <div className="border-l-4 border-red-500 pl-4">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">第5章 需求预测</h3>
               <ul className="space-y-2 text-gray-600">
-                <li>5.1 库存管理的基本概念</li>
-                <li>5.2 库存成本分析</li>
-                <li>5.3 经济订货批量模型</li>
-                <li>5.4 安全库存和服务水平</li>
-                <li>5.5 库存优化策略</li>
+                <li>5.1 <strong>时间序列基础</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 趋势成分：长期变化方向</li>
+                    <li>• 季节成分：周期性波动</li>
+                    <li>• 周期成分：非固定周期波动</li>
+                    <li>• 随机成分：不可预测的随机变动</li>
+                  </ul>
+                </li>
+                <li>5.2 <strong>移动平均法</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 简单移动平均（SMA）：预测值 = 最近n期平均值</li>
+                    <li>• 加权移动平均（WMA）：考虑各期权重</li>
+                    <li>• 适用于：需求相对稳定的产品</li>
+                  </ul>
+                </li>
+                <li>5.3 <strong>指数平滑法</strong>
+                  <ul className="text-sm ml-6 mt-1">
+                    <li>• 一次指数平滑：Ft+1 = α × Dt + (1-α) × Ft</li>
+                    <li>• 二次指数平滑（Holt）：处理趋势</li>
+                    <li>• 三次指数平滑（Holt-Winters）：处理季节性</li>
+                    <li>• α（平滑系数）：0-1之间，越大越敏感</li>
+                  </ul>
+                </li>
+                <li className="bg-blue-50 p-3 rounded-lg">
+                  <strong className="text-blue-700">📝 例题：预测下月销量</strong>
+                  <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                    <pre>{`import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 月度销售数据（过去24个月）
+months = pd.date_range(start='2022-01-01', periods=24, freq='M')
+sales = np.array([120, 135, 128, 142, 155, 168, 172, 185, 178, 165, 
+                  145, 158, 175, 190, 205, 218, 225, 238, 245, 258, 
+                  268, 280, 295, 310])
+
+df = pd.DataFrame({'date': months, 'sales': sales})
+
+# 方法1：简单移动平均
+def simple_moving_average(data, n):
+    return data.rolling(window=n).mean()
+
+df['sma_3'] = simple_moving_average(df['sales'], 3)
+df['sma_6'] = simple_moving_average(df['sales'], 6)
+
+# 方法2：指数平滑
+def exponential_smoothing(data, alpha):
+    result = [data.iloc[0]]
+    for i in range(1, len(data)):
+        result.append(alpha * data.iloc[i] + (1 - alpha) * result[-1])
+    return pd.Series(result, index=data.index)
+
+df['ema'] = exponential_smoothing(df['sales'], alpha=0.3)
+
+# 方法3：加权移动平均
+def weighted_moving_average(data, weights):
+    return data.rolling(window=len(weights)).apply(
+        lambda x: np.sum(weights * x) / np.sum(weights), raw=True)
+
+weights = [0.5, 0.3, 0.2]  # 近3期权重
+df['wma'] = weighted_moving_average(df['sales'], weights)
+
+# 预测下月销量（使用各种方法）
+print("=== 销量预测（使用前24个月数据）===")
+print(f"简单移动平均（3期）: {df['sma_3'].iloc[-1]:.2f}")
+print(f"简单移动平均（6期）: {df['sma_6'].iloc[-1]:.2f}")
+print(f"指数平滑（α=0.3）: {df['ema'].iloc[-1]:.2f}")
+print(f"加权移动平均: {df['wma'].iloc[-1]:.2f}")
+
+# 综合预测（取平均）
+forecast = (df['sma_3'].iloc[-1] + df['ema'].iloc[-1] + df['wma'].iloc[-1]) / 3
+print(f"\\n综合预测下月销量: {forecast:.2f}")
+
+# 可视化
+plt.figure(figsize=(12, 6))
+plt.plot(df['date'], df['sales'], 'b-o', label='实际销量', markersize=5)
+plt.plot(df['date'], df['sma_3'], 'g--', label='SMA(3)')
+plt.plot(df['date'], df['ema'], 'r--', label='EMA(α=0.3)')
+plt.axhline(y=forecast, color='purple', linestyle=':', label=f'预测值: {forecast:.0f}')
+plt.legend()
+plt.title('销量趋势与预测')
+plt.xlabel('日期')
+plt.ylabel('销量')
+plt.grid(True, alpha=0.3)
+plt.savefig('sales_forecast.png', dpi=300)
+plt.show()`}</pre>
+                  </div>
+                </li>
               </ul>
             </div>
 
             {/* Chapter 6 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-indigo-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第6章 物流网络分析</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>6.1 物流网络的概念和结构</li>
@@ -171,7 +332,7 @@ const SupplyChainDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 7 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-teal-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第7章 供应链风险管理</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>7.1 供应链风险的类型和来源</li>
@@ -182,7 +343,7 @@ const SupplyChainDataAnalysisCourse: React.FC = () => {
             </div>
 
             {/* Chapter 8 */}
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-pink-500 pl-4">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">第8章 供应链数据分析案例</h3>
               <ul className="space-y-2 text-gray-600">
                 <li>8.1 零售行业供应链分析案例</li>

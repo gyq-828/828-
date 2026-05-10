@@ -185,139 +185,361 @@ export default function DataAnalysisCourse() {
 
                 {/* 第2章 */}
                 <div className="border-l-4 border-green-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第2章 数据可视化技术</h3>
-                  <p className="text-gray-600 mb-4">学习数据可视化的基本原理和方法，掌握使用Python库进行数据可视化的技能。</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第2章 统计学基础</h3>
+                  <p className="text-gray-600 mb-4">学习统计学的基本概念和常用统计量，为数据分析奠定理论基础。</p>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.1</span>
-                      数据可视化的基本原理
+                      <div>
+                        <strong>描述性统计</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 均值（Mean）：数据的平均值</li>
+                          <li>• 中位数（Median）：数据排序后的中间值</li>
+                          <li>• 众数（Mode）：出现次数最多的值</li>
+                          <li>• 方差（Variance）：数据的离散程度</li>
+                          <li>• 标准差（Standard Deviation）：方差的平方根</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.2</span>
-                      Matplotlib库的使用
+                      <div>
+                        <strong>概率分布</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 正态分布（Normal Distribution）：对称的钟形曲线</li>
+                          <li>• 二项分布（Binomial Distribution）：离散型概率分布</li>
+                          <li>• 泊松分布（Poisson Distribution）：单位时间内事件发生次数</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.3</span>
-                      Seaborn库的使用
+                      <div>
+                        <strong>假设检验基础</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 原假设（H0）和备择假设（H1）</li>
+                          <li>• P值和显著性水平</li>
+                          <li>• t检验和Z检验</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.4</span>
-                      交互式数据可视化
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.5</span>
-                      数据可视化最佳实践
+                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-blue-50 p-3 rounded-lg w-full">
+                        <strong>例题：计算数据集的均值和标准差</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import numpy as np
+
+# 销售数据
+sales = [1200, 1500, 1300, 1600, 1400, 1550, 1350, 1450]
+
+# 计算统计量
+mean_sales = np.mean(sales)
+median_sales = np.median(sales)
+std_sales = np.std(sales)
+var_sales = np.var(sales)
+
+print(f"销售数据: {sales}")
+print(f"均值: {mean_sales:.2f}")
+print(f"中位数: {median_sales:.2f}")
+print(f"标准差: {std_sales:.2f}")
+print(f"方差: {var_sales:.2f}")
+
+# 使用pandas计算更多统计量
+import pandas as pd
+df = pd.DataFrame({'sales': sales})
+print(df.describe())`}</pre>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
 
                 {/* 第3章 */}
                 <div className="border-l-4 border-purple-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第3章 统计分析基础</h3>
-                  <p className="text-gray-600 mb-4">学习统计分析的基本概念和方法，掌握描述性统计和推断性统计的应用。</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第3章 数据可视化</h3>
+                  <p className="text-gray-600 mb-4">学习使用Python进行数据可视化，掌握各种图表的绘制方法和优化技巧。</p>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.1</span>
-                      描述性统计分析
+                      <div>
+                        <strong>matplotlib基础</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 折线图（Line Chart）：展示趋势变化</li>
+                          <li>• 柱状图（Bar Chart）：比较不同类别</li>
+                          <li>• 散点图（Scatter Plot）：展示两变量关系</li>
+                          <li>• 饼图（Pie Chart）：展示占比</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.2</span>
-                      概率分布
+                      <div>
+                        <strong>seaborn高级可视化</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 热力图（Heatmap）：展示相关性矩阵</li>
+                          <li>• 箱线图（Box Plot）：展示分布特征</li>
+                          <li>• 小提琴图（Violin Plot）：结合箱线图和核密度图</li>
+                          <li>• pairplot：展示多变量关系</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.3</span>
-                      假设检验
+                      <div>
+                        <strong>图表优化技巧</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 设置中文字体</li>
+                          <li>• 添加标题、标签和图例</li>
+                          <li>• 调整颜色和样式</li>
+                          <li>• 保存高清图片</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.4</span>
-                      相关分析和回归分析
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-purple-100 text-purple-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">3.5</span>
-                      方差分析
+                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-blue-50 p-3 rounded-lg w-full">
+                        <strong>例题：绘制销售趋势图</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import matplotlib.pyplot as plt
+import numpy as np
+
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 月份数据
+months = ['1月', '2月', '3月', '4月', '5月', '6月']
+sales = [1200, 1500, 1800, 1650, 2100, 2400]
+costs = [800, 950, 1100, 1050, 1300, 1500]
+
+# 创建画布
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+# 左图：销售趋势对比图
+ax1.plot(months, sales, 'b-o', label='销售额', linewidth=2, markersize=8)
+ax1.plot(months, costs, 'r--s', label='成本', linewidth=2, markersize=8)
+ax1.fill_between(months, sales, alpha=0.3)
+ax1.set_title('月度销售趋势分析', fontsize=14, fontweight='bold')
+ax1.set_xlabel('月份')
+ax1.set_ylabel('金额（元）')
+ax1.legend(loc='upper left')
+ax1.grid(True, linestyle='--', alpha=0.7)
+
+# 右图：销售构成柱状图
+categories = ['产品A', '产品B', '产品C', '产品D']
+values = [450, 380, 520, 290]
+colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+bars = ax2.bar(categories, values, color=colors, edgecolor='white', linewidth=2)
+ax2.set_title('产品销售构成', fontsize=14, fontweight='bold')
+ax2.set_ylabel('销售额（元）')
+
+# 在柱子上添加数值标签
+for bar, val in zip(bars, values):
+    ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 10, 
+             f'{val}', ha='center', fontsize=11)
+
+plt.tight_layout()
+plt.savefig('sales_analysis.png', dpi=300, bbox_inches='tight')
+plt.show()`}</pre>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
 
                 {/* 第4章 */}
                 <div className="border-l-4 border-yellow-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第4章 机器学习基础</h3>
-                  <p className="text-gray-600 mb-4">了解机器学习的基本概念和算法，掌握使用Python进行机器学习的基本技能。</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第4章 相关性分析</h3>
+                  <p className="text-gray-600 mb-4">学习变量之间相关性的分析方法，掌握相关系数的计算和可视化。</p>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.1</span>
-                      机器学习概述
+                      <div>
+                        <strong>皮尔逊相关系数</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 衡量两个变量之间线性关系的强度和方向</li>
+                          <li>• 取值范围：-1到1</li>
+                          <li>• 接近1：强正相关；接近-1：强负相关；接近0：无相关</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.2</span>
-                      监督学习算法
+                      <div>
+                        <strong>斯皮尔曼相关系数</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 衡量两个变量之间单调关系的强度</li>
+                          <li>• 不要求数据服从正态分布</li>
+                          <li>• 适用于有序数据或非线性关系</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.3</span>
-                      无监督学习算法
+                      <div>
+                        <strong>热力图绘制</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 使用seaborn的heatmap函数</li>
+                          <li>• 展示多个变量之间的相关性矩阵</li>
+                          <li>• 添加颜色标注和数据标签</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.4</span>
-                      模型评估与选择
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">4.5</span>
-                      机器学习实战
+                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-blue-50 p-3 rounded-lg w-full">
+                        <strong>例题：分析身高与体重的关系</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 创建示例数据
+np.random.seed(42)
+n = 100
+height = np.random.normal(170, 10, n)  # 身高：均值170，标准差10
+weight = 0.5 * height - 30 + np.random.normal(0, 5, n)  # 体重与身高相关
+
+# 创建DataFrame
+df = pd.DataFrame({
+    '身高(cm)': height,
+    '体重(kg)': weight,
+    '年龄': np.random.randint(18, 60, n),
+    '收入(千)': np.random.randint(5, 50, n)
+})
+
+# 计算皮尔逊相关系数
+pearson_corr, pearson_p = stats.pearsonr(df['身高(cm)'], df['体重(kg)'])
+print(f"皮尔逊相关系数: {pearson_corr:.4f}")
+print(f"P值: {pearson_p:.6f}")
+
+# 计算斯皮尔曼相关系数
+spearman_corr, spearman_p = stats.spearmanr(df['身高(cm)'], df['体重(kg)'])
+print(f"斯皮尔曼相关系数: {spearman_corr:.4f}")
+
+# 创建图形
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+# 散点图
+axes[0].scatter(df['身高(cm)'], df['体重(kg)'], alpha=0.6)
+axes[0].set_xlabel('身高(cm)')
+axes[0].set_ylabel('体重(kg)')
+axes[0].set_title(f'身高与体重关系\\n(r={pearson_corr:.3f})')
+
+# 相关性热力图
+corr_matrix = df.corr()
+sns.heatmap(corr_matrix, annot=True, cmap='RdYlBu_r', center=0, 
+            fmt='.2f', ax=axes[1])
+axes[1].set_title('变量相关性矩阵')
+
+# 分布图
+sns.regplot(x='身高(cm)', y='体重(kg)', data=df, ax=axes[2])
+axes[2].set_title('带回归线的散点图')
+
+plt.tight_layout()
+plt.savefig('correlation_analysis.png', dpi=300)
+plt.show()
+
+# 解读
+print("\\n相关性解读:")
+if pearson_corr > 0.7:
+    print("身高与体重存在强正相关关系")
+elif pearson_corr > 0.4:
+    print("身高与体重存在中等正相关关系")
+else:
+    print("身高与体重相关性较弱")`}</pre>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
 
                 {/* 第5章 */}
-                <div className="border-l-4 border-red-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第5章 商业数据分析案例</h3>
-                  <p className="text-gray-600 mb-4">通过实际商业案例，学习如何运用数据分析技术解决实际商业问题。</p>
+                <div className="border-l-4 border-yellow-500 pl-6 py-2">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第5章 机器学习基础</h3>
+                  <p className="text-gray-600 mb-4">了解机器学习的基本概念和算法，掌握使用Python进行机器学习的基本技能。</p>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.1</span>
-                      销售数据分析
+                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.1</span>
+                      机器学习概述
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.2</span>
-                      客户行为分析
+                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.2</span>
+                      监督学习算法
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.3</span>
-                      市场趋势分析
+                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.3</span>
+                      无监督学习算法
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.4</span>
-                      供应链数据分析
+                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.4</span>
+                      模型评估与选择
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.5</span>
-                      财务数据分析
+                      <span className="bg-yellow-100 text-yellow-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.5</span>
+                      机器学习实战
                     </li>
                   </ul>
                 </div>
 
                 {/* 第6章 */}
+                <div className="border-l-4 border-red-500 pl-6 py-2">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第6章 商业数据分析案例</h3>
+                  <p className="text-gray-600 mb-4">通过实际商业案例，学习如何运用数据分析技术解决实际商业问题。</p>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start">
+                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.1</span>
+                      销售数据分析
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.2</span>
+                      客户行为分析
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.3</span>
+                      市场趋势分析
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.4</span>
+                      供应链数据分析
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.5</span>
+                      财务数据分析
+                    </li>
+                  </ul>
+                </div>
+
+                {/* 第7章 */}
                 <div className="border-l-4 border-indigo-500 pl-6 py-2">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第6章 数据分析报告撰写</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">第7章 数据分析报告撰写</h3>
                   <p className="text-gray-600 mb-4">学习如何撰写专业的数据分析报告，有效传达分析结果和 insights。</p>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.1</span>
+                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.1</span>
                       数据分析报告的结构
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.2</span>
+                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.2</span>
                       报告撰写技巧
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.3</span>
+                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.3</span>
                       数据可视化在报告中的应用
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.4</span>
+                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.4</span>
                       报告展示技巧
                     </li>
                     <li className="flex items-start">
-                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">6.5</span>
+                      <span className="bg-indigo-100 text-indigo-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">7.5</span>
                       案例分析与实践
                     </li>
                   </ul>

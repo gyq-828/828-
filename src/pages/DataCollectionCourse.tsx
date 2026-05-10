@@ -189,23 +189,180 @@ export default function DataCollectionCourse() {
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.1</span>
-                      HTTP协议基础
+                      <div>
+                        <strong>HTTP协议基础</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• HTTP请求方法：GET（获取）、POST（提交）、PUT（更新）、DELETE（删除）</li>
+                          <li>• 请求头（Headers）：User-Agent、Cookie、Authorization等</li>
+                          <li>• 响应状态码：200成功、404未找到、403禁止访问、500服务器错误</li>
+                          <li>• URL结构：协议://主机:端口/路径?查询参数</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.2</span>
-                      使用requests库发送HTTP请求
+                      <div>
+                        <strong>requests库使用</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 安装：pip install requests</li>
+                          <li>• 发送GET请求：requests.get(url, params, headers)</li>
+                          <li>• 发送POST请求：requests.post(url, data, json)</li>
+                          <li>• 处理响应：response.status_code、response.text、response.json()</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.3</span>
-                      使用BeautifulSoup解析HTML
+                      <div>
+                        <strong>BeautifulSoup解析HTML</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 安装：pip install beautifulsoup4</li>
+                          <li>• 解析HTML：BeautifulSoup(html, 'html.parser')</li>
+                          <li>• 选择器：find()、find_all()、select()</li>
+                          <li>• 获取内容：.text、.get('href')、.attrs</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.4</span>
-                      使用Scrapy框架开发爬虫
+                      <div>
+                        <strong>正则表达式提取数据</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 常用模式：\d（数字）、\w（字母数字）、\s（空白）</li>
+                          <li>• 量词：*（0次以上）、+（1次以上）、?（0或1次）</li>
+                          <li>• re.findall()、re.search()、re.match()</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">2.5</span>
-                      爬虫的 ethical 考虑和法律问题
+                      <div>
+                        <strong>反爬虫策略应对</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 设置User-Agent伪装浏览器</li>
+                          <li>• 控制请求频率，避免被封IP</li>
+                          <li>• 使用代理IP池</li>
+                          <li>• 处理登录认证和验证码</li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-blue-50 p-3 rounded-lg w-full">
+                        <strong>例题：发送GET请求获取天气数据</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import requests
+import json
+
+# 发送GET请求获取天气信息
+def get_weather(city_code):
+    url = f"http://t.weather.sojson.com/api/weather/city/{city_code}"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()  # 检查HTTP错误
+        
+        data = response.json()
+        
+        if data['status'] == 200:
+            weather = data['data']
+            print(f"城市: {weather['city']}")
+            print(f"温度: {weather['wendan']}")
+            print(f"天气: {weather['forecast'][0]['type']}")
+            print(f"湿度: {weather['shidu']}")
+            print(f"风力: {weather['forecast'][0]['fl']}")
+            return weather
+        else:
+            print("获取天气信息失败")
+            
+    except requests.RequestException as e:
+        print(f"请求错误: {e}")
+
+# 使用示例
+weather_data = get_weather("101010100")  # 北京天气代码
+
+# POST请求示例：提交表单数据
+def login_demo():
+    url = "https://example.com/api/login"
+    data = {
+        "username": "user123",
+        "password": "pass123"
+    }
+    
+    response = requests.post(url, data=data)
+    print(response.json())`}</pre>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-green-50 p-3 rounded-lg w-full">
+                        <strong>例题：爬取豆瓣电影Top250</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import requests
+from bs4 import BeautifulSoup
+import re
+
+def get_douban_top250():
+    movies = []
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Cookie': 'your_cookie_here'  # 需要登录后的Cookie
+    }
+    
+    for start in range(0, 250, 25):
+        url = f"https://movie.douban.com/top250?start={start}"
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # 查找电影条目
+            items = soup.select('div.item')
+            
+            for item in items:
+                # 电影标题
+                title = item.select_one('span.title').text
+                
+                # 评分
+                rating = item.select_one('span.rating_num').text
+                
+                # 评价人数
+                people = item.select_one('span.inq')
+                comment = people.text if people else "暂无评价"
+                
+                # 年份和国家
+                info = item.select_one('divbd').text
+                year = re.search(r'\\d{4}', info)
+                year = year.group() if year else "未知"
+                
+                movies.append({
+                    'title': title,
+                    'rating': float(rating),
+                    'year': year,
+                    'comment': comment
+                })
+                
+            print(f"已爬取 {len(movies)} 部电影")
+            
+        except Exception as e:
+            print(f"爬取出错: {e}")
+            
+    return movies
+
+# 运行爬虫
+movies = get_douban_top250()
+
+# 保存为CSV
+import pandas as pd
+df = pd.DataFrame(movies)
+df.to_csv('douban_top250.csv', index=False, encoding='utf-8-sig')
+print("数据已保存到 douban_top250.csv")`}</pre>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -273,23 +430,185 @@ export default function DataCollectionCourse() {
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
                       <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.1</span>
-                      数据质量评估
+                      <div>
+                        <strong>数据质量评估</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 完整性：是否有缺失值</li>
+                          <li>• 准确性：数据是否正确</li>
+                          <li>• 一致性：数据格式是否统一</li>
+                          <li>• 时效性：数据是否最新</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.2</span>
-                      处理缺失值
+                      <div>
+                        <strong>缺失值处理</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 删除法：删除缺失行或列</li>
+                          <li>• 填充法：均值填充、中位数填充、众数填充</li>
+                          <li>• 插值法：线性插值、多项式插值</li>
+                          <li>• 预测填充：使用机器学习模型预测填充</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.3</span>
-                      处理异常值
+                      <div>
+                        <strong>异常值检测</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 3σ原则：超过均值±3倍标准差为异常</li>
+                          <li>• 箱线图法：超出1.5倍IQR的数据为异常</li>
+                          <li>• Z-score法：Z-score绝对值大于3为异常</li>
+                          <li>• 孤立森林算法</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.4</span>
-                      处理重复值
+                      <div>
+                        <strong>重复值处理</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 检测重复行：duplicated()</li>
+                          <li>• 删除重复行：drop_duplicates()</li>
+                          <li>• 保留策略：保留第一条或最后一条</li>
+                        </ul>
+                      </div>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-red-100 text-red-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">5.5</span>
-                      数据标准化和规范化
+                      <div>
+                        <strong>数据类型转换</strong>
+                        <ul className="text-sm text-gray-600 ml-4">
+                          <li>• 字符串转数值：pd.to_numeric()</li>
+                          <li>• 日期转换：pd.to_datetime()</li>
+                          <li>• 类型推断：infer_objects()</li>
+                          <li>• 统一格式：去除空格、统一大小写</li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-blue-100 text-blue-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-blue-50 p-3 rounded-lg w-full">
+                        <strong>例题：清洗脏数据、处理缺失值</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import pandas as pd
+import numpy as np
+
+# 创建包含脏数据的DataFrame
+data = {
+    'name': ['张三', '李四', None, '王五', '赵六', '张三'],
+    'age': [25, '30岁', 35, np.nan, 28, 25],
+    'salary': ['15000', 'N/A', 18000, 16000, '20000', 15000],
+    'join_date': ['2020-01-15', '2020/03/20', '2021-05-10', '2020-07-01', '2021-02-15', '2020-01-15']
+}
+df = pd.DataFrame(data)
+
+print("=== 原始数据 ===")
+print(df)
+print("\\n数据信息:")
+print(df.info())
+
+# 1. 处理重复值
+print("\\n=== 删除重复值 ===")
+df = df.drop_duplicates()
+print(df)
+
+# 2. 处理缺失值
+print("\\n=== 处理缺失值 ===")
+print("缺失值统计:")
+print(df.isnull().sum())
+
+# 数值型用均值填充
+df['age'] = pd.to_numeric(df['age'], errors='coerce')
+df['age'].fillna(df['age'].mean(), inplace=True)
+
+# 分类型用众数填充
+df['name'].fillna(df['name'].mode()[0], inplace=True)
+
+# 3. 数据类型转换
+print("\\n=== 数据类型转换 ===")
+df['salary'] = df['salary'].replace('N/A', np.nan)
+df['salary'] = pd.to_numeric(df['salary'], errors='coerce')
+df['salary'].fillna(df['salary'].median(), inplace=True)
+
+df['join_date'] = pd.to_datetime(df['join_date'])
+
+# 4. 去除空格和统一格式
+df['name'] = df['name'].str.strip()
+
+print("\\n清洗后的数据:")
+print(df)
+print("\\n数据类型:")
+print(df.dtypes)`}</pre>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-green-100 text-green-800 font-semibold rounded-full h-6 w-6 flex items-center justify-center mr-2 flex-shrink-0">📝</span>
+                      <div className="bg-green-50 p-3 rounded-lg w-full">
+                        <strong>例题：异常值检测与处理</strong>
+                        <div className="bg-gray-800 text-gray-100 p-3 rounded text-sm mt-2 overflow-x-auto">
+                          <pre>{`import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 创建包含异常值的销售数据
+np.random.seed(42)
+sales = np.random.normal(1000, 200, 100)
+sales[95:100] = [5000, 6000, -500, 8000, 10000]  # 添加异常值
+
+df = pd.DataFrame({'sales': sales})
+
+print("=== 异常值检测 ===")
+
+# 方法1：3σ原则
+mean = df['sales'].mean()
+std = df['sales'].std()
+lower_bound = mean - 3 * std
+upper_bound = mean + 3 * std
+
+outliers_3sigma = df[(df['sales'] < lower_bound) | (df['sales'] > upper_bound)]
+print(f"3σ原则检测到的异常值: {len(outliers_3sigma)} 个")
+print(f"异常值范围: < {lower_bound:.2f} 或 > {upper_bound:.2f}")
+
+# 方法2：箱线图法（IQR）
+Q1 = df['sales'].quantile(0.25)
+Q3 = df['sales'].quantile(0.75)
+IQR = Q3 - Q1
+lower_whisker = Q1 - 1.5 * IQR
+upper_whisker = Q3 + 1.5 * IQR
+
+outliers_iqr = df[(df['sales'] < lower_whisker) | (df['sales'] > upper_whisker)]
+print(f"\\nIQR法检测到的异常值: {len(outliers_iqr)} 个")
+print(f"异常值范围: < {lower_whisker:.2f} 或 > {upper_whisker:.2f}")
+
+# 可视化
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+# 箱线图
+axes[0].boxplot(df['sales'])
+axes[0].set_title('箱线图')
+axes[0].set_ylabel('销售额')
+
+# 直方图
+axes[1].hist(df['sales'], bins=30, edgecolor='black')
+axes[1].axvline(lower_bound, color='r', linestyle='--', label='3σ下界')
+axes[1].axvline(upper_bound, color='r', linestyle='--', label='3σ上界')
+axes[1].set_title('分布直方图')
+axes[1].set_xlabel('销售额')
+axes[1].legend()
+
+plt.tight_layout()
+plt.savefig('outlier_detection.png', dpi=300)
+plt.show()
+
+# 处理异常值：将异常值替换为边界值
+df_clean = df.copy()
+df_clean['sales'] = df_clean['sales'].clip(lower=lower_whisker, upper=upper_whisker)
+print(f"\\n处理后的数据范围: [{df_clean['sales'].min():.2f}, {df_clean['sales'].max():.2f}]")`}</pre>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
