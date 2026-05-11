@@ -62,16 +62,26 @@ const DataAnalysisTechSite: React.FC = () => {
     },
     {
       id: 5,
-      title: '机器学习入门',
-      description: '了解监督学习、无监督学习基本概念和Scikit-learn使用',
+      title: '聚类算法实战',
+      description: '掌握KMeans、DBSCAN、层次聚类等常用聚类算法的原理与实现',
       difficulty: '中级',
       duration: '3周',
       icon: <Brain className="w-6 h-6" />,
-      codeTemplate: 'from sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import accuracy_score\n\n# 加载数据\niris = load_iris()\nX, y = iris.data, iris.target\n\n# 划分训练集和测试集\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# 训练模型\nclf = RandomForestClassifier(n_estimators=100, random_state=42)\nclf.fit(X_train, y_train)\n\n# 预测和评估\ny_pred = clf.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\nprint(f"模型准确率: {accuracy:.4f}")',
-      expectedOutput: '模型准确率: 1.0000'
+      codeTemplate: 'from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering\nfrom sklearn.datasets import make_blobs\nimport matplotlib.pyplot as plt\n\n# 生成模拟数据\nX, _ = make_blobs(n_samples=150, n_features=2, centers=3, random_state=42)\n\n# KMeans聚类\nkmeans = KMeans(n_clusters=3, random_state=42)\nkmeans_labels = kmeans.fit_predict(X)\n\n# DBSCAN聚类\ndbscan = DBSCAN(eps=0.5, min_samples=5)\ndbscan_labels = dbscan.fit_predict(X)\n\n# 层次聚类\nhierarchical = AgglomerativeClustering(n_clusters=3)\nhierarchical_labels = hierarchical.fit_predict(X)\n\nprint("KMeans聚类结果:", set(kmeans_labels))\nprint("DBSCAN聚类结果:", set(dbscan_labels))\nprint("层次聚类结果:", set(hierarchical_labels))',
+      expectedOutput: 'KMeans聚类结果: {0, 1, 2}\nDBSCAN聚类结果: {0, 1, 2}\n层次聚类结果: {0, 1, 2}'
     },
     {
       id: 6,
+      title: '聚类算法可视化',
+      description: '交互式演示聚类算法执行过程，直观理解聚类原理',
+      difficulty: '中级',
+      duration: '2周',
+      icon: <BarChart3 className="w-6 h-6" />,
+      codeTemplate: '# 聚类算法可视化演示\n# 访问可视化模块查看动态演示\n# 支持算法: KMeans, KMeans++, DBSCAN, OPTICS, 层次聚类, GMM\n\nprint("聚类算法可视化模块已集成")\nprint("支持以下聚类算法:")\nprint("1. KMeans - 基于距离的划分聚类")\nprint("2. KMeans++ - 改进的KMeans，优化初始中心")\nprint("3. DBSCAN - 基于密度的聚类")\nprint("4. OPTICS - DBSCAN改进版，支持可变密度")\nprint("5. 层次聚类 - 自底向上的聚合聚类")\nprint("6. GMM - 高斯混合模型，软聚类")',
+      expectedOutput: '聚类算法可视化模块已集成\n支持以下聚类算法:\n1. KMeans - 基于距离的划分聚类\n2. KMeans++ - 改进的KMeans，优化初始中心\n3. DBSCAN - 基于密度的聚类\n4. OPTICS - DBSCAN改进版，支持可变密度\n5. 层次聚类 - 自底向上的聚合聚类\n6. GMM - 高斯混合模型，软聚类'
+    },
+    {
+      id: 7,
       title: '特征工程',
       description: '掌握特征选择、特征提取和特征转换技术',
       difficulty: '中级',
@@ -81,7 +91,7 @@ const DataAnalysisTechSite: React.FC = () => {
       expectedOutput: '  类别  数值1  数值2  类别编码  数值1标准化  数值2标准化\n0   A     10    100       0   -1.341641   -1.341641\n1   B     20    200       1    0.447214    0.447214\n2   A     15    150       0   -0.447214   -0.447214\n3   C     25    250       2    1.341641    1.341641'
     },
     {
-      id: 7,
+      id: 8,
       title: '时间序列分析',
       description: '学习时间序列建模、趋势分析和预测方法',
       difficulty: '高级',
@@ -91,7 +101,7 @@ const DataAnalysisTechSite: React.FC = () => {
       expectedOutput: '时间序列数据:\n2024-01-01    100\n2024-01-02    102\n2024-01-03    105\n2024-01-04    103\n2024-01-05    108\n2024-01-06    110\n2024-01-07    112\n2024-01-08    115\n2024-01-09    113\n2024-01-10    118\nFreq: D, dtype: int64\n\n3日移动平均:\n2024-01-01          NaN\n2024-01-02          NaN\n2024-01-03    102.333333\n2024-01-04    103.333333\n2024-01-05    105.333333\n2024-01-06    107.000000\n2024-01-07    110.000000\n2024-01-08    112.333333\n2024-01-09    113.333333\n2024-01-10    115.333333\nFreq: D, dtype: float64\n\n日增长率(%):\n2024-01-01         NaN\n2024-01-02    2.000000\n2024-01-03    2.941176\n2024-01-04   -1.904762\n2024-01-05    4.854369\n2024-01-06    1.851852\n2024-01-07    1.818182\n2024-01-08    2.678571\n2024-01-09   -1.739130\n2024-01-10    4.424779\nFreq: D, dtype: float64'
     },
     {
-      id: 8,
+      id: 9,
       title: '深度学习基础',
       description: '了解神经网络、TensorFlow和PyTorch框架使用',
       difficulty: '高级',
@@ -101,7 +111,7 @@ const DataAnalysisTechSite: React.FC = () => {
       expectedOutput: 'Model: "sequential"\n_________________________________________________________________\n Layer (type)                Output Shape              Param #   \n=================================================================\n dense (Dense)               (None, 10)                50        \n                                                                 \n dense_1 (Dense)             (None, 3)                 33        \n                                                                 \n=================================================================\nTotal params: 83\nTrainable params: 83\nNon-trainable params: 0\n_________________________________________________________________\n\n模型创建成功！'
     },
     {
-      id: 9,
+      id: 10,
       title: '自然语言处理',
       description: '学习文本分析、情感分析和文本分类技术',
       difficulty: '高级',
@@ -111,7 +121,7 @@ const DataAnalysisTechSite: React.FC = () => {
       expectedOutput: '文本: 产品质量不错\n情感分析结果: 正面'
     },
     {
-      id: 10,
+      id: 11,
       title: '推荐系统',
       description: '掌握协同过滤、内容推荐和混合推荐算法',
       difficulty: '高级',
@@ -121,7 +131,7 @@ const DataAnalysisTechSite: React.FC = () => {
       expectedOutput: '用户相似度矩阵:\n[[1.    0.929 0.178 0.169 0.297]\n [0.929 1.    0.26  0.196 0.346]\n [0.178 0.26  1.    0.628 0.707]\n [0.169 0.196 0.628 1.    0.995]\n [0.297 0.346 0.707 0.995 1.   ]]\n\n与用户0最相似的用户: [1 4 2 3]\n\n为用户0推荐的物品:\n  物品2: 预测评分 2.50'
     },
     {
-      id: 11,
+      id: 12,
       title: '数据安全与隐私',
       description: '学习数据加密、脱敏技术和隐私保护方法',
       difficulty: '高级',
@@ -174,16 +184,26 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '方差分析', content: '方差分析(ANOVA)用于比较三组或更多组数据的均值差异。' }
     ],
     5: [
-      { title: '机器学习概述', content: '机器学习是人工智能的一个分支，使计算机能够从数据中学习规律而无需明确编程。' },
-      { title: '监督学习', content: '监督学习使用带标签的数据训练模型，包括分类和回归两种主要任务。' },
-      { title: '无监督学习', content: '无监督学习使用无标签数据，主要任务包括聚类和降维。' },
-      { title: 'Scikit-learn', content: 'Scikit-learn是Python最流行的机器学习库，提供了统一的API和各种算法实现。' },
-      { title: '模型训练', content: '模型训练是通过优化算法调整模型参数，使模型在训练数据上表现良好的过程。' },
-      { title: '模型评估', content: '使用准确率、精确率、召回率、F1分数等指标评估分类模型的性能。' },
-      { title: '交叉验证', content: '交叉验证是一种评估模型泛化能力的技术，可以减少对特定训练集的依赖。' },
-      { title: '超参数调优', content: '超参数是模型训练前需要设置的参数，可以使用网格搜索或随机搜索进行优化。' }
+      { title: '聚类概述', content: '聚类是无监督学习的核心任务，将数据点分组到不同的簇中，使同一簇内的数据点相似度高，不同簇间相似度低。' },
+      { title: 'KMeans算法', content: 'KMeans是最常用的聚类算法，通过迭代优化将数据划分为K个簇，每个簇的质心是簇内所有点的均值。' },
+      { title: 'DBSCAN算法', content: 'DBSCAN是基于密度的聚类算法，无需指定簇数，能发现任意形状的簇并识别噪声点。' },
+      { title: '层次聚类', content: '层次聚类自底向上逐步合并距离最近的簇，形成层次化的聚类结构。' },
+      { title: '聚类评估指标', content: '常用评估指标包括轮廓系数、Calinski-Harabasz指数、Davies-Bouldin指数等。' },
+      { title: '肘部法则', content: '肘部法则通过绘制不同K值对应的SSE曲线，选择拐点处的K作为最佳簇数。' },
+      { title: '聚类可视化', content: '使用散点图、PCA降维、t-SNE等方法可视化聚类结果，直观理解数据分布。' },
+      { title: '聚类应用场景', content: '聚类广泛应用于客户细分、图像分割、文档分类、异常检测等领域。' }
     ],
     6: [
+      { title: '可视化模块概述', content: '聚类算法可视化模块提供交互式演示，帮助理解聚类算法的执行过程和结果。' },
+      { title: 'KMeans++优化', content: 'KMeans++改进了初始中心选择策略，提高算法收敛速度和稳定性。' },
+      { title: 'OPTICS算法', content: 'OPTICS是DBSCAN的改进版，支持可变密度的数据，生成可达性图。' },
+      { title: 'GMM模型', content: '高斯混合模型是概率模型，假设数据由多个高斯分布混合生成，支持软聚类。' },
+      { title: 'EM算法', content: '期望最大化算法是GMM的训练方法，交替进行期望步和最大化步更新参数。' },
+      { title: '算法对比', content: '不同聚类算法各有优劣，需要根据数据特点和需求选择合适的算法。' },
+      { title: '参数调优', content: '聚类算法对参数敏感，需要通过实验和验证选择最优参数配置。' },
+      { title: '实践建议', content: '聚类前应进行数据预处理，尝试多种算法并评估结果，结合领域知识解释聚类结果。' }
+    ],
+    7: [
       { title: '特征工程概述', content: '特征工程是将原始数据转换为更适合机器学习模型的特征的过程，是建模的关键步骤。' },
       { title: '特征选择', content: '特征选择是从所有可用特征中选择最相关特征的过程，可以提高模型性能和可解释性。' },
       { title: '特征提取', content: '特征提取是从原始数据创建新特征的过程，如从文本中提取关键词、从图像中提取边缘等。' },
@@ -193,7 +213,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '降维技术', content: '降维技术如PCA可以减少特征数量，同时保留数据的主要信息。' },
       { title: '特征重要性', content: '通过特征重要性分析可以了解哪些特征对模型预测贡献最大。' }
     ],
-    7: [
+    8: [
       { title: '时间序列概述', content: '时间序列是按时间顺序排列的数据点序列，广泛应用于金融、经济、气象等领域。' },
       { title: '时间序列组件', content: '时间序列通常包含趋势、季节性、周期性和随机波动四个组成部分。' },
       { title: '平稳性', content: '平稳时间序列的统计特性不随时间变化，许多时间序列模型要求数据是平稳的。' },
@@ -203,7 +223,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '季节性分解', content: '季节性分解可以将时间序列分解为趋势、季节性和残差成分。' },
       { title: '预测评估', content: '使用MAE、RMSE、MAPE等指标评估时间序列预测模型的性能。' }
     ],
-    8: [
+    9: [
       { title: '深度学习概述', content: '深度学习是机器学习的一个子领域，使用多层神经网络学习数据的层次化表示。' },
       { title: '神经网络基础', content: '神经网络由输入层、隐藏层和输出层组成，每层包含多个神经元节点。' },
       { title: '激活函数', content: '激活函数引入非线性，使神经网络能够学习复杂的模式，常用ReLU、Sigmoid、Tanh等。' },
@@ -213,7 +233,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '卷积神经网络', content: 'CNN是专门处理图像数据的神经网络架构，通过卷积层提取空间特征。' },
       { title: '循环神经网络', content: 'RNN适合处理序列数据，可以捕捉时间依赖性，LSTM和GRU是常见的变体。' }
     ],
-    9: [
+    10: [
       { title: 'NLP概述', content: '自然语言处理是使计算机理解、解释和生成人类语言的技术领域。' },
       { title: '文本预处理', content: '文本预处理包括分词、去除停用词、词干提取等步骤，是NLP任务的基础。' },
       { title: '词袋模型', content: '词袋模型将文本表示为词的集合，忽略语法和词序，只关注词频。' },
@@ -223,7 +243,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '文本分类', content: '文本分类是将文本分配到预定义类别的任务，如垃圾邮件检测、主题分类等。' },
       { title: '序列标注', content: '序列标注是为文本中每个词分配标签的任务，如命名实体识别、词性标注等。' }
     ],
-    10: [
+    11: [
       { title: '推荐系统概述', content: '推荐系统是根据用户的历史行为和偏好，为用户推荐可能感兴趣的物品的系统。' },
       { title: '协同过滤', content: '协同过滤基于用户-物品交互数据，找到相似用户或相似物品进行推荐。' },
       { title: '基于用户的协同过滤', content: '找到与目标用户兴趣相似的其他用户，推荐这些用户喜欢的物品。' },
@@ -233,7 +253,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { title: '混合推荐', content: '结合多种推荐方法的优势，提供更准确和多样化的推荐结果。' },
       { title: '推荐评估', content: '使用准确率、召回率、覆盖率、多样性等指标评估推荐系统的性能。' }
     ],
-    11: [
+    12: [
       { title: '数据安全概述', content: '数据安全是保护数据免受未经授权访问、使用、披露、破坏或修改的措施。' },
       { title: '数据加密', content: '加密是将数据转换为不可读格式的过程，只有拥有密钥的授权方才能解密。' },
       { title: '哈希算法', content: '哈希算法将任意长度数据映射为固定长度哈希值，常用于密码存储和数据完整性验证。' },
@@ -295,18 +315,30 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: '置信区间表示什么？', options: ['数据范围', '估计的不确定性', '样本大小', '显著性水平'], correct: 1 }
     ],
     5: [
-      { question: '监督学习和无监督学习的主要区别是？', options: ['算法复杂度', '是否有标签', '数据量大小', '训练时间'], correct: 1 },
-      { question: '分类任务的输出是？', options: ['连续值', '离散类别', '概率值', '时间序列'], correct: 1 },
-      { question: 'Scikit-learn中随机森林的类名是？', options: ['RandomForest', 'RandomForestClassifier', 'RandomTree', 'ForestClassifier'], correct: 1 },
-      { question: '交叉验证的主要目的是？', options: ['加速训练', '评估泛化能力', '减少内存使用', '增加特征'], correct: 1 },
-      { question: '过拟合的表现是？', options: ['训练误差高', '测试误差高', '训练误差低但测试误差高', '训练测试误差都低'], correct: 2 },
-      { question: 'K折交叉验证中K通常取？', options: ['2', '5或10', '100', '数据量'], correct: 1 },
-      { question: '网格搜索用于优化什么？', options: ['模型结构', '超参数', '损失函数', '评估指标'], correct: 1 },
-      { question: '准确率(Accuracy)的计算是？', options: ['TP/(TP+FP)', '(TP+TN)/总数', 'TP/(TP+FN)', '2*(Precision*Recall)/(Precision+Recall)'], correct: 1 },
-      { question: '集成学习的方法是？', options: ['使用单一模型', '组合多个模型', '减少特征', '增加数据'], correct: 1 },
-      { question: '训练集、验证集、测试集的划分比例通常是？', options: ['50:25:25', '60:20:20', '70:15:15', '80:10:10'], correct: 3 }
+      { question: 'KMeans算法属于哪种聚类方法？', options: ['基于密度', '基于划分', '层次聚类', '基于模型'], correct: 1 },
+      { question: 'DBSCAN算法需要预先指定簇数吗？', options: ['需要', '不需要', '视情况而定', '不确定'], correct: 1 },
+      { question: 'KMeans中每个簇的中心是？', options: ['随机点', '离群点', '簇内点的均值', '最远点'], correct: 2 },
+      { question: 'DBSCAN中标记为噪声的点满足什么条件？', options: ['邻域内点数足够', '邻域内点数不足', '距离太远', '距离太近'], correct: 1 },
+      { question: '层次聚类的合并策略通常基于什么？', options: ['距离', '密度', '概率', '相似度'], correct: 0 },
+      { question: '肘部法则用于确定什么？', options: ['学习率', '簇数K', '迭代次数', '收敛阈值'], correct: 1 },
+      { question: '轮廓系数的取值范围是？', options: ['[0, 1]', '[-1, 1]', '[0, 100]', '[-100, 100]'], correct: 1 },
+      { question: 'Scikit-learn中KMeans的类名是？', options: ['KMeans', 'Kmeans', 'K_Means', 'KMean'], correct: 0 },
+      { question: '层次聚类生成的是什么结构？', options: ['树状结构', '线性结构', '图结构', '网状结构'], correct: 0 },
+      { question: '聚类算法主要用于什么任务？', options: ['分类', '回归', '降维', '数据分组'], correct: 3 }
     ],
     6: [
+      { question: 'KMeans++改进了KMeans的哪个方面？', options: ['收敛速度', '初始中心选择', '距离计算', '簇数确定'], correct: 1 },
+      { question: 'OPTICS算法是对哪种算法的改进？', options: ['KMeans', 'DBSCAN', '层次聚类', 'GMM'], correct: 1 },
+      { question: 'GMM模型支持哪种聚类方式？', options: ['硬聚类', '软聚类', '半监督聚类', '强化学习'], correct: 1 },
+      { question: 'EM算法用于训练什么模型？', options: ['决策树', 'GMM', 'SVM', '随机森林'], correct: 1 },
+      { question: '哪个算法能自动识别噪声点？', options: ['KMeans', 'DBSCAN', '层次聚类', 'GMM'], correct: 1 },
+      { question: '高斯混合模型假设数据服从什么分布？', options: ['均匀分布', '高斯分布', '泊松分布', '二项分布'], correct: 1 },
+      { question: 'OPTICS算法的优势是什么？', options: ['速度快', '支持可变密度', '内存占用小', '实现简单'], correct: 1 },
+      { question: 'KMeans++选择初始中心的策略是？', options: ['随机选择', '距离越远概率越大', '均匀分布', '按顺序选择'], correct: 1 },
+      { question: '软聚类与硬聚类的区别是？', options: ['计算速度', '是否允许模糊归属', '内存占用', '结果可视化'], correct: 1 },
+      { question: '哪个算法不需要预先指定簇数？', options: ['KMeans', 'GMM', 'DBSCAN', 'KMeans++'], correct: 2 }
+    ],
+    7: [
       { question: '特征工程的主要目的是？', options: ['增加数据量', '提高模型性能', '减少训练时间', '简化模型'], correct: 1 },
       { question: '独热编码(One-Hot)用于处理什么类型数据？', options: ['数值数据', '分类数据', '时间数据', '文本数据'], correct: 1 },
       { question: 'PCA是一种什么技术？', options: ['特征选择', '降维', '特征提取', '数据清洗'], correct: 1 },
@@ -318,7 +350,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: '标准化(StandardScaler)使用什么统计量？', options: ['最小最大值', '均值和标准差', '中位数和IQR', '众数'], correct: 1 },
       { question: '文本特征提取常用的方法是？', options: ['TF-IDF', 'One-Hot', '标准化', '归一化'], correct: 0 }
     ],
-    7: [
+    8: [
       { question: '时间序列数据的特点是？', options: ['独立性', '时间依赖性', '随机性', '均匀性'], correct: 1 },
       { question: '时间序列的四个组成部分不包括？', options: ['趋势', '季节性', '周期性', '相关性'], correct: 3 },
       { question: 'ARIMA模型中I代表什么？', options: ['自回归', '差分', '移动平均', '积分'], correct: 1 },
@@ -330,7 +362,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: '时间序列预测评估指标不包括？', options: ['MAE', 'RMSE', 'R²', '准确率'], correct: 3 },
       { question: 'SARIMA与ARIMA的区别是？', options: ['多了季节性成分', '多了趋势成分', '多了周期性', '没有区别'], correct: 0 }
     ],
-    8: [
+    9: [
       { question: '深度学习中的深度指的是？', options: ['数据量大', '网络层数多', '训练时间长', '特征维度高'], correct: 1 },
       { question: 'ReLU激活函数的公式是？', options: ['f(x)=x', 'f(x)=max(0,x)', 'f(x)=1/(1+e^-x)', 'f(x)=tanh(x)'], correct: 1 },
       { question: '反向传播算法用于？', options: ['前向计算', '计算梯度更新权重', '数据预处理', '模型评估'], correct: 1 },
@@ -342,7 +374,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: '批量归一化(BatchNorm)的作用是？', options: ['增加层数', '加速训练稳定分布', '减少参数', '增加正则化'], correct: 1 },
       { question: '深度学习模型训练时常用的优化器是？', options: ['SGD', 'Adam', 'RMSprop', '以上都是'], correct: 3 }
     ],
-    9: [
+    10: [
       { question: 'NLP中的分词是指？', options: ['分割句子', '将文本分割成词或字', '分割段落', '分割文档'], correct: 1 },
       { question: 'TF-IDF中IDF表示？', options: ['词频', '逆文档频率', '文档频率', '词权重'], correct: 1 },
       { question: '词嵌入(Word Embedding)将词表示为？', options: ['独热向量', '低维稠密向量', '整数索引', '字符串'], correct: 1 },
@@ -354,7 +386,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: 'BERT是基于什么架构？', options: ['CNN', 'RNN', 'Transformer', 'LSTM'], correct: 2 },
       { question: 'Seq2Seq模型常用于？', options: ['文本分类', '机器翻译', '情感分析', '命名实体识别'], correct: 1 }
     ],
-    10: [
+    11: [
       { question: '协同过滤基于什么进行推荐？', options: ['物品内容', '用户行为', '专家知识', '随机选择'], correct: 1 },
       { question: '冷启动问题是指？', options: ['系统故障', '新用户或新物品缺乏历史数据', '算法复杂', '计算速度慢'], correct: 1 },
       { question: '余弦相似度用于衡量什么？', options: ['距离', '向量方向相似性', '大小差异', '时间差异'], correct: 1 },
@@ -366,7 +398,7 @@ const DataAnalysisTechSite: React.FC = () => {
       { question: 'Top-N推荐是指？', options: ['推荐N个物品', '推荐前N%物品', '推荐N类物品', '推荐N天内的物品'], correct: 0 },
       { question: '隐式反馈包括？', options: ['评分', '点击、浏览', '评论', '点赞'], correct: 1 }
     ],
-    11: [
+    12: [
       { question: '数据加密的主要目的是？', options: ['压缩数据', '保护数据机密性', '加速传输', '方便存储'], correct: 1 },
       { question: '哈希函数的特点是？', options: ['可逆', '不可逆', '压缩', '加密'], correct: 1 },
       { question: '数据脱敏是指？', options: ['删除数据', '对敏感数据变形处理', '加密数据', '备份数据'], correct: 1 },

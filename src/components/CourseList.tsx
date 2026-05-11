@@ -39,11 +39,11 @@ export default function CourseList() {
       link: '/data-analysis-tech'
     },
     {
-      id: 'kmeans-visualizer',
-      name: 'KMeans聚类可视化',
-      description: '交互式KMeans聚类算法演示，可视化展示数据点归属变化和聚类中心移动过程。',
+      id: 'cluster-visualizer',
+      name: '聚类算法可视化',
+      description: '交互式演示KMeans、DBSCAN、层次聚类三种算法，观察数据点如何逐步归属于不同簇。',
       icon: '🧮',
-      link: '/kmeans-visualizer'
+      link: '/cluster-visualizer'
     },
     {
       id: 'data-collection',
