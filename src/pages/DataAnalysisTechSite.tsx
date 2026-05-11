@@ -308,7 +308,7 @@ const DataAnalysisTechSite: React.FC = () => {
     ],
     6: [
       { question: '特征工程的主要目的是？', options: ['增加数据量', '提高模型性能', '减少训练时间', '简化模型'], correct: 1 },
-      { title: '独热编码(One-Hot)用于处理什么类型数据？', options: ['数值数据', '分类数据', '时间数据', '文本数据'], correct: 1 },
+      { question: '独热编码(One-Hot)用于处理什么类型数据？', options: ['数值数据', '分类数据', '时间数据', '文本数据'], correct: 1 },
       { question: 'PCA是一种什么技术？', options: ['特征选择', '降维', '特征提取', '数据清洗'], correct: 1 },
       { question: '特征缩放的主要目的是？', options: ['去除异常值', '统一量纲防止某些特征主导', '增加特征数量', '减少缺失值'], correct: 1 },
       { question: '标签编码(Label Encoding)的问题是？', options: ['增加维度', '引入虚假顺序关系', '丢失信息', '计算复杂'], correct: 1 },

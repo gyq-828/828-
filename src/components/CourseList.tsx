@@ -39,6 +39,13 @@ export default function CourseList() {
       link: '/data-analysis-tech'
     },
     {
+      id: 'kmeans-visualizer',
+      name: 'KMeans聚类可视化',
+      description: '交互式KMeans聚类算法演示，可视化展示数据点归属变化和聚类中心移动过程。',
+      icon: '🧮',
+      link: '/kmeans-visualizer'
+    },
+    {
       id: 'data-collection',
       name: '数据采集与处理',
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',

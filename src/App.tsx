@@ -11,6 +11,7 @@ import EnterpriseFinancialDataAnalysisCourse from "@/pages/EnterpriseFinancialDa
 import DataAnalysisDeepLearning from "@/pages/deep-learning/DataAnalysisDeepLearning";
 import FinancialDataAnalysisDeepLearning from "@/pages/deep-learning/FinancialDataAnalysisDeepLearning";
 import DataAnalysisTechSite from "@/pages/DataAnalysisTechSite";
+import KMeansVisualizer from "@/components/KMeansVisualizer";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/deep-learning/data-analysis" element={<DataAnalysisDeepLearning />} />
         <Route path="/deep-learning/financial" element={<FinancialDataAnalysisDeepLearning />} />
         <Route path="/data-analysis-tech" element={<DataAnalysisTechSite />} />
+        <Route path="/kmeans-visualizer" element={<KMeansVisualizer />} />
       </Routes>
     </Router>
   );
