@@ -1,0 +1,10 @@
+name = "new-site"
+type = "static"
+
+[build]
+command = "pnpm install && pnpm run build"
+publishDir = "dist"
+
+[[pages]]
+source = "src"
+destination = "dist"
