@@ -1,10 +1,6 @@
-name = "new-site"
-type = "static"
+name = "828"
+compatibility_date = "2024-01-01"
 
-[build]
-command = "pnpm install && pnpm run build"
-publishDir = "dist"
-
-[[pages]]
-source = "src"
-destination = "dist"
+[pages]
+project_name = "828"
+build_output_dir = "dist"
