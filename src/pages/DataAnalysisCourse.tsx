@@ -644,6 +644,58 @@ else:
             </div>
           </section>
 
+          {/* 理论知识测验 */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-purple-600">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              理论知识测验
+            </h2>
+            <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl shadow-lg p-8 text-white">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold mb-3">检验你的学习成果</h3>
+                  <p className="text-lg opacity-90 mb-4">
+                    通过12道精选选择题，全面检验你对数据分析技术理论知识的掌握程度。
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                      📊 描述性统计
+                    </span>
+                    <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                      🔧 数据预处理
+                    </span>
+                    <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                      📈 数据可视化
+                    </span>
+                    <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                      🤖 机器学习
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Link 
+                    to="/data-analysis-quiz" 
+                    className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-full hover:bg-purple-50 transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+                  >
+                    <span className="mr-2">📝</span>
+                    开始测验
+                  </Link>
+                  <Link 
+                    to="/data-analysis-tech" 
+                    className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:bg-opacity-10 transition-colors duration-300 flex items-center justify-center"
+                  >
+                    <span className="mr-2">💻</span>
+                    实训项目
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* 深入学习 */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">

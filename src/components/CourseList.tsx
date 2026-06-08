@@ -6,6 +6,7 @@ interface Course {
   description: string
   icon: string
   link?: string
+  quizLink?: string
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
   prerequisites?: string[]
   order?: number
@@ -25,6 +26,7 @@ export default function CourseList() {
       description: '学习Python编程语言的基础知识，包括语法、数据类型、函数、模块等。',
       icon: '🐍',
       link: '/python',
+      quizLink: '/python-quiz',
       difficulty: 'beginner',
       prerequisites: [],
       order: 1
@@ -45,6 +47,7 @@ export default function CourseList() {
       description: '掌握数据分析的基本方法和工具，包括数据可视化、统计分析等。',
       icon: '📊',
       link: '/data-analysis',
+      quizLink: '/data-analysis-quiz',
       difficulty: 'intermediate',
       prerequisites: ['Python基础'],
       order: 4
@@ -75,6 +78,7 @@ export default function CourseList() {
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',
       icon: '🔍',
       link: '/data-collection',
+      quizLink: '/data-collection-quiz',
       difficulty: 'intermediate',
       prerequisites: ['Python基础'],
       order: 3
@@ -105,6 +109,7 @@ export default function CourseList() {
       description: '了解数据库的基本原理，掌握SQL语言和数据库设计方法。',
       icon: '💾',
       link: '/database',
+      quizLink: '/database-quiz',
       difficulty: 'beginner',
       prerequisites: ['Python基础'],
       order: 9
@@ -115,6 +120,7 @@ export default function CourseList() {
       description: '学习如何分析企业财务数据，评估企业财务状况和经营绩效。',
       icon: '💰',
       link: '/financial',
+      quizLink: '/financial-quiz',
       difficulty: 'advanced',
       prerequisites: ['数据分析技术', '数据库原理与应用'],
       order: 10
@@ -189,15 +195,25 @@ export default function CourseList() {
                   </div>
                 )}
                 
-                <a 
-                  href={course.link || `#${course.id}`} 
-                  className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 group-hover:translate-x-2"
-                >
-                  查看详情
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
-                    <path d="m9 18 6-6-6-6"/>
-                  </svg>
-                </a>
+                <div className="flex flex-wrap gap-3">
+                  <a 
+                    href={course.link || `#${course.id}`} 
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 group-hover:translate-x-1"
+                  >
+                    查看详情
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                      <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                  </a>
+                  {course.quizLink && (
+                    <a 
+                      href={course.quizLink} 
+                      className="inline-flex items-center text-purple-600 hover:text-purple-800 font-medium transition-all duration-300"
+                    >
+                      📝 理论测验
+                    </a>
+                  )}
+                </div>
               </div>
             );
           })}

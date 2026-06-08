@@ -12,6 +12,11 @@ import DataAnalysisDeepLearning from "@/pages/deep-learning/DataAnalysisDeepLear
 import FinancialDataAnalysisDeepLearning from "@/pages/deep-learning/FinancialDataAnalysisDeepLearning";
 import DataAnalysisTechSite from "@/pages/DataAnalysisTechSite";
 import ClusterVisualizer from "@/components/ClusterVisualizer";
+import PythonQuiz from "@/pages/PythonQuiz";
+import DataAnalysisQuiz from "@/pages/DataAnalysisQuiz";
+import DataCollectionQuiz from "@/pages/DataCollectionQuiz";
+import DatabaseQuiz from "@/pages/DatabaseQuiz";
+import FinancialQuiz from "@/pages/FinancialQuiz";
 
 export default function App() {
   return (
@@ -20,12 +25,17 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/python" element={<PythonCourse />} />
         <Route path="/python-training" element={<PythonTraining />} />
+        <Route path="/python-quiz" element={<PythonQuiz />} />
         <Route path="/data-analysis" element={<DataAnalysisCourse />} />
+        <Route path="/data-analysis-quiz" element={<DataAnalysisQuiz />} />
         <Route path="/data-collection" element={<DataCollectionCourse />} />
         <Route path="/data-collection-training" element={<DataCollectionTraining />} />
+        <Route path="/data-collection-quiz" element={<DataCollectionQuiz />} />
         <Route path="/supply-chain" element={<SupplyChainDataAnalysisCourse />} />
         <Route path="/database" element={<DatabasePrinciplesCourse />} />
+        <Route path="/database-quiz" element={<DatabaseQuiz />} />
         <Route path="/financial" element={<EnterpriseFinancialDataAnalysisCourse />} />
+        <Route path="/financial-quiz" element={<FinancialQuiz />} />
         <Route path="/deep-learning/data-analysis" element={<DataAnalysisDeepLearning />} />
         <Route path="/deep-learning/financial" element={<FinancialDataAnalysisDeepLearning />} />
         <Route path="/data-analysis-tech" element={<DataAnalysisTechSite />} />
