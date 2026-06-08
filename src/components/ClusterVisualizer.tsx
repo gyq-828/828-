@@ -808,15 +808,19 @@ const ClusterVisualizer: React.FC = () => {
   const clusterCounts = getClusterCounts();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            <BarChart3 className="inline-block w-8 h-8 mr-2 text-blue-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
+            <Sparkles className="w-5 h-5 text-blue-600" />
+            <span className="text-sm text-blue-700 font-medium">交互式学习工具</span>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-3">
+            <BarChart3 className="inline-block w-10 h-10 mr-3 text-blue-600" />
             聚类算法可视化演示
           </h1>
-          <p className="text-gray-600">
-            交互式演示多种聚类算法的执行过程，观察数据点如何逐步归属于不同的簇
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            选择不同的聚类算法，观察数据点如何逐步归属于不同的簇。通过调整参数，理解不同算法的工作原理和适用场景。
           </p>
         </div>
         
@@ -1013,127 +1017,189 @@ const ClusterVisualizer: React.FC = () => {
           </div>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-xl p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <Info className="w-5 h-5 text-blue-600" />
-            <h2 className="text-xl font-bold text-gray-800">聚类结果统计</h2>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {centers.map((center, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-xl border-2 transition-all hover:shadow-md"
-                style={{ borderColor: CLUSTER_COLORS[idx % CLUSTER_COLORS.length] }}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <div
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: CLUSTER_COLORS[idx % CLUSTER_COLORS.length] }}
-                  />
-                  <span className="font-bold text-gray-800">簇 {idx + 1}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-5 h-5 text-blue-600" />
+              <h2 className="text-xl font-bold text-gray-800">聚类结果统计</h2>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {centers.map((center, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl border-2 transition-all hover:shadow-md hover:-translate-y-1"
+                  style={{ borderColor: CLUSTER_COLORS[idx % CLUSTER_COLORS.length] }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <div
+                      className="w-4 h-4 rounded-full animate-pulse"
+                      style={{ backgroundColor: CLUSTER_COLORS[idx % CLUSTER_COLORS.length] }}
+                    />
+                    <span className="font-bold text-gray-800">簇 {idx + 1}</span>
+                  </div>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>数据点数量: <span className="font-semibold text-blue-600">{clusterCounts[idx] || 0}</span></p>
+                    <p>中心坐标:</p>
+                    <p className="font-mono text-xs bg-gray-100 px-2 py-1 rounded">({center.x.toFixed(1)}, {center.y.toFixed(1)})</p>
+                  </div>
                 </div>
-                <div className="text-sm text-gray-600 space-y-1">
-                  <p>数据点数量: <span className="font-semibold">{clusterCounts[idx] || 0}</span></p>
-                  <p>中心坐标:</p>
-                  <p className="font-mono text-xs">({center.x.toFixed(1)}, {center.y.toFixed(1)})</p>
+              ))}
+              {algorithm === 'dbscan' && clusterCounts[-1] && clusterCounts[-1] > 0 && (
+                <div className="p-4 rounded-xl border-2 border-red-300 bg-red-50 hover:shadow-md hover:-translate-y-1 transition-all">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-4 h-4 rounded-full bg-red-400" />
+                    <span className="font-bold text-gray-800">噪声点</span>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    <p>数据点数量: <span className="font-semibold text-red-600">{clusterCounts[-1]}</span></p>
+                  </div>
                 </div>
+              )}
+            </div>
+
+            <div className="mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm font-medium text-gray-700">图例说明</span>
+                <span className="text-xs text-gray-500">点击算法按钮切换查看</span>
               </div>
-            ))}
-            {algorithm === 'dbscan' && clusterCounts[-1] && clusterCounts[-1] > 0 && (
-              <div className="p-4 rounded-xl border-2 border-red-300 bg-red-50">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-4 h-4 rounded-full bg-red-400" />
-                  <span className="font-bold text-gray-800">噪声点</span>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+                  <span className="text-xs text-gray-600">未分配数据点</span>
                 </div>
-                <div className="text-sm text-gray-600">
-                  <p>数据点数量: <span className="font-semibold">{clusterCounts[-1]}</span></p>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full border-2 border-white" style={{ backgroundColor: CLUSTER_COLORS[0] }}></div>
+                  <span className="text-xs text-gray-600">聚类中心（带编号）</span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CLUSTER_COLORS[1] }}></div>
+                  <span className="text-xs text-gray-600">已分配数据点</span>
+                </div>
+                {algorithm === 'dbscan' && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full border-2 border-red-400 border-dashed bg-transparent"></div>
+                    <span className="text-xs text-gray-600">噪声点标记</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
-          
-          <div className="mt-6 p-4 bg-blue-50 rounded-xl">
-            <h3 className="font-semibold text-gray-800 mb-2">算法说明</h3>
-            <div className="text-sm text-gray-600 space-y-2">
+
+          <div className="bg-white rounded-2xl shadow-xl p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Info className="w-5 h-5 text-blue-600" />
+              <h2 className="text-xl font-bold text-gray-800">算法说明</h2>
+            </div>
+            
+            <div className="space-y-4">
               {(algorithm === 'kmeans' || algorithm === 'kmeanspp') && (
-                <>
-                  <p><strong>{algorithm === 'kmeanspp' ? 'KMeans++' : 'KMeans'}算法步骤：</strong></p>
-                  <ol className="list-decimal list-inside space-y-1">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Target className="w-5 h-5 text-blue-600" />
+                    <h3 className="font-semibold text-gray-800">{algorithm === 'kmeanspp' ? 'KMeans++' : 'KMeans'}</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">基于距离的划分聚类算法，通过迭代优化将数据划分为K个簇。</p>
+                  <div className="border-l-2 border-blue-400 pl-3 space-y-1">
                     {algorithm === 'kmeanspp' ? (
                       <>
-                        <li>随机选择第一个聚类中心</li>
-                        <li>根据概率选择下一个中心（距离越远概率越大）</li>
-                        <li>重复步骤2直到选完K个中心</li>
-                        <li>计算每个数据点到各聚类中心的距离，将其分配给最近的簇</li>
-                        <li>重新计算每个簇的质心（均值）作为新的聚类中心</li>
-                        <li>重复步骤4-5，直到聚类中心不再变化（收敛）</li>
+                        <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 随机选择第一个聚类中心</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">2.</span> 根据概率选择下一个中心（距离越远概率越大）</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">3.</span> 重复直到选完K个中心</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">4.</span> 分配数据点到最近簇</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">5.</span> 更新质心，迭代收敛</p>
                       </>
                     ) : (
                       <>
-                        <li>随机选择K个数据点作为初始聚类中心</li>
-                        <li>计算每个数据点到各聚类中心的距离，将其分配给最近的簇</li>
-                        <li>重新计算每个簇的质心（均值）作为新的聚类中心</li>
-                        <li>重复步骤2-3，直到聚类中心不再变化（收敛）</li>
+                        <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 随机选择K个初始聚类中心</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">2.</span> 分配数据点到最近簇</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">3.</span> 更新质心，迭代收敛</p>
                       </>
                     )}
-                  </ol>
-                  <p className="mt-2"><strong>优点：</strong>简单高效，收敛速度快{algorithm === 'kmeanspp' && '，初始中心选择更优，收敛更快'}</p>
-                  <p><strong>缺点：</strong>需要预先指定K值，对异常值敏感</p>
-                </>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-blue-200">
+                    <p className="text-xs"><span className="text-green-600 font-medium">优点:</span> 简单高效，收敛速度快{algorithm === 'kmeanspp' && '，初始中心选择更优'}</p>
+                    <p className="text-xs mt-1"><span className="text-red-600 font-medium">缺点:</span> 需要预先指定K值，对异常值敏感</p>
+                  </div>
+                </div>
               )}
               {(algorithm === 'dbscan' || algorithm === 'optics') && (
-                <>
-                  <p><strong>{algorithm === 'optics' ? 'OPTICS' : 'DBSCAN'}算法步骤：</strong></p>
-                  <ol className="list-decimal list-inside space-y-1">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    {algorithm === 'optics' ? <Hexagon className="w-5 h-5 text-green-600" /> : <Network className="w-5 h-5 text-green-600" />}
+                    <h3 className="font-semibold text-gray-800">{algorithm === 'optics' ? 'OPTICS' : 'DBSCAN'}</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">基于密度的聚类算法，无需预先指定簇数。</p>
+                  <div className="border-l-2 border-green-400 pl-3 space-y-1">
                     {algorithm === 'optics' ? (
                       <>
-                        <li>从任意未访问的点开始</li>
-                        <li>计算可达距离，维护种子列表</li>
-                        <li>按可达距离排序处理点</li>
-                        <li>根据可达距离的跳跃确定簇边界</li>
-                        <li>重复直到所有点都被处理</li>
+                        <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 从任意未访问的点开始</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">2.</span> 计算可达距离和核心距离</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">3.</span> 维护有序的种子列表</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">4.</span> 根据可达性图识别簇</p>
                       </>
                     ) : (
                       <>
-                        <li>从任意未访问的点开始，找出所有密度可达的点</li>
-                        <li>如果一个点的ε邻域内至少有MinPts个点，则形成一个簇</li>
-                        <li>重复直到所有点都被访问</li>
-                        <li>未被任何簇包含的点被标记为噪声</li>
+                        <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 寻找密度可达的点</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">2.</span> ε邻域内≥MinPts则形成簇</p>
+                        <p className="text-xs text-gray-600"><span className="font-medium">3.</span> 未被包含的点标记为噪声</p>
                       </>
                     )}
-                  </ol>
-                  <p className="mt-2"><strong>优点：</strong>无需指定簇数，能发现任意形状的簇，能识别噪声点{algorithm === 'optics' && '，支持可变密度的数据'}</p>
-                  <p><strong>缺点：</strong>对参数ε和MinPts敏感，高维数据效果不佳{algorithm === 'optics' && '，计算复杂度较高'}</p>
-                </>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-green-200">
+                    <p className="text-xs"><span className="text-green-600 font-medium">优点:</span> 无需指定K，能发现任意形状簇，识别噪声{algorithm === 'optics' && '，支持可变密度'}</p>
+                    <p className="text-xs mt-1"><span className="text-red-600 font-medium">缺点:</span> 对参数敏感，高维数据效果不佳{algorithm === 'optics' && '，计算复杂度较高'}</p>
+                  </div>
+                </div>
               )}
               {algorithm === 'hierarchical' && (
-                <>
-                  <p><strong>层次聚类（凝聚式）步骤：</strong></p>
-                  <ol className="list-decimal list-inside space-y-1">
-                    <li>每个数据点自成一类</li>
-                    <li>计算所有类之间的距离</li>
-                    <li>合并距离最近的两个类</li>
-                    <li>重复步骤2-3，直到达到目标簇数或所有点合并为一类</li>
-                  </ol>
-                  <p className="mt-2"><strong>优点：</strong>不需要预先指定簇数，层次结构清晰</p>
-                  <p><strong>缺点：</strong>计算复杂度高，不适合大规模数据</p>
-                </>
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <GitBranch className="w-5 h-5 text-purple-600" />
+                    <h3 className="font-semibold text-gray-800">层次聚类</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">自底向上的聚合聚类，构建层次树状结构。</p>
+                  <div className="border-l-2 border-purple-400 pl-3 space-y-1">
+                    <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 每个数据点自成一类</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">2.</span> 计算类间距离</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">3.</span> 合并距离最近的两类</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">4.</span> 重复直到达到目标簇数</p>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-purple-200">
+                    <p className="text-xs"><span className="text-green-600 font-medium">优点:</span> 无需指定K，层次结构清晰</p>
+                    <p className="text-xs mt-1"><span className="text-red-600 font-medium">缺点:</span> 计算复杂度高，不适合大规模数据</p>
+                  </div>
+                </div>
               )}
               {algorithm === 'gmm' && (
-                <>
-                  <p><strong>GMM（高斯混合模型）算法步骤：</strong></p>
-                  <ol className="list-decimal list-inside space-y-1">
-                    <li>初始化K个高斯成分的参数（均值、协方差、权重）</li>
-                    <li><strong>E步：</strong>计算每个数据点属于每个成分的后验概率</li>
-                    <li><strong>M步：</strong>根据后验概率更新各成分的参数</li>
-                    <li>重复步骤2-3，直到参数收敛或达到最大迭代次数</li>
-                    <li>根据最大后验概率进行硬聚类分配</li>
-                  </ol>
-                  <p className="mt-2"><strong>优点：</strong>支持软聚类（概率分配），能处理椭圆形状的簇</p>
-                  <p><strong>缺点：</strong>需要预先指定成分数K，对初始参数敏感，计算复杂度较高</p>
-                </>
+                <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Layers className="w-5 h-5 text-orange-600" />
+                    <h3 className="font-semibold text-gray-800">GMM</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">高斯混合模型，基于概率的软聚类方法。</p>
+                  <div className="border-l-2 border-orange-400 pl-3 space-y-1">
+                    <p className="text-xs text-gray-600"><span className="font-medium">1.</span> 初始化K个高斯成分参数</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">E步:</span> 计算后验概率</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">M步:</span> 更新均值/协方差/权重</p>
+                    <p className="text-xs text-gray-600"><span className="font-medium">4.</span> 迭代直到收敛</p>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-orange-200">
+                    <p className="text-xs"><span className="text-green-600 font-medium">优点:</span> 支持软聚类，能处理椭圆形状簇</p>
+                    <p className="text-xs mt-1"><span className="text-red-600 font-medium">缺点:</span> 需要指定K，对初始参数敏感</p>
+                  </div>
+                </div>
               )}
+
+              <div className="bg-gray-50 rounded-xl p-4">
+                <h4 className="font-medium text-gray-800 mb-2">💡 学习提示</h4>
+                <ul className="text-xs text-gray-600 space-y-1">
+                  <li>• 尝试调整参数观察聚类效果变化</li>
+                  <li>• 对比不同算法处理同一数据集的差异</li>
+                  <li>• 复杂数据集适合密度-based算法</li>
+                  <li>• 简单球形簇适合KMeans类算法</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
