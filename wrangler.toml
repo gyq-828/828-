@@ -1,6 +1,0 @@
-name = "828"
-compatibility_date = "2024-01-01"
-
-[pages]
-project_name = "828"
-build_output_dir = "dist"
