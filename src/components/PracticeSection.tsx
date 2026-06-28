@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { BookOpen, Code, FileText, ChevronRight, CheckCircle, XCircle, Play, Lightbulb, Award, Database, Brain, TrendingUp, Target, Layers, Cpu, Network, Shield, Zap, RotateCcw, BarChart3 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { BookOpen, Code, FileText, ChevronRight, CheckCircle, XCircle, Play, Lightbulb, Award, Database, Brain, TrendingUp, Target, Layers, Cpu, Network, Shield, Zap, RotateCcw, BarChart3, Trophy, Star } from 'lucide-react';
 import CodeMirror from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
+import { getProgress, saveProjectScore, getProjectProgress, resetProgress, type CourseProgress } from '@/lib/utils';
 
 interface TrainingProject {
   id: number;
@@ -12,6 +13,7 @@ interface TrainingProject {
   icon: React.ReactNode;
   starterCode?: string;
   codeTemplate: string;
+  explainedCode?: string;
   expectedOutput: string;
 }
 
@@ -25,6 +27,7 @@ const trainingProjects: TrainingProject[] = [
     icon: <Database className="w-6 h-6" />,
     starterCode: '# 练习：创建一个DataFrame并计算平均年龄\n# 提示：\n# 1. 导入 pandas 和 numpy 库\n# 2. 创建一个包含姓名、年龄、城市的字典数据\n# 3. 用 pd.DataFrame() 创建数据框\n# 4. 打印数据框和平均年龄\n\n# 在这里写你的代码...\n',
     codeTemplate: 'import pandas as pd\nimport numpy as np\n\n# 创建一个DataFrame示例\ndata = {\n    "姓名": ["张三", "李四", "王五"],\n    "年龄": [25, 30, 35],\n    "城市": ["北京", "上海", "广州"]\n}\ndf = pd.DataFrame(data)\nprint(df)\nprint(f"平均年龄: {df["年龄"].mean()}")',
+    explainedCode: '# 导入pandas库，用于数据处理和分析\n# pd 是 pandas 的常用别名，大家都这么写\nimport pandas as pd\n\n# 导入numpy库，用于数值计算\n# np 是 numpy 的常用别名\nimport numpy as np\n\n# ==========================================\n# 第一步：准备数据\n# ==========================================\n# 使用 Python 字典存储原始数据\n# 字典的 key 是列名，value 是该列的数据列表\ndata = {\n    "姓名": ["张三", "李四", "王五"],  # 姓名列：3个字符串\n    "年龄": [25, 30, 35],              # 年龄列：3个整数\n    "城市": ["北京", "上海", "广州"]   # 城市列：3个字符串\n}\n\n# ==========================================\n# 第二步：创建DataFrame\n# ==========================================\n# DataFrame 是 pandas 中最核心的数据结构\n# 可以理解为一个表格，有行有列，类似 Excel\n# pd.DataFrame() 函数可以把字典转换成 DataFrame\ndf = pd.DataFrame(data)\n\n# ==========================================\n# 第三步：输出结果\n# ==========================================\n# 打印整个 DataFrame，查看数据表格\nprint(df)\n\n# 计算并打印平均年龄\n# df["年龄"] 选择"年龄"这一列\n# .mean() 方法计算这一列的平均值\nprint(f"平均年龄: {df["年龄"].mean()}")',
     expectedOutput: '   姓名  年龄  城市\n0  张三   25  北京\n1  李四   30  上海\n2  王五   35  广州\n平均年龄: 30.0'
   },
   {
@@ -36,6 +39,7 @@ const trainingProjects: TrainingProject[] = [
     icon: <Zap className="w-6 h-6" />,
     starterCode: '# 练习：数据清洗与缺失值处理\n# 提示：\n# 1. 导入 pandas 和 numpy 库\n# 2. 创建包含缺失值(np.nan)的示例数据\n# 3. 使用 df.fillna() 方法用均值填充缺失值\n# 4. 打印清洗后的数据\n\n# 在这里写你的代码...\n',
     codeTemplate: 'import pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的数据\ndata = {\n    "A": [1, 2, np.nan, 4],\n    "B": [5, np.nan, 7, 8],\n    "C": [9, 10, 11, 12]\n}\ndf = pd.DataFrame(data)\n\n# 处理缺失值：用均值填充\ndf_filled = df.fillna(df.mean())\nprint("清洗后的数据:")\nprint(df_filled)',
+    explainedCode: '# 导入 pandas 和 numpy 库\nimport pandas as pd\nimport numpy as np\n\n# ==========================================\n# 第一步：创建包含缺失值的测试数据\n# ==========================================\n# np.nan 表示 "Not a Number"，即缺失值\n# 真实数据中经常会有缺失值，需要我们处理\ndata = {\n    "A": [1, 2, np.nan, 4],      # A列有1个缺失值（第3行）\n    "B": [5, np.nan, 7, 8],      # B列有1个缺失值（第2行）\n    "C": [9, 10, 11, 12]         # C列没有缺失值\n}\ndf = pd.DataFrame(data)\n\n# ==========================================\n# 第二步：处理缺失值\n# ==========================================\n# df.mean() 计算每一列的平均值\n# df.fillna() 用指定的值填充缺失值\n# 这里我们用每一列的均值来填充该列的缺失值\n# 这是数据清洗中常用的方法之一\n#\n# 其他常用的缺失值处理方法：\n# - df.dropna()：直接删除包含缺失值的行\n# - df.fillna(0)：用0填充\n# - df.fillna(method="ffill")：用前一个值填充\ndf_filled = df.fillna(df.mean())\n\n# ==========================================\n# 第三步：打印结果\n# ==========================================\nprint("清洗后的数据:")\nprint(df_filled)',
     expectedOutput: '清洗后的数据:\n     A    B   C\n0  1.0  5.0   9\n1  2.0  6.0  10\n2  2.333333  7.0  11\n3  4.0  8.0  12'
   },
   {
@@ -47,6 +51,7 @@ const trainingProjects: TrainingProject[] = [
     icon: <BarChart3 className="w-6 h-6" />,
     starterCode: '# 练习：使用Matplotlib绘制折线图\n# 提示：\n# 1. 导入 matplotlib.pyplot 和 numpy 库\n# 2. 创建示例数据（x轴和y轴数据）\n# 3. 使用 plt.plot() 绘制折线图\n# 4. 添加标题、坐标轴标签和网格\n# 5. 使用 plt.show() 显示图表\n\n# 在这里写你的代码...\n',
     codeTemplate: 'import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建示例数据\nx = np.arange(1, 6)\ny = [2, 4, 6, 8, 10]\n\n# 绘制简单折线图\nplt.figure(figsize=(8, 5))\nplt.plot(x, y, marker="o", linewidth=2, markersize=8)\nplt.title("销售趋势图")\nplt.xlabel("月份")\nplt.ylabel("销售额(万元)")\nplt.grid(True, alpha=0.3)\nplt.show()\nprint("图表已生成")',
+    explainedCode: '# 导入 matplotlib 的 pyplot 模块\n# plt 是约定俗成的别名\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# ==========================================\n# 第一步：准备数据\n# ==========================================\n# np.arange(1, 6) 生成 [1, 2, 3, 4, 5]\n# 注意：arange 是左闭右开区间，不包含6\nx = np.arange(1, 6)   # x轴数据：1到5\n\n# y轴数据，手动指定的列表\ny = [2, 4, 6, 8, 10]  # y轴数据\n\n# ==========================================\n# 第二步：创建图表并绘制\n# ==========================================\n# 创建一个图形窗口，figsize 设置图片大小（宽, 高）单位是英寸\nplt.figure(figsize=(8, 5))\n\n# 绘制折线图\n# marker="o" 表示在每个数据点上画一个圆圈标记\n# linewidth=2 设置线条粗细为2像素\n# markersize=8 设置标记点大小为8\nplt.plot(x, y, marker="o", linewidth=2, markersize=8)\n\n# ==========================================\n# 第三步：设置图表样式\n# ==========================================\n# 设置图表标题\nplt.title("销售趋势图")\n\n# 设置x轴标签\nplt.xlabel("月份")\n\n# 设置y轴标签\nplt.ylabel("销售额(万元)")\n\n# 添加网格线，alpha 设置透明度（0=完全透明，1=不透明）\nplt.grid(True, alpha=0.3)\n\n# ==========================================\n# 第四步：显示图表\n# ==========================================\nplt.show()  # 弹出窗口显示图片\nprint("图表已生成")',
     expectedOutput: '图表已生成'
   },
   {
@@ -58,6 +63,7 @@ const trainingProjects: TrainingProject[] = [
     icon: <TrendingUp className="w-6 h-6" />,
     starterCode: '# 练习：描述统计与t检验\n# 提示：\n# 1. 导入 numpy 和 scipy.stats 库\n# 2. 创建两组实验数据\n# 3. 计算两组数据的描述统计量（均值、标准差等）\n# 4. 使用独立样本t检验比较两组差异\n\n# 在这里写你的代码...\n',
     codeTemplate: 'import numpy as np\nfrom scipy import stats\n\n# 两组数据\ngroup1 = [23, 25, 28, 30, 32]\ngroup2 = [20, 22, 25, 27, 29]\n\n# 计算描述统计\nprint(f"组1均值: {np.mean(group1):.2f}")\nprint(f"组2均值: {np.mean(group2):.2f}")\n\n# t检验\nt_stat, p_value = stats.ttest_ind(group1, group2)\nprint(f"t统计量: {t_stat:.4f}")\nprint(f"p值: {p_value:.4f}")\n\nif p_value < 0.05:\n    print("两组数据存在显著差异")\nelse:\n    print("两组数据无显著差异")',
+    explainedCode: '# 导入 numpy 用于数值计算\nimport numpy as np\n# 从 scipy 导入 stats 模块，用于统计检验\nfrom scipy import stats\n\n# ==========================================\n# 第一步：准备数据\n# ==========================================\n# 假设这是两组实验数据\n# 比如：组1是使用新教学方法的学生成绩，组2是传统方法的成绩\ngroup1 = [23, 25, 28, 30, 32]  # 实验组\ngroup2 = [20, 22, 25, 27, 29]  # 对照组\n\n# ==========================================\n# 第二步：描述统计\n# ==========================================\n# np.mean() 计算平均值\n# :.2f 是格式化字符串，表示保留2位小数\nprint(f"组1均值: {np.mean(group1):.2f}")\nprint(f"组2均值: {np.mean(group2):.2f}")\n\n# ==========================================\n# 第三步：独立样本t检验\n# ==========================================\n# t检验用于比较两组数据的均值是否存在显著差异\n# stats.ttest_ind() 执行独立样本t检验\n# 返回两个值：\n#   t_stat  = t统计量（越大说明差异越大）\n#   p_value = p值（越小说明差异越显著）\n#\n# 显著性水平通常设为 0.05：\n# - p < 0.05  → 两组差异显著\n# - p >= 0.05 → 两组差异不显著\nt_stat, p_value = stats.ttest_ind(group1, group2)\n\nprint(f"t统计量: {t_stat:.4f}")\nprint(f"p值: {p_value:.4f}")\n\n# ==========================================\n# 第四步：结果解读\n# ==========================================\nif p_value < 0.05:\n    print("两组数据存在显著差异")\nelse:\n    print("两组数据无显著差异")',
     expectedOutput: '组1均值: 27.60\n组2均值: 24.60\nt统计量: 1.4142\np值: 0.1960\n两组数据无显著差异'
   },
   {
@@ -435,6 +441,7 @@ const PracticeSection: React.FC = () => {
   const [score, setScore] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string>('');
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [showExplanation, setShowExplanation] = useState<boolean>(false);
   const [showBasics, setShowBasics] = useState<boolean>(false);
   const [activeChapter, setActiveChapter] = useState<number>(0);
   const [showTest, setShowTest] = useState<boolean>(false);
@@ -443,6 +450,7 @@ const PracticeSection: React.FC = () => {
   const [testAnswers, setTestAnswers] = useState<Record<number, string>>({});
   const [testSubmitted, setTestSubmitted] = useState<boolean>(false);
   const [testScore, setTestScore] = useState<number>(0);
+  const [progress, setProgress] = useState<CourseProgress>(getProgress());
 
   const handleProjectSelect = (projectId: number) => {
     const project = trainingProjects.find(p => p.id === projectId);
@@ -452,6 +460,7 @@ const PracticeSection: React.FC = () => {
       setScore(null);
       setFeedback('');
       setShowAnswer(false);
+      setShowExplanation(false);
       setShowBasics(false);
       setShowTest(false);
       setTestStarted(false);
@@ -488,46 +497,41 @@ const PracticeSection: React.FC = () => {
       line.includes('print') || line.includes('plt.show') || line.includes('summary')
     );
 
+    let finalScore = 0;
+    let finalFeedback = '';
+
     if (!hasRequiredImports) {
-      setScore(30);
-      setFeedback('代码缺少必要的导入语句。请添加所需的库导入，如import pandas as pd等。');
-      return;
+      finalScore = 30;
+      finalFeedback = '代码缺少必要的导入语句。请添加所需的库导入，如import pandas as pd等。';
+    } else if (!hasPrintOrOutput) {
+      finalScore = 50;
+      finalFeedback = '代码看起来有导入语句，但缺少输出语句。请添加print语句或使用其他方式展示结果。';
+    } else {
+      const similarity = calculateSimilarity(userCode, project.codeTemplate);
+      
+      if (similarity >= 0.99) {
+        finalScore = 100;
+        finalFeedback = '🎉 代码完全正确！与标准答案一致，满分通过！';
+      } else if (similarity >= 0.90) {
+        finalScore = 95;
+        finalFeedback = '代码几乎与标准答案一致！只有微小的差异，非常优秀！';
+      } else if (similarity >= 0.80) {
+        finalScore = 90;
+        finalFeedback = '代码与标准答案非常接近，逻辑正确！';
+      } else if (similarity >= 0.60) {
+        finalScore = 85;
+        finalFeedback = '代码结构正确！包含必要的导入和输出语句。在实际环境中运行可查看具体输出结果。';
+      } else {
+        finalScore = 70;
+        finalFeedback = '代码有基本结构，但与标准答案差异较大。请参考参考答案继续完善。';
+      }
     }
 
-    if (!hasPrintOrOutput) {
-      setScore(50);
-      setFeedback('代码看起来有导入语句，但缺少输出语句。请添加print语句或使用其他方式展示结果。');
-      return;
-    }
-
-    const similarity = calculateSimilarity(userCode, project.codeTemplate);
+    setScore(finalScore);
+    setFeedback(finalFeedback);
     
-    if (similarity >= 0.99) {
-      setScore(100);
-      setFeedback('🎉 代码完全正确！与标准答案一致，满分通过！');
-      return;
-    }
-
-    if (similarity >= 0.90) {
-      setScore(95);
-      setFeedback('代码几乎与标准答案一致！只有微小的差异，非常优秀！');
-      return;
-    }
-
-    if (similarity >= 0.80) {
-      setScore(90);
-      setFeedback('代码与标准答案非常接近，逻辑正确！');
-      return;
-    }
-
-    if (similarity >= 0.60) {
-      setScore(85);
-      setFeedback('代码结构正确！包含必要的导入和输出语句。在实际环境中运行可查看具体输出结果。');
-      return;
-    }
-
-    setScore(70);
-    setFeedback('代码有基本结构，但与标准答案差异较大。请参考参考答案继续完善。');
+    const newProgress = saveProjectScore(activeProject, finalScore);
+    setProgress(newProgress);
   };
 
   const calculateSimilarity = (str1: string, str2: string): number => {
@@ -593,41 +597,117 @@ const PracticeSection: React.FC = () => {
   };
 
   const renderProjectList = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {trainingProjects.map(project => (
-        <div
-          key={project.id}
-          onClick={() => handleProjectSelect(project.id)}
-          className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 overflow-hidden group"
-        >
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
-                {project.icon}
-              </div>
-              <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                project.difficulty === '初级' ? 'bg-green-100 text-green-700' :
-                project.difficulty === '中级' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-red-100 text-red-700'
-              }`}>
-                {project.difficulty}
-              </span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2">{project.title}</h3>
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
-            <div className="flex items-center text-sm text-gray-500">
-              <BookOpen className="w-4 h-4 mr-1" />
-              <span>{project.duration}</span>
+    <div className="space-y-6">
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <Trophy className="w-8 h-8" />
+            <div>
+              <h3 className="text-xl font-bold">学习进度</h3>
+              <p className="text-blue-100 text-sm">继续加油，完成所有项目！</p>
             </div>
           </div>
-          <div className="px-6 py-3 bg-gray-50 border-t border-gray-100">
-            <div className="flex items-center text-blue-600 text-sm font-medium">
-              <span>开始学习</span>
-              <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-            </div>
+          <button
+            onClick={() => {
+              if (confirm('确定要重置所有学习进度吗？此操作不可撤销。')) {
+                resetProgress();
+                setProgress(getProgress());
+              }
+            }}
+            className="px-3 py-1 text-xs bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+          >
+            重置进度
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="bg-white/10 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold">{progress.completedProjects}</div>
+            <div className="text-xs text-blue-100">已完成</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold">{progress.totalProjects}</div>
+            <div className="text-xs text-blue-100">总项目</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold">{progress.averageScore || '--'}</div>
+            <div className="text-xs text-blue-100">平均分</div>
           </div>
         </div>
-      ))}
+        <div className="w-full bg-white/20 rounded-full h-2">
+          <div 
+            className="bg-white rounded-full h-2 transition-all duration-500"
+            style={{ width: `${(progress.completedProjects / progress.totalProjects) * 100}%` }}
+          />
+        </div>
+        <div className="text-right text-xs text-blue-100 mt-1">
+          {Math.round((progress.completedProjects / progress.totalProjects) * 100)}%
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {trainingProjects.map(project => {
+          const projectProgress = progress.projects[project.id];
+          const isCompleted = projectProgress?.completed || false;
+          const bestScore = projectProgress?.bestScore || 0;
+          
+          return (
+            <div
+              key={project.id}
+              onClick={() => handleProjectSelect(project.id)}
+              className={`bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border overflow-hidden group ${
+                isCompleted ? 'border-green-300' : 'border-gray-100'
+              }`}
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+                    {project.icon}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {isCompleted && (
+                      <span className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        <CheckCircle className="w-3 h-3" />
+                        已完成
+                      </span>
+                    )}
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      project.difficulty === '初级' ? 'bg-green-100 text-green-700' :
+                      project.difficulty === '中级' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-red-100 text-red-700'
+                    }`}>
+                      {project.difficulty}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{project.title}</h3>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center text-gray-500">
+                    <BookOpen className="w-4 h-4 mr-1" />
+                    <span>{project.duration}</span>
+                  </div>
+                  {bestScore > 0 && (
+                    <div className="flex items-center text-yellow-600">
+                      <Star className="w-4 h-4 mr-1 fill-yellow-400" />
+                      <span className="font-medium">{bestScore}分</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className={`px-6 py-3 border-t ${
+                isCompleted ? 'bg-green-50 border-green-100' : 'bg-gray-50 border-gray-100'
+              }`}>
+                <div className={`flex items-center text-sm font-medium ${
+                  isCompleted ? 'text-green-600' : 'text-blue-600'
+                }`}>
+                  <span>{isCompleted ? '继续练习' : '开始学习'}</span>
+                  <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 
@@ -867,18 +947,41 @@ const PracticeSection: React.FC = () => {
               <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-gray-800">参考答案</h4>
-                  <button
-                    onClick={() => {
-                      setUserCode(project.codeTemplate);
-                      setScore(null);
-                      setFeedback('');
-                    }}
-                    className="px-3 py-1 text-xs bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-colors"
-                  >
-                    复制到编辑器
-                  </button>
+                  <div className="flex gap-2">
+                    {project.explainedCode && (
+                      <button
+                        onClick={() => setShowExplanation(!showExplanation)}
+                        className={`px-3 py-1 text-xs rounded-md transition-colors ${
+                          showExplanation
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                        }`}
+                      >
+                        {showExplanation ? '隐藏讲解' : '显示讲解'}
+                      </button>
+                    )}
+                    <button
+                      onClick={() => {
+                        setUserCode(project.codeTemplate);
+                        setScore(null);
+                        setFeedback('');
+                      }}
+                      className="px-3 py-1 text-xs bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-colors"
+                    >
+                      复制到编辑器
+                    </button>
+                  </div>
                 </div>
-                <pre className="text-sm text-gray-700 overflow-x-auto">{project.codeTemplate}</pre>
+                <pre className="text-sm text-gray-700 overflow-x-auto bg-white p-3 rounded border">
+                  {showExplanation && project.explainedCode
+                    ? project.explainedCode
+                    : project.codeTemplate}
+                </pre>
+                {showExplanation && project.explainedCode && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    💡 提示：蓝色背景的注释是代码讲解，帮助你理解每一步的作用。
+                  </p>
+                )}
               </div>
             )}
 
