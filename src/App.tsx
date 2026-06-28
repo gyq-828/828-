@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "@/pages/Home";
 import DataAnalysisCourse from "@/pages/DataAnalysisCourse";
 import PythonCourse from "@/pages/PythonCourse";
@@ -28,6 +28,7 @@ export default function App() {
         <Route path="/python-quiz" element={<PythonQuiz />} />
         <Route path="/data-analysis" element={<DataAnalysisCourse />} />
         <Route path="/data-analysis-quiz" element={<DataAnalysisQuiz />} />
+        <Route path="/data-analysis-tech" element={<Navigate to="/data-analysis" replace />} />
         <Route path="/data-collection" element={<DataCollectionCourse />} />
         <Route path="/data-collection-training" element={<DataCollectionTraining />} />
         <Route path="/data-collection-quiz" element={<DataCollectionQuiz />} />
@@ -38,7 +39,6 @@ export default function App() {
         <Route path="/financial-quiz" element={<FinancialQuiz />} />
         <Route path="/deep-learning/data-analysis" element={<DataAnalysisDeepLearning />} />
         <Route path="/deep-learning/financial" element={<FinancialDataAnalysisDeepLearning />} />
-        <Route path="/data-analysis-tech" element={<DataAnalysisTechSite />} />
         <Route path="/cluster-visualizer" element={<ClusterVisualizer />} />
       </Routes>
     </Router>
