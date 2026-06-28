@@ -865,7 +865,19 @@ const PracticeSection: React.FC = () => {
 
             {showAnswer && (
               <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                <h4 className="font-semibold text-gray-800 mb-2">参考答案</h4>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-semibold text-gray-800">参考答案</h4>
+                  <button
+                    onClick={() => {
+                      setUserCode(project.codeTemplate);
+                      setScore(null);
+                      setFeedback('');
+                    }}
+                    className="px-3 py-1 text-xs bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-colors"
+                  >
+                    复制到编辑器
+                  </button>
+                </div>
                 <pre className="text-sm text-gray-700 overflow-x-auto">{project.codeTemplate}</pre>
               </div>
             )}
