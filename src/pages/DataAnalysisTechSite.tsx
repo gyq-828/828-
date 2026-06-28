@@ -27,6 +27,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '初级',
       duration: '2周',
       icon: <Database className="w-6 h-6" />,
+      starterCode: '# 练习：创建一个DataFrame并计算平均年龄\n# 提示：\n# 1. 导入 pandas 和 numpy 库\n# 2. 创建一个包含姓名、年龄、城市的字典数据\n# 3. 用 pd.DataFrame() 创建数据框\n# 4. 打印数据框和平均年龄\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import pandas as pd\nimport numpy as np\n\n# 创建一个DataFrame示例\ndata = {\n    "姓名": ["张三", "李四", "王五"],\n    "年龄": [25, 30, 35],\n    "城市": ["北京", "上海", "广州"]\n}\ndf = pd.DataFrame(data)\nprint(df)\nprint(f"平均年龄: {df["年龄"].mean()}")',
       expectedOutput: '   姓名  年龄  城市\n0  张三   25  北京\n1  李四   30  上海\n2  王五   35  广州\n平均年龄: 30.0'
     },
@@ -37,6 +38,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '初级',
       duration: '2周',
       icon: <RefreshCw className="w-6 h-6" />,
+      starterCode: '# 练习：数据清洗与缺失值处理\n# 提示：\n# 1. 导入 pandas 和 numpy 库\n# 2. 创建包含缺失值(np.nan)的示例数据\n# 3. 使用 df.fillna() 方法用均值填充缺失值\n# 4. 打印清洗后的数据\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的数据\ndata = {\n    "A": [1, 2, np.nan, 4],\n    "B": [5, np.nan, 7, 8],\n    "C": [9, 10, 11, 12]\n}\ndf = pd.DataFrame(data)\n\n# 处理缺失值：用均值填充\ndf_filled = df.fillna(df.mean())\nprint("清洗后的数据:")\nprint(df_filled)',
       expectedOutput: '清洗后的数据:\n     A    B   C\n0  1.0  5.0   9\n1  2.0  6.0  10\n2  2.333333  7.0  11\n3  4.0  8.0  12'
     },
@@ -47,6 +49,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '初级',
       duration: '2周',
       icon: <BarChart3 className="w-6 h-6" />,
+      starterCode: '# 练习：使用Matplotlib绘制折线图\n# 提示：\n# 1. 导入 matplotlib.pyplot 和 numpy 库\n# 2. 创建示例数据（x轴和y轴数据）\n# 3. 使用 plt.plot() 绘制折线图\n# 4. 添加标题、坐标轴标签和网格\n# 5. 使用 plt.show() 显示图表\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建示例数据\nx = np.arange(1, 6)\ny = [2, 4, 6, 8, 10]\n\n# 绘制简单折线图\nplt.figure(figsize=(8, 5))\nplt.plot(x, y, marker="o", linewidth=2, markersize=8)\nplt.title("销售趋势图")\nplt.xlabel("月份")\nplt.ylabel("销售额(万元)")\nplt.grid(True, alpha=0.3)\nplt.show()\nprint("图表已生成")',
       expectedOutput: '图表已生成'
     },
@@ -57,6 +60,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '中级',
       duration: '3周',
       icon: <TrendingUp className="w-6 h-6" />,
+      starterCode: '# 练习：描述统计与t检验\n# 提示：\n# 1. 导入 numpy 和 scipy.stats 库\n# 2. 创建两组实验数据\n# 3. 计算两组数据的描述统计量（均值、标准差等）\n# 4. 使用独立样本t检验比较两组差异\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import numpy as np\nfrom scipy import stats\n\n# 两组数据\ngroup1 = [23, 25, 28, 30, 32]\ngroup2 = [20, 22, 25, 27, 29]\n\n# 计算描述统计\nprint(f"组1均值: {np.mean(group1):.2f}")\nprint(f"组2均值: {np.mean(group2):.2f}")\n\n# t检验\nt_stat, p_value = stats.ttest_ind(group1, group2)\nprint(f"t统计量: {t_stat:.4f}")\nprint(f"p值: {p_value:.4f}")\n\nif p_value < 0.05:\n    print("两组数据存在显著差异")\nelse:\n    print("两组数据无显著差异")',
       expectedOutput: '组1均值: 27.60\n组2均值: 24.60\nt统计量: 1.4142\np值: 0.1960\n两组数据无显著差异'
     },
@@ -67,6 +71,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '中级',
       duration: '3周',
       icon: <Brain className="w-6 h-6" />,
+      starterCode: '# 练习：KMeans/DBSCAN/层次聚类实战\n# 提示：\n# 1. 导入 sklearn.cluster 中的聚类算法和 datasets 中的数据集\n# 2. 使用 make_blobs 生成模拟聚类数据\n# 3. 分别训练 KMeans、DBSCAN、层次聚类模型\n# 4. 打印各算法的聚类结果标签\n\n# 在这里写你的代码...\n',
       codeTemplate: 'from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering\nfrom sklearn.datasets import make_blobs\nimport matplotlib.pyplot as plt\n\n# 生成模拟数据\nX, _ = make_blobs(n_samples=150, n_features=2, centers=3, random_state=42)\n\n# KMeans聚类\nkmeans = KMeans(n_clusters=3, random_state=42)\nkmeans_labels = kmeans.fit_predict(X)\n\n# DBSCAN聚类\ndbscan = DBSCAN(eps=0.5, min_samples=5)\ndbscan_labels = dbscan.fit_predict(X)\n\n# 层次聚类\nhierarchical = AgglomerativeClustering(n_clusters=3)\nhierarchical_labels = hierarchical.fit_predict(X)\n\nprint("KMeans聚类结果:", set(kmeans_labels))\nprint("DBSCAN聚类结果:", set(dbscan_labels))\nprint("层次聚类结果:", set(hierarchical_labels))',
       expectedOutput: 'KMeans聚类结果: {0, 1, 2}\nDBSCAN聚类结果: {0, 1, 2}\n层次聚类结果: {0, 1, 2}'
     },
@@ -87,6 +92,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '中级',
       duration: '3周',
       icon: <Layers className="w-6 h-6" />,
+      starterCode: '# 练习：特征编码与标准化\n# 提示：\n# 1. 导入 pandas 和 sklearn.preprocessing 中的预处理工具\n# 2. 创建包含类别特征和数值特征的示例数据\n# 3. 使用 LabelEncoder 对类别特征进行标签编码\n# 4. 使用 StandardScaler 对数值特征进行标准化\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import pandas as pd\nfrom sklearn.preprocessing import StandardScaler, LabelEncoder\n\n# 示例数据\ndata = {\n    "类别": ["A", "B", "A", "C"],\n    "数值1": [10, 20, 15, 25],\n    "数值2": [100, 200, 150, 250]\n}\ndf = pd.DataFrame(data)\n\n# 标签编码\nle = LabelEncoder()\ndf["类别编码"] = le.fit_transform(df["类别"])\n\n# 标准化\nscaler = StandardScaler()\ndf[["数值1标准化", "数值2标准化"]] = scaler.fit_transform(df[["数值1", "数值2"]])\n\nprint(df)',
       expectedOutput: '  类别  数值1  数值2  类别编码  数值1标准化  数值2标准化\n0   A     10    100       0   -1.341641   -1.341641\n1   B     20    200       1    0.447214    0.447214\n2   A     15    150       0   -0.447214   -0.447214\n3   C     25    250       2    1.341641    1.341641'
     },
@@ -97,6 +103,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '高级',
       duration: '4周',
       icon: <Target className="w-6 h-6" />,
+      starterCode: '# 练习：时间序列与移动平均\n# 提示：\n# 1. 导入 pandas 和 numpy 库\n# 2. 使用 pd.date_range 创建日期索引，并构建时间序列数据\n# 3. 使用 rolling().mean() 计算移动平均值\n# 4. 使用 pct_change() 计算增长率\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import pandas as pd\nimport numpy as np\n\n# 创建时间序列数据\ndates = pd.date_range(start="2024-01-01", periods=10, freq="D")\nvalues = [100, 102, 105, 103, 108, 110, 112, 115, 113, 118]\n\nts = pd.Series(values, index=dates)\nprint("时间序列数据:")\nprint(ts)\n\n# 计算移动平均\nma = ts.rolling(window=3).mean()\nprint("\\n3日移动平均:")\nprint(ma)\n\n# 计算增长率\ngrowth_rate = ts.pct_change() * 100\nprint("\\n日增长率(%):")\nprint(growth_rate)',
       expectedOutput: '时间序列数据:\n2024-01-01    100\n2024-01-02    102\n2024-01-03    105\n2024-01-04    103\n2024-01-05    108\n2024-01-06    110\n2024-01-07    112\n2024-01-08    115\n2024-01-09    113\n2024-01-10    118\nFreq: D, dtype: int64\n\n3日移动平均:\n2024-01-01          NaN\n2024-01-02          NaN\n2024-01-03    102.333333\n2024-01-04    103.333333\n2024-01-05    105.333333\n2024-01-06    107.000000\n2024-01-07    110.000000\n2024-01-08    112.333333\n2024-01-09    113.333333\n2024-01-10    115.333333\nFreq: D, dtype: float64\n\n日增长率(%):\n2024-01-01         NaN\n2024-01-02    2.000000\n2024-01-03    2.941176\n2024-01-04   -1.904762\n2024-01-05    4.854369\n2024-01-06    1.851852\n2024-01-07    1.818182\n2024-01-08    2.678571\n2024-01-09   -1.739130\n2024-01-10    4.424779\nFreq: D, dtype: float64'
     },
@@ -107,6 +114,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '高级',
       duration: '4周',
       icon: <Cpu className="w-6 h-6" />,
+      starterCode: '# 练习：神经网络模型创建\n# 提示：\n# 1. 导入 tensorflow 和 numpy 库\n# 2. 使用 tf.keras.Sequential 构建神经网络模型\n# 3. 编译模型，指定优化器和损失函数\n# 4. 使用 model.summary() 打印模型结构\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import tensorflow as tf\nimport numpy as np\n\n# 设置随机种子\nnp.random.seed(42)\ntf.random.set_seed(42)\n\n# 创建简单的神经网络模型\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, activation="relu", input_shape=(4,)),\n    tf.keras.layers.Dense(3, activation="softmax")\n])\n\n# 编译模型\nmodel.compile(optimizer="adam",\n              loss="sparse_categorical_crossentropy",\n              metrics=["accuracy"])\n\n# 打印模型结构\nmodel.summary()\nprint("\\n模型创建成功！")',
       expectedOutput: 'Model: "sequential"\n_________________________________________________________________\n Layer (type)                Output Shape              Param #   \n=================================================================\n dense (Dense)               (None, 10)                50        \n                                                                 \n dense_1 (Dense)             (None, 3)                 33        \n                                                                 \n=================================================================\nTotal params: 83\nTrainable params: 83\nNon-trainable params: 0\n_________________________________________________________________\n\n模型创建成功！'
     },
@@ -117,6 +125,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '高级',
       duration: '4周',
       icon: <FileText className="w-6 h-6" />,
+      starterCode: '# 练习：文本情感分析\n# 提示：\n# 1. 导入 TfidfVectorizer 和 MultinomialNB 朴素贝叶斯分类器\n# 2. 准备文本数据和对应的情感标签（正面/负面）\n# 3. 使用 TF-IDF 向量化文本并训练分类模型\n# 4. 对新文本进行情感预测并输出结果\n\n# 在这里写你的代码...\n',
       codeTemplate: 'from sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.naive_bayes import MultinomialNB\n\n# 示例文本数据\ntexts = [\n    "这个产品非常好用，推荐购买",\n    "质量很差，不推荐",\n    "服务态度很好，满意",\n    "物流太慢了，不满意"\n]\nlabels = [1, 0, 1, 0]  # 1: 正面, 0: 负面\n\n# TF-IDF向量化\nvectorizer = TfidfVectorizer()\nX = vectorizer.fit_transform(texts)\n\n# 训练朴素贝叶斯分类器\nclf = MultinomialNB()\nclf.fit(X, labels)\n\n# 预测新文本\nnew_text = ["产品质量不错"]\nnew_X = vectorizer.transform(new_text)\nprediction = clf.predict(new_X)\n\nsentiment = "正面" if prediction[0] == 1 else "负面"\nprint(f"文本: {new_text[0]}")\nprint(f"情感分析结果: {sentiment}")',
       expectedOutput: '文本: 产品质量不错\n情感分析结果: 正面'
     },
@@ -127,6 +136,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '高级',
       duration: '4周',
       icon: <Network className="w-6 h-6" />,
+      starterCode: '# 练习：协同过滤推荐\n# 提示：\n# 1. 导入 numpy 和 sklearn.metrics.pairwise 中的余弦相似度\n# 2. 创建用户-物品评分矩阵\n# 3. 计算用户之间的余弦相似度\n# 4. 基于相似用户的偏好为目标用户生成推荐\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import numpy as np\nfrom sklearn.metrics.pairwise import cosine_similarity\n\n# 用户-物品评分矩阵\nratings = np.array([\n    [5, 3, 0, 1],\n    [4, 0, 0, 1],\n    [1, 1, 0, 5],\n    [0, 0, 5, 4],\n    [0, 1, 5, 4]\n])\n\n# 计算用户相似度\nuser_similarity = cosine_similarity(ratings)\nprint("用户相似度矩阵:")\nprint(user_similarity.round(3))\n\n# 为用户0推荐物品\nuser_id = 0\nsimilar_users = user_similarity[user_id].argsort()[::-1][1:]\nprint(f"\\n与用户{user_id}最相似的用户: {similar_users[:2]}")\n\n# 简单推荐：找到相似用户喜欢但目标用户未评分的物品\nrecommendations = []\nfor item in range(ratings.shape[1]):\n    if ratings[user_id, item] == 0:\n        score = np.mean([ratings[u, item] for u in similar_users[:2] if ratings[u, item] > 0])\n        if score > 0:\n            recommendations.append((item, score))\n\nprint(f"\\n为用户{user_id}推荐的物品:")\nfor item, score in recommendations:\n    print(f"  物品{item}: 预测评分 {score:.2f}")',
       expectedOutput: '用户相似度矩阵:\n[[1.    0.929 0.178 0.169 0.297]\n [0.929 1.    0.26  0.196 0.346]\n [0.178 0.26  1.    0.628 0.707]\n [0.169 0.196 0.628 1.    0.995]\n [0.297 0.346 0.707 0.995 1.   ]]\n\n与用户0最相似的用户: [1 4 2 3]\n\n为用户0推荐的物品:\n  物品2: 预测评分 2.50'
     },
@@ -137,6 +147,7 @@ const DataAnalysisTechSite: React.FC = () => {
       difficulty: '高级',
       duration: '2周',
       icon: <Shield className="w-6 h-6" />,
+      starterCode: '# 练习：数据脱敏与哈希\n# 提示：\n# 1. 导入 hashlib 和 pandas 库\n# 2. 创建包含姓名、手机号、身份证号等敏感信息的数据\n# 3. 实现哈希函数对敏感字段进行加密\n# 4. 对手机号和身份证号进行脱敏处理（隐藏中间几位）\n\n# 在这里写你的代码...\n',
       codeTemplate: 'import hashlib\nimport pandas as pd\n\n# 示例敏感数据\ndata = {\n    "姓名": ["张三", "李四", "王五"],\n    "手机号": ["13800138000", "13900139000", "13700137000"],\n    "身份证号": ["110101199001011234", "310101199002025678", "440101199003031234"]\n}\ndf = pd.DataFrame(data)\nprint("原始数据:")\nprint(df)\n\n# 哈希处理\ndef hash_string(s):\n    return hashlib.sha256(s.encode()).hexdigest()[:16]\n\ndf["姓名哈希"] = df["姓名"].apply(hash_string)\ndf["手机号脱敏"] = df["手机号"].apply(lambda x: x[:3] + "****" + x[-4:])\ndf["身份证号脱敏"] = df["身份证号"].apply(lambda x: x[:6] + "********" + x[-4:])\n\nprint("\\n脱敏后的数据:")\nprint(df[["姓名哈希", "手机号脱敏", "身份证号脱敏"]])',
       expectedOutput: '原始数据:\n  姓名           手机号              身份证号\n0  张三  13800138000  110101199001011234\n1  李四  13900139000  310101199002025678\n2  王五  13700137000  440101199003031234\n\n脱敏后的数据:\n                  姓名哈希      手机号脱敏        身份证号脱敏\n0  a7bbcb321a05b66f  138****8000  110101********1234\n1  86c9f54f3a5b6c3d  139****9000  310101********5678\n2  b3f5e8a9c2d1f4e7  137****7000  440101********1234'
     }
