@@ -488,8 +488,68 @@ const DataAnalysisTechSite: React.FC = () => {
       return;
     }
 
+    const cleanUserCode = userCode.trim().replace(/\s+/g, '');
+    const cleanTemplateCode = project.codeTemplate.trim().replace(/\s+/g, '');
+    
+    if (cleanUserCode === cleanTemplateCode) {
+      setScore(100);
+      setFeedback('🎉 代码完全正确！与标准答案一致，满分通过！');
+      return;
+    }
+
+    const similarity = calculateSimilarity(userCode.trim(), project.codeTemplate.trim());
+    if (similarity >= 0.95) {
+      setScore(95);
+      setFeedback('代码几乎与标准答案一致！只有微小的格式差异，非常优秀！');
+      return;
+    }
+
+    if (similarity >= 0.85) {
+      setScore(90);
+      setFeedback('代码与标准答案非常接近，逻辑正确！');
+      return;
+    }
+
     setScore(85);
     setFeedback('代码结构正确！包含必要的导入和输出语句。在实际环境中运行可查看具体输出结果。');
+  };
+
+  const calculateSimilarity = (str1: string, str2: string): number => {
+    const s1 = str1.toLowerCase().replace(/\s+/g, '');
+    const s2 = str2.toLowerCase().replace(/\s+/g, '');
+    
+    if (s1 === s2) return 1.0;
+    if (s1.length === 0 || s2.length === 0) return 0.0;
+
+    const longer = s1.length > s2.length ? s1 : s2;
+    const shorter = s1.length > s2.length ? s2 : s1;
+    
+    const longerLength = longer.length;
+    const editDistance = levenshteinDistance(longer, shorter);
+    
+    return (longerLength - editDistance) / longerLength;
+  };
+
+  const levenshteinDistance = (str1: string, str2: string): number => {
+    const m = str1.length;
+    const n = str2.length;
+    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + cost
+        );
+      }
+    }
+
+    return dp[m][n];
   };
 
   const handleSubmitTest = () => {
