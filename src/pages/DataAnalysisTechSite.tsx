@@ -437,6 +437,7 @@ const DataAnalysisTechSite: React.FC = () => {
       setTestSubmitted(false);
       setTestScore(0);
       setActiveChapter(0);
+      setActiveSection('practice');
     }
   };
 

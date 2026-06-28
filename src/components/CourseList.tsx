@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface Course {
   id: string
@@ -196,22 +197,24 @@ export default function CourseList() {
                 )}
                 
                 <div className="flex flex-wrap gap-3">
-                  <a 
-                    href={course.link || `#${course.id}`} 
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 group-hover:translate-x-1"
-                  >
-                    查看详情
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
-                      <path d="m9 18 6-6-6-6"/>
-                    </svg>
-                  </a>
+                  {course.link && (
+                    <Link 
+                      to={course.link}
+                      className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 group-hover:translate-x-1"
+                    >
+                      查看详情
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </Link>
+                  )}
                   {course.quizLink && (
-                    <a 
-                      href={course.quizLink} 
+                    <Link 
+                      to={course.quizLink}
                       className="inline-flex items-center text-purple-600 hover:text-purple-800 font-medium transition-all duration-300"
                     >
                       📝 理论测验
-                    </a>
+                    </Link>
                   )}
                 </div>
               </div>
