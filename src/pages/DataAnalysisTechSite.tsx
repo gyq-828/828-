@@ -488,30 +488,34 @@ const DataAnalysisTechSite: React.FC = () => {
       return;
     }
 
-    const cleanUserCode = userCode.trim().replace(/\s+/g, '');
-    const cleanTemplateCode = project.codeTemplate.trim().replace(/\s+/g, '');
+    const similarity = calculateSimilarity(userCode, project.codeTemplate);
     
-    if (cleanUserCode === cleanTemplateCode) {
+    if (similarity >= 0.99) {
       setScore(100);
       setFeedback('🎉 代码完全正确！与标准答案一致，满分通过！');
       return;
     }
 
-    const similarity = calculateSimilarity(userCode.trim(), project.codeTemplate.trim());
-    if (similarity >= 0.95) {
+    if (similarity >= 0.90) {
       setScore(95);
-      setFeedback('代码几乎与标准答案一致！只有微小的格式差异，非常优秀！');
+      setFeedback('代码几乎与标准答案一致！只有微小的差异，非常优秀！');
       return;
     }
 
-    if (similarity >= 0.85) {
+    if (similarity >= 0.80) {
       setScore(90);
       setFeedback('代码与标准答案非常接近，逻辑正确！');
       return;
     }
 
-    setScore(85);
-    setFeedback('代码结构正确！包含必要的导入和输出语句。在实际环境中运行可查看具体输出结果。');
+    if (similarity >= 0.60) {
+      setScore(85);
+      setFeedback('代码结构正确！包含必要的导入和输出语句。在实际环境中运行可查看具体输出结果。');
+      return;
+    }
+
+    setScore(70);
+    setFeedback('代码有基本结构，但与标准答案差异较大。请参考参考答案继续完善。');
   };
 
   const calculateSimilarity = (str1: string, str2: string): number => {
