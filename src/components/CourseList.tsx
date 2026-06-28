@@ -11,6 +11,7 @@ interface Course {
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
   prerequisites?: string[]
   order?: number
+  modules?: string[]
 }
 
 const difficultyConfig = {
@@ -20,7 +21,7 @@ const difficultyConfig = {
 }
 
 export default function CourseList() {
-  const courses: Course[] = [
+  const coursesData: Course[] = [
     {
       id: 'python',
       name: 'Python基础',
@@ -43,37 +44,6 @@ export default function CourseList() {
       order: 2
     },
     {
-      id: 'data-analysis',
-      name: '数据分析技术',
-      description: '掌握数据分析的基本方法和工具，包括数据可视化、统计分析等。',
-      icon: '📊',
-      link: '/data-analysis',
-      quizLink: '/data-analysis-quiz',
-      difficulty: 'intermediate',
-      prerequisites: ['Python基础'],
-      order: 4
-    },
-    {
-      id: 'data-analysis-tech',
-      name: '数据分析技术课程实训项目',
-      description: '完整的数据分析技术实训平台，包含10个阶梯式项目，支持在线编程和评分。',
-      icon: '🎯',
-      link: '/data-analysis-tech',
-      difficulty: 'intermediate',
-      prerequisites: ['Python基础', '数据分析技术'],
-      order: 5
-    },
-    {
-      id: 'cluster-visualizer',
-      name: '聚类算法可视化',
-      description: '交互式演示KMeans、DBSCAN、层次聚类三种算法，观察数据点如何逐步归属于不同簇。',
-      icon: '🧮',
-      link: '/cluster-visualizer',
-      difficulty: 'intermediate',
-      prerequisites: ['数据分析技术'],
-      order: 6
-    },
-    {
       id: 'data-collection',
       name: '数据采集与处理',
       description: '学习如何从各种来源采集数据，并进行清洗、转换和预处理。',
@@ -85,6 +55,18 @@ export default function CourseList() {
       order: 3
     },
     {
+      id: 'data-analysis',
+      name: '数据分析技术',
+      description: '掌握数据分析的核心技能，包含理论知识、12个实训项目和算法可视化交互演示。',
+      icon: '📊',
+      link: '/data-analysis',
+      quizLink: '/data-analysis-quiz',
+      difficulty: 'intermediate',
+      prerequisites: ['Python基础'],
+      order: 4,
+      modules: ['理论篇', '实践篇', '可视化篇']
+    },
+    {
       id: 'data-collection-training',
       name: '数据采集处理实训项目',
       description: '10个实战项目，掌握网络爬虫、数据清洗、数据库存储等核心技能。',
@@ -92,7 +74,7 @@ export default function CourseList() {
       link: '/data-collection-training',
       difficulty: 'intermediate',
       prerequisites: ['Python基础', '数据采集与处理'],
-      order: 7
+      order: 5
     },
     {
       id: 'supply-chain',
@@ -102,7 +84,7 @@ export default function CourseList() {
       link: '/supply-chain',
       difficulty: 'advanced',
       prerequisites: ['数据分析技术', '数据采集与处理'],
-      order: 8
+      order: 6
     },
     {
       id: 'database',
@@ -113,7 +95,7 @@ export default function CourseList() {
       quizLink: '/database-quiz',
       difficulty: 'beginner',
       prerequisites: ['Python基础'],
-      order: 9
+      order: 7
     },
     {
       id: 'financial',
@@ -124,9 +106,10 @@ export default function CourseList() {
       quizLink: '/financial-quiz',
       difficulty: 'advanced',
       prerequisites: ['数据分析技术', '数据库原理与应用'],
-      order: 10
+      order: 8
     }
   ]
+  const courses = [...coursesData].sort((a, b) => (a.order || 0) - (b.order || 0))
 
   return (
     <section id="courses" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent to-blue-50/30">
@@ -182,6 +165,20 @@ export default function CourseList() {
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3">{course.name}</h3>
                 <p className="text-gray-600 mb-4 leading-relaxed">{course.description}</p>
+                
+                {/* 模块标签 */}
+                {course.modules && course.modules.length > 0 && (
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {course.modules.map((mod, idx) => (
+                      <span 
+                        key={idx}
+                        className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium border border-blue-200"
+                      >
+                        {mod}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 
                 {/* 前置知识提示 */}
                 {course.prerequisites && course.prerequisites.length > 0 && (

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import PracticeSection from '@/components/PracticeSection'
+import { Brain, Code, BarChart3, ExternalLink, Sparkles, Layers, Target } from 'lucide-react'
 
 interface KnowledgePoint {
   id: string
@@ -1295,9 +1297,11 @@ print("图表已保存为 kmeans_clustering.png")`
 ]
 
 export default function DataAnalysisCourse() {
+  const [activeTab, setActiveTab] = useState<'theory' | 'practice' | 'visualization'>('theory')
   const [expandedChapters, setExpandedChapters] = useState<Set<number>>(new Set())
   const [expandedCodes, setExpandedCodes] = useState<Set<string>>(new Set())
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const toggleChapter = (chapterId: number) => {
     setExpandedChapters(prev => {
@@ -1379,9 +1383,53 @@ export default function DataAnalysisCourse() {
         </div>
       </header>
 
+      {/* Tab 导航栏 */}
+      <div className="sticky top-16 z-40 bg-white shadow-md border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-1">
+            <button
+              onClick={() => setActiveTab('theory')}
+              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all duration-300 border-b-2 ${
+                activeTab === 'theory'
+                  ? 'text-blue-600 border-blue-600 bg-blue-50/50'
+                  : 'text-gray-600 border-transparent hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              <Brain className="w-5 h-5" />
+              📚 理论篇
+            </button>
+            <button
+              onClick={() => setActiveTab('practice')}
+              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all duration-300 border-b-2 ${
+                activeTab === 'practice'
+                  ? 'text-blue-600 border-blue-600 bg-blue-50/50'
+                  : 'text-gray-600 border-transparent hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              <Code className="w-5 h-5" />
+              💻 实践篇
+            </button>
+            <button
+              onClick={() => setActiveTab('visualization')}
+              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all duration-300 border-b-2 ${
+                activeTab === 'visualization'
+                  ? 'text-blue-600 border-blue-600 bg-blue-50/50'
+                  : 'text-gray-600 border-transparent hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              <BarChart3 className="w-5 h-5" />
+              🎯 算法可视化
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* 课程内容 */}
       <main className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* 理论篇 */}
+          {activeTab === 'theory' && (
+            <>
           {/* 课程介绍 */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
@@ -1727,13 +1775,13 @@ export default function DataAnalysisCourse() {
                     <span className="mr-2">📝</span>
                     开始测验
                   </Link>
-                  <Link 
-                    to="/data-analysis-tech" 
+                  <button 
+                    onClick={() => setActiveTab('practice')}
                     className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:bg-opacity-10 transition-colors duration-300 flex items-center justify-center"
                   >
                     <span className="mr-2">💻</span>
                     实训项目
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1760,6 +1808,152 @@ export default function DataAnalysisCourse() {
               </Link>
             </div>
           </section>
+            </>
+          )}
+
+          {/* 实践篇 */}
+          {activeTab === 'practice' && (
+            <>
+              <div className="mb-8">
+                <div className="bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl shadow-lg p-8 text-white">
+                  <h2 className="text-3xl font-bold mb-3 flex items-center gap-3">
+                    <Code className="w-8 h-8" />
+                    💻 实践篇
+                  </h2>
+                  <p className="text-lg opacity-95">
+                    12个阶梯式实训项目，从基础到进阶，支持在线编程和自动评分
+                  </p>
+                </div>
+              </div>
+              <PracticeSection />
+            </>
+          )}
+
+          {/* 可视化篇 */}
+          {activeTab === 'visualization' && (
+            <div className="space-y-10">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-lg p-8 text-white">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex-1">
+                    <h2 className="text-3xl font-bold mb-3 flex items-center gap-3">
+                      <BarChart3 className="w-8 h-8" />
+                      🎯 聚类算法可视化
+                    </h2>
+                    <p className="text-lg opacity-95">
+                      交互式演示 KMeans、DBSCAN、层次聚类三种算法
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => navigate('/cluster-visualizer')}
+                    className="flex items-center gap-2 px-8 py-4 bg-white text-purple-600 font-bold rounded-xl hover:bg-purple-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    打开可视化工具
+                    <ExternalLink className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">三大核心算法</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="h-14 w-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                      <Layers className="w-7 h-7 text-blue-600" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">KMeans 聚类</h4>
+                    <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                      基于距离的划分聚类算法，通过迭代优化将数据划分为K个簇，适合球状分布的数据。
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs font-medium">简单高效</span>
+                      <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs font-medium">需指定K值</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="h-14 w-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                      <Target className="w-7 h-7 text-green-600" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">DBSCAN</h4>
+                    <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                      基于密度的聚类算法，能发现任意形状的簇，自动识别噪声点，无需预先指定簇数。
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 bg-green-50 text-green-600 rounded text-xs font-medium">任意形状</span>
+                      <span className="px-2 py-1 bg-green-50 text-green-600 rounded text-xs font-medium">自动降噪</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl shadow-lg p-6 border border-purple-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="h-14 w-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                      <BarChart3 className="w-7 h-7 text-purple-600" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">层次聚类</h4>
+                    <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                      自底向上的聚合聚类，构建树状层次结构，可通过截断树确定簇数，结果可视化强。
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 bg-purple-50 text-purple-600 rounded text-xs font-medium">层次结构</span>
+                      <span className="px-2 py-1 bg-purple-50 text-purple-600 rounded text-xs font-medium">树状图</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">可视化工具特色</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex gap-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xl">✨</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">实时动态演示</h4>
+                      <p className="text-gray-600 text-sm">观察算法迭代过程，数据点如何逐步归属于不同簇</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xl">🎛️</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">参数可调</h4>
+                      <p className="text-gray-600 text-sm">自由调整算法参数，实时观察对聚类结果的影响</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xl">📊</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">多种数据集</h4>
+                      <p className="text-gray-600 text-sm">内置多种经典数据集：同心圆、双月形、高斯团簇等</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xl">📈</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">评估指标</h4>
+                      <p className="text-gray-600 text-sm">轮廓系数、CH指数等评估指标，量化聚类效果</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => navigate('/cluster-visualizer')}
+                    className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    立即体验聚类算法可视化
+                    <ExternalLink className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
