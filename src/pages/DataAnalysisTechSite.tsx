@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Code, FileText, ChevronRight, CheckCircle, XCircle, Play, Lightbulb, Award, BarChart3, Database, Brain, TrendingUp, Target, Layers, Cpu, Network, Shield, Zap, RefreshCw } from 'lucide-react';
+import { BookOpen, Code, FileText, ChevronRight, CheckCircle, XCircle, Play, Lightbulb, Award, BarChart3, Database, Brain, TrendingUp, Target, Layers, Cpu, Network, Shield, Zap, RefreshCw, RotateCcw } from 'lucide-react';
 import CodeMirror from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
 
@@ -436,7 +436,7 @@ const DataAnalysisTechSite: React.FC = () => {
     const project = trainingProjects.find(p => p.id === projectId);
     if (project) {
       setActiveProject(projectId);
-      setUserCode(project.codeTemplate);
+      setUserCode(project.starterCode || project.codeTemplate);
       setScore(null);
       setFeedback('');
       setShowAnswer(false);
@@ -449,6 +449,18 @@ const DataAnalysisTechSite: React.FC = () => {
       setTestScore(0);
       setActiveChapter(0);
       setActiveSection('practice');
+    }
+  };
+
+  const handleResetCode = () => {
+    const project = trainingProjects.find(p => p.id === activeProject);
+    if (project) {
+      if (confirm('确定要重置代码吗？你的修改将会丢失。')) {
+        setUserCode(project.starterCode || project.codeTemplate);
+        setScore(null);
+        setFeedback('');
+        setShowAnswer(false);
+      }
     }
   };
 
@@ -740,6 +752,13 @@ const DataAnalysisTechSite: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-800">代码练习</h3>
               <div className="flex gap-2">
+                <button
+                  onClick={handleResetCode}
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  <RotateCcw className="w-4 h-4 inline mr-1" />
+                  重置
+                </button>
                 <button
                   onClick={() => setShowAnswer(!showAnswer)}
                   className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
